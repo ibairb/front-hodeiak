@@ -7,13 +7,13 @@ const Users = () => {
     useEffect(() => {
         getData()
     }, [])
-    
+
     const getData = async () => {
-       await fetch('http://localhost:3000/users')
-        .then ((res) => res.json())
-        .then((res) => {
-            setUsers(res)
-        })
+        await fetch('http://localhost:3000/users')
+            .then((res) => res.json())
+            .then((res) => {
+                setUsers(res)
+            })
     }
 
 
@@ -27,19 +27,23 @@ const Users = () => {
             selector: row => row.surname
         },
         {
-            name: 'AGE',
-            selector: row => row.age
+            name: 'EMAIL',
+            selector: row => row.email
         }
     ]
 
 
     return (
         <>
-            <DataTable
-            columns= {columns}
-            data={users}
-            pagination
-            />
+            <div className='content'>
+                <h2>Users</h2>
+
+                <DataTable
+                    columns={columns}
+                    data={users}
+                    pagination
+                />
+            </div>
         </>
     )
 
