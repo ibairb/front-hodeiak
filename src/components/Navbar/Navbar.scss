@@ -1,23 +1,47 @@
+@import url('https://fonts.googleapis.com/css2?family=Archivo+Narrow&display=swap');
 
 ul {
-    list-style-type: none;
-  }
-  
-.navbar{
-  margin-top: 70px;
-    
-    padding: 15px;
-    display: flex;
-    flex-direction: column;
-    position: absolute;
-    background-color: rgba(232, 140, 28, 0.682);
-    justify-content: space-between;
+  list-style-type: none;
+}
 
-    .nav-item{
-      background-color: aliceblue;
-      margin: 15px;
-      padding: 8px;
-      text-align: center;
+.navbar {
+  margin-top: 70px;
+
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  background-color: rgba(232, 140, 28, 0.682);
+  justify-content: space-between;
+
+  .nav-item {
+    margin: 15px;
+    text-align: center;
+    padding-left: 20px;
+    padding-right: 20px;
+    position: relative;
+    width: 100px;
+    height: 20px;
+
+
+    a {
       border-radius: 20px;
+      width: 100px;
+      background-color: aliceblue;
+      padding: 8px;
+      text-decoration: none;
+      color: rgba(0, 0, 0, 0.78);
+      font-family: 'Archivo Narrow', sans-serif;
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      transition: all 0.5s;
     }
+
+    &:hover a {
+      transform: translate(-50%, -50%) scale(1.2);
+
+    }
+  }
 }
