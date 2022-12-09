@@ -3,33 +3,18 @@ import DataTable, { defaultThemes } from 'react-data-table-component'
 
 const Users = () => {
     let [users, setUsers] = useState()
-    let [search, setSearch] = useState('')
-    let [filterUsers, setFilteredUsers] = useState([])
 
     useEffect(() => {
         getData()
     }, [])
-
-    useEffect(() => {
-        const result = filterUsers.filter(user => {
-            return user.name.toLowerCase().match(search.toLowerCase())
-        })
-        setFilteredUsers(result)
-    }, [search])
 
     const getData = async () => {
         await fetch('http://localhost:3000/users')
             .then((res) => res.json())
             .then((res) => {
                 setUsers(res)
-                setFilteredUsers(res)
             })
     }
-
-    const editUser = (e) => {
-        console.log(users)
-    }
-    
 
     const customStyles = {
         header: {
@@ -80,10 +65,6 @@ const Users = () => {
             name: 'EMAIL',
             selector: row => row.email,
             sortable: true
-        },
-        {
-            name: 'Action',
-            cell: row => <button className="btn btn-primary" onClick={editUser} >Edit</button>
         }
     ]
 
