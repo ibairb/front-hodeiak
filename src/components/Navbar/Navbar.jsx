@@ -14,19 +14,19 @@ const Navbar = () => {
 
             <ul className='navbar'>
                     <li className='nav-item'>
-                        <Link to="/users">Users</Link>
+                        <Link to="/users">Usuarios</Link>
                     </li>
                     <li className='nav-item'>
-                        <Link to="/clients">Clients</Link>
+                        <Link to="/clients">Clientes</Link>
                     </li>
                     <li className='nav-item'>
-                        <Link to="/projects">Projects</Link>
+                        <Link to="/projects">Proyectos</Link>
                     </li>
                     <li className='nav-item'>
-                        <Link to="/profile">Profile</Link>
+                        <Link to="/profile">Perfil</Link>
                     </li>
                     <li className='nav-item'>
-                        <Link to="/tasks">Tasks</Link>
+                        <Link to="/tasks">Tareas</Link>
                     </li>
                 </ul>
 
