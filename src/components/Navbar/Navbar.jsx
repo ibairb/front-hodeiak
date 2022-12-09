@@ -4,7 +4,7 @@ import Users from '../Users/Users';
 import Clients from '../Clients/Clients';
 import Profile from '../Profile/Profile';
 import Projects from '../Projects/Projects';
-import Imputation from '../Imputation/Imputation';
+import Tasks from '../Tasks/Tasks';
 
 const Navbar = () => {
 
@@ -36,7 +36,7 @@ const Navbar = () => {
                         <Route path='/clients' element={<Clients />} />
                         <Route path='/projects' element={<Projects />} />
                         <Route path='/profile' element={<Profile />} />
-                        <Route path='/imputation' element={<Imputation />} />
+                        <Route path='/tasks' element={<Tasks />} />
                     </Route>
                 </Routes>
 
