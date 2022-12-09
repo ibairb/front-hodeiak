@@ -28,6 +28,9 @@ const Navbar = () => {
                     <li className='nav-item'>
                         <Link to="/tasks">Tareas</Link>
                     </li>
+                    <li>
+                        <button className='boton'>Logout</button>
+                    </li>
                 </ul>
 
                 <Routes>
