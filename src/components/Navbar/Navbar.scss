@@ -1,15 +1,21 @@
-
-ul {
-    list-style-type: none;
-  }
-  
-.navbar{
-    margin: 5px;
-    padding: 15px;
+  .navbar {
+    margin: 20px;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     position: absolute;
-    background-color: rgb(237, 204, 160);
+    width: 70%;
+    height: 5%;
     justify-content: space-between;
+    top: 0;
+    left: 10%;
+    list-style-type: none;
+    
+    a {
+      text-decoration: none;
+    }
 
-}
+    a:visited {
+      color: pink;
+    }
+
+  }

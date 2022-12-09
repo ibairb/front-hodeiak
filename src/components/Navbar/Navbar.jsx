@@ -10,26 +10,25 @@ const Navbar = () => {
 
     return (
         <>
-           <BrowserRouter>
-
-            <ul className='navbar'>
-                    <li className='nav-item'>
-                        <Link to="/users">Users</Link>
-                    </li>
-                    <li className='nav-item'>
-                        <Link to="/clients">Clients</Link>
-                    </li>
-                    <li className='nav-item'>
-                        <Link to="/projects">Projects</Link>
-                    </li>
-                    <li className='nav-item'>
-                        <Link to="/profile">Profile</Link>
-                    </li>
-                    <li className='nav-item'>
-                        <Link to="/imputation">Imputation</Link>
-                    </li>
-                </ul>
-
+            <BrowserRouter>
+                    <ul className='navbar'>
+                        <li className='nav-item'>
+                            <Link to="/users">Users</Link>
+                        </li>
+                        <li className='nav-item'>
+                            <Link to="/clients">Clients</Link>
+                        </li>
+                        <li className='nav-item'>
+                            <Link to="/projects">Projects</Link>
+                        </li>
+                        <li className='nav-item'>
+                            <Link to="/profile">Profile</Link>
+                        </li>
+                        <li className='nav-item'>
+                            <Link to="/imputation">Imputation</Link>
+                        </li>
+                    </ul>
+                    
                 <Routes>
                     <Route>
                         <Route path='/users' element={<Users />} />
