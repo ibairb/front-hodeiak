@@ -1,6 +1,6 @@
 
 
-const Imputation = () => {
+const Tasks = () => {
 
     return (
         <>
@@ -11,4 +11,4 @@ const Imputation = () => {
     )
 
 }
-export default Imputation;
+export default Tasks;
