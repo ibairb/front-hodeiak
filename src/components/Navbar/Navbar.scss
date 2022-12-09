@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Archivo+Narrow&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Heebo:wght@500&display=swap');
 
 ul {
   list-style-type: none;
@@ -6,7 +6,6 @@ ul {
 
 .navbar {
   margin-top: 70px;
-
   padding: 15px;
   display: flex;
   flex-direction: column;
@@ -16,7 +15,7 @@ ul {
 
   .nav-item {
     margin: 15px;
-    text-align: center;
+    text-align:start;
     padding-left: 20px;
     padding-right: 20px;
     position: relative;
@@ -26,12 +25,12 @@ ul {
 
     a {
       border-radius: 10px;
-      width: 120px;
+      width: 170px;
       background-color: white;
       padding: 8px;
       text-decoration: none;
       color: rgba(0, 0, 0, 0.78);
-      font-family: 'Archivo Narrow', sans-serif;
+      font-family: 'Heebo', sans-serif;
       position: absolute;
       left: 50%;
       top: 50%;

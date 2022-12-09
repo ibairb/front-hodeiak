@@ -5,7 +5,7 @@ const Tasks = () => {
     return (
         <>
         <div className="content">
-        <h2>Imputation of hours</h2>
+        <h2>Tasks</h2>
         </div>
         </>
     )
