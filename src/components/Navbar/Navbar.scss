@@ -11,7 +11,7 @@ ul {
   display: flex;
   flex-direction: column;
   position: absolute;
-  background-color: rgba(232, 140, 28, 0.682);
+  background: linear-gradient(to right, rgba(255, 153, 28, 0.897), white);
   justify-content: space-between;
 
   .nav-item {
@@ -25,9 +25,9 @@ ul {
 
 
     a {
-      border-radius: 20px;
-      width: 100px;
-      background-color: aliceblue;
+      border-radius: 10px;
+      width: 120px;
+      background-color: white;
       padding: 8px;
       text-decoration: none;
       color: rgba(0, 0, 0, 0.78);
@@ -40,7 +40,7 @@ ul {
     }
 
     &:hover a {
-      transform: translate(-50%, -50%) scale(1.2);
+      transform: translate(-50%, -50%) scale(1.1);
 
     }
   }
