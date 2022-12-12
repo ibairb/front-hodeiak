@@ -10,7 +10,7 @@ const Clients = () => {
     }, [])
 
     const getData = async () => {
-        await fetch('http://localhost:3000/clients')
+        await fetch('http://localhost:8000/clients')
             .then((res) => res.json())
             .then((res) => {
                 setClients(res)

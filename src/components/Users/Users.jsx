@@ -9,7 +9,7 @@ const Users = () => {
     }, [])
 
     const getData = async () => {
-        await fetch('http://localhost:3000/users')
+        await fetch('http://localhost:8000/users')
             .then((res) => res.json())
             .then((res) => {
                 setUsers(res)
