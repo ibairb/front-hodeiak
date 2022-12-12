@@ -4,7 +4,7 @@ import Users from '../Users/Users';
 import Clients from '../Clients/Clients';
 import Profile from '../Profile/Profile';
 import Projects from '../Projects/Projects';
-import Imputation from '../Imputation/Imputation';
+import Tasks1 from '../Tasks/Tasks1';
 
 const Navbar = () => {
 
@@ -14,19 +14,22 @@ const Navbar = () => {
 
             <ul className='navbar'>
                     <li className='nav-item'>
-                        <Link to="/users">Users</Link>
+                        <Link to="/users">Usuarios</Link>
                     </li>
                     <li className='nav-item'>
-                        <Link to="/clients">Clients</Link>
+                        <Link to="/clients">Clientes</Link>
                     </li>
                     <li className='nav-item'>
-                        <Link to="/projects">Projects</Link>
+                        <Link to="/projects">Proyectos</Link>
                     </li>
                     <li className='nav-item'>
-                        <Link to="/profile">Profile</Link>
+                        <Link to="/profile">Perfil</Link>
                     </li>
                     <li className='nav-item'>
-                        <Link to="/imputation">Imputation</Link>
+                        <Link to="/tasks">Tareas</Link>
+                    </li>
+                    <li>
+                        <button className='boton'>Logout</button>
                     </li>
                 </ul>
 
@@ -36,7 +39,7 @@ const Navbar = () => {
                         <Route path='/clients' element={<Clients />} />
                         <Route path='/projects' element={<Projects />} />
                         <Route path='/profile' element={<Profile />} />
-                        <Route path='/imputation' element={<Imputation />} />
+                        <Route path='/tasks' element={<Tasks1 />} />
                     </Route>
                 </Routes>
 
