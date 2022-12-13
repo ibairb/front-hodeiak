@@ -84,8 +84,20 @@ const Users = () => {
 
     return (
         <>
+<<<<<<< HEAD
             <div className='openModal'>
                 <button
+=======
+            <div className='modal' style={{
+                display: 'flex',
+                justifyContent: 'center',
+                zIndex: '999',
+                position: 'absolute',
+                width: '100%',
+                paddingTop: '50px',
+            }}>
+            <button
+>>>>>>> origin/dev
                     style={{
                         marginLeft: '90%',
                         background: 'salmon',
@@ -104,7 +116,8 @@ const Users = () => {
                 </button>
 
                 {modalOpen && <Modal setOpenModal={setModalOpen} />}
-
+            </div>
+            <div className='content'>
                 <DataTable
                     title='Users'
                     customStyles={customStyles}
