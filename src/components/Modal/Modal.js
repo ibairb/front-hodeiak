@@ -1,7 +1,20 @@
-import React from "react";
 import "./Modal.css";
+import React, { useEffect, useState } from "react";
 
 function Modal({ setOpenModal }) {
+const [username, setUserName] = useState('')
+
+
+const handleSubmit = event => {
+  event.preventDefault();
+  setTimeout(setUserName(event.target.username.value),10000)
+  
+  console.log('useState 👉️', username)
+
+  event.target.reset();
+};
+
+
   return (
     <div className="modalBackground">
       <div className="modalContainer">
@@ -18,10 +31,13 @@ function Modal({ setOpenModal }) {
           <h1>Fill below fields to create a new user </h1>
         </div>
         <div className="body">
-          <form action="POST" className="form">
-            <input type="text" placeholder="Username" className="username"/>
+          <form className="form" onSubmit={handleSubmit} >
+            <input type="text" placeholder="Username" className="username" name='username'/>
+            <input type="text" placeholder="Status" className="status"/>
             <input type="password" placeholder="Password" className="password"/>
             <input type="email" placeholder="email"/>
+            <input type="phone number" placeholder="number"/>
+            <input type="text" placeholder="Hour Cost" className="hourCost"/>
             <button
             onClick={() => {
               setOpenModal(false);
@@ -31,7 +47,7 @@ function Modal({ setOpenModal }) {
             Cancel
           </button>
           <span></span>
-          <button className="btn" id="continue">Continue</button>
+          <button type='submit' className="btn" id="continue">Continue</button>
           </form>
         </div>
         <div className="footer">

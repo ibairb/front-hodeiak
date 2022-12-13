@@ -18,6 +18,7 @@ export default function DemoApp() {
       .then(data => {
         data.id = createEventId()
         setProjects([...data, ...INITIAL_EVENTS])
+        console.log(data)
       });
   }, [])
 
