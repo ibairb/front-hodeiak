@@ -22,6 +22,7 @@ function Modal({ setOpenModal }) {
             <input type="text" placeholder="Username" className="username"/>
             <input type="password" placeholder="Password" className="password"/>
             <input type="email" placeholder="email"/>
+            <input type="phone number" placeholder="number"/>
             <button
             onClick={() => {
               setOpenModal(false);
