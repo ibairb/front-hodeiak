@@ -1,4 +1,26 @@
 <<<<<<< HEAD
+  .navbar {
+    margin: 20px;
+    display: flex;
+    flex-direction: row;
+    position: absolute;
+    width: 70%;
+    height: 5%;
+    justify-content: space-between;
+    top: 0;
+    left: 10%;
+    list-style-type: none;
+    
+    a {
+      text-decoration: none;
+    }
+
+    a:visited {
+      color: pink;
+    }
+
+  }
+=======
 @import url('https://fonts.googleapis.com/css2?family=Heebo:wght@500&display=swap');
 
 ul {
@@ -52,26 +74,4 @@ ul {
     font-family: 'Heebo', sans-serif;
   }
 }
-=======
-  .navbar {
-    margin: 20px;
-    display: flex;
-    flex-direction: row;
-    position: absolute;
-    width: 70%;
-    height: 5%;
-    justify-content: space-between;
-    top: 0;
-    left: 10%;
-    list-style-type: none;
-    
-    a {
-      text-decoration: none;
-    }
-
-    a:visited {
-      color: pink;
-    }
-
-  }
->>>>>>> dc9814b (cambios tabla)
+>>>>>>> origin/dev
