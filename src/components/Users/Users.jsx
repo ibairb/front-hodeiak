@@ -73,7 +73,7 @@ const Users = () => {
 
     return (
         <>
-            <div className='content'>
+            <div className='openModal'>
                 <button
                     style={{
                         marginLeft: '90%',
@@ -85,7 +85,6 @@ const Users = () => {
                         borderRadius: '8px',
                         fontSize:'15px'
                     }}
-                    id="openModalBtn"
                     onClick={() => {
                         setModalOpen(true);
                     }}
