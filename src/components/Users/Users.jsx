@@ -59,13 +59,24 @@ const Users = () => {
             sortable: true
         },
         {
+            name: 'STATUS',
+            selector: row => row.status,
+            sortable: true
+        },
+        {
             name: 'EMAIL',
             selector: row => row.email,
             sortable: true
         },
+        
         {
             name: 'PHONE',
             selector: row => row.phone,
+            sortable: true
+        },
+        {
+            name: 'HOUR COST',
+            selector: row => row.hourcost,
             sortable: true
         }
     ]
