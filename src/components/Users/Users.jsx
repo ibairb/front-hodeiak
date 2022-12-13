@@ -55,7 +55,7 @@ const Users = () => {
     const columns = [
         {
             name: 'USERNAME',
-            selector: row => row.name,
+            selector: row => row.username,
             sortable: true
         },
         {
@@ -76,7 +76,7 @@ const Users = () => {
         },
         {
             name: 'HOUR COST',
-            selector: row => row.hourcost,
+            selector: row => row.hourCost,
             sortable: true
         }
     ]
