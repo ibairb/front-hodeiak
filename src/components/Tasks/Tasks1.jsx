@@ -13,7 +13,7 @@ export default function DemoApp() {
 
 
   useEffect(() => {
-    fetch('http://localhost:8000/projects')
+    fetch('http://localhost:8000/tasks')
       .then(response => response.json())
       .then(data => {
         data.id = createEventId()
@@ -42,9 +42,10 @@ export default function DemoApp() {
   }
   
   function handleEventClick(clickInfo){
-    // let confirm = prompt('write "confirm" to delete the event').toLowerCase()
-    if (clickInfo.event){
-      alert('elemento eliminado')
+    let confirm = prompt('write "confirm" to delete the event').toLowerCase()
+    if (confirm === 'confirm'){
+      // alert('elemento eliminado')
+      
       clickInfo.event.remove()
     }
   }
@@ -96,7 +97,18 @@ function addProyect(obj) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(obj)
   };
-  fetch('http://localhost:8000/projects/create', requestOptions)
+  fetch('http://localhost:8000/tasks', requestOptions)
+    .then(response => response.json())
+    .then(data => console.log(data));
+}
+
+function deleteProyect(obj) {
+  const requestOptions = {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(obj)
+  };
+  fetch('http://localhost:8000/tasks', requestOptions)
     .then(response => response.json())
     .then(data => console.log(data));
 }
