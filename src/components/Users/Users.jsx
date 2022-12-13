@@ -1,8 +1,10 @@
 import { useEffect, useState } from "react"
 import DataTable, { defaultThemes } from 'react-data-table-component'
+import Modal from '../Modal/Modal';
 
 const Users = () => {
     let [users, setUsers] = useState()
+    const [modalOpen, setModalOpen] = useState(false);
 
     useEffect(() => {
         getData()
@@ -72,6 +74,26 @@ const Users = () => {
     return (
         <>
             <div className='content'>
+                <button
+                    style={{
+                        marginLeft: '90%',
+                        background: 'salmon',
+                        border: 'none',
+                        color: 'white',
+                        width: '80px',
+                        height: '30px',
+                        borderRadius: '8px',
+                        fontSize:'15px'
+                    }}
+                    id="openModalBtn"
+                    onClick={() => {
+                        setModalOpen(true);
+                    }}
+                >
+                    New User
+                </button>
+
+                {modalOpen && <Modal setOpenModal={setModalOpen} />}
 
                 <DataTable
                     title='Users'
@@ -85,8 +107,8 @@ const Users = () => {
                     subHeader
                     subHeaderComponent={
                         <input type='text'
-                        placeholder='Search a User'
-                        className="w-25 from-control"/>
+                            placeholder='Search a User'
+                            className="w-25 from-control" />
                     }
                     subHeaderAlign='left'
                 />

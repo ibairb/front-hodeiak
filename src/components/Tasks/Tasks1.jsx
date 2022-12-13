@@ -17,7 +17,6 @@ export default function DemoApp() {
       .then(response => response.json())
       .then(data => {
         data.id = createEventId()
-        console.log(data)
         setProjects([...data, ...INITIAL_EVENTS])
       });
   }, [])
@@ -108,9 +107,11 @@ export default function DemoApp() {
   }
   
   function handleEventClick(clickInfo){
-    // if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
-    //   clickInfo.event.remove()
-    // }
+    // let confirm = prompt('write "confirm" to delete the event').toLowerCase()
+    if (clickInfo.event){
+      alert('elemento eliminado')
+      clickInfo.event.remove()
+    }
   }
 
   function handleEvents(events) {
