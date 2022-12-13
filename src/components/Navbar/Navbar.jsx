@@ -10,6 +10,7 @@ const Navbar = () => {
 
     return (
         <>
+<<<<<<< HEAD
            <BrowserRouter>
 
             <ul className='navbar'>
@@ -33,6 +34,27 @@ const Navbar = () => {
                     </li>
                 </ul>
 
+=======
+            <BrowserRouter>
+                    <ul className='navbar'>
+                        <li className='nav-item'>
+                            <Link to="/users">Users</Link>
+                        </li>
+                        <li className='nav-item'>
+                            <Link to="/clients">Clients</Link>
+                        </li>
+                        <li className='nav-item'>
+                            <Link to="/projects">Projects</Link>
+                        </li>
+                        <li className='nav-item'>
+                            <Link to="/profile">Profile</Link>
+                        </li>
+                        <li className='nav-item'>
+                            <Link to="/imputation">Imputation</Link>
+                        </li>
+                    </ul>
+                    
+>>>>>>> dc9814b (cambios tabla)
                 <Routes>
                     <Route>
                         <Route path='/users' element={<Users />} />

@@ -37,12 +37,12 @@ const Clients = () => {
     return (
         <>
             <div className='content'>
-                <h2>Clients</h2>
-
                 <DataTable
+                    title='Clients'
                     columns={columns}
                     data={clients}
                     pagination
+                    selectableRows
                 />
             </div>
         </>
