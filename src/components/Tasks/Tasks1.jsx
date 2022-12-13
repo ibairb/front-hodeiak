@@ -46,10 +46,6 @@ export default function DemoApp() {
     let confirm = prompt('write "confirm" to delete the event').toLowerCase()
     if (confirm === 'confirm'){
       // alert('elemento eliminado')
-<<<<<<< HEAD
-=======
-      
->>>>>>> origin/dev
       clickInfo.event.remove()
     }
   }
