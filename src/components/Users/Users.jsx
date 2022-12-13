@@ -54,18 +54,18 @@ const Users = () => {
 
     const columns = [
         {
-            name: 'NAME',
+            name: 'USERNAME',
             selector: row => row.name,
-            sortable: true
-        },
-        {
-            name: 'SURNAME',
-            selector: row => row.surname,
             sortable: true
         },
         {
             name: 'EMAIL',
             selector: row => row.email,
+            sortable: true
+        },
+        {
+            name: 'PHONE',
+            selector: row => row.phone,
             sortable: true
         }
     ]
