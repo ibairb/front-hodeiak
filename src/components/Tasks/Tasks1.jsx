@@ -18,6 +18,7 @@ export default function DemoApp() {
       .then(data => {
         data.id = createEventId()
         setProjects([...data, ...INITIAL_EVENTS])
+        console.log(data)
       });
   }, [])
 
@@ -96,7 +97,7 @@ function addProyect(obj) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(obj)
   };
-  fetch('http://localhost:8000/projects/create', requestOptions)
+  fetch('http://localhost:8000/tasks', requestOptions)
     .then(response => response.json())
     .then(data => console.log(data));
 }
