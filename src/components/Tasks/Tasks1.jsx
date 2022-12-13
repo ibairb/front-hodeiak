@@ -46,6 +46,10 @@ export default function DemoApp() {
     let confirm = prompt('write "confirm" to delete the event').toLowerCase()
     if (confirm === 'confirm'){
       // alert('elemento eliminado')
+<<<<<<< HEAD
+=======
+      
+>>>>>>> origin/dev
       clickInfo.event.remove()
     }
   }
@@ -94,6 +98,17 @@ export default function DemoApp() {
 function addProyect(obj) {
   const requestOptions = {
     method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(obj)
+  };
+  fetch('http://localhost:8000/tasks', requestOptions)
+    .then(response => response.json())
+    .then(data => console.log(data));
+}
+
+function deleteProyect(obj) {
+  const requestOptions = {
+    method: 'DELETE',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(obj)
   };
