@@ -20,8 +20,11 @@ function Modal({ setOpenModal }) {
         <div className="body">
           <form action="POST" className="form">
             <input type="text" placeholder="Username" className="username"/>
+            <input type="text" placeholder="Status" className="status"/>
             <input type="password" placeholder="Password" className="password"/>
             <input type="email" placeholder="email"/>
+            <input type="phone number" placeholder="number"/>
+            <input type="text" placeholder="Hour Cost" className="hourCost"/>
             <button
             onClick={() => {
               setOpenModal(false);

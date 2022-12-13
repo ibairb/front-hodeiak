@@ -10,7 +10,7 @@ ul {
   display: flex;
   flex-direction: column;
   position: absolute;
-  background: linear-gradient(to right, rgba(255, 153, 28, 0.897), white);
+  background: linear-gradient(to right, rgba(241, 171, 32, 0.853), white);
   justify-content: space-between;
 
   .nav-item {
@@ -24,7 +24,7 @@ ul {
 
 
     a {
-      border-radius: 10px;
+      border-radius: 5px;
       width: 170px;
       background-color: white;
       padding: 8px;
