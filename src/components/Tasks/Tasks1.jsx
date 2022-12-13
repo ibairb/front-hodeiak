@@ -13,7 +13,7 @@ export default function DemoApp() {
 
 
   useEffect(() => {
-    fetch('http://localhost:8000/projects')
+    fetch('http://localhost:8000/tasks')
       .then(response => response.json())
       .then(data => {
         data.id = createEventId()
