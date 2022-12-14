@@ -5,11 +5,13 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import { INITIAL_EVENTS, createEventId } from './event-utils'
+import Modal from '../Modal/Modal'
 
 export default function DemoApp() {
-  const[weekendsVisible, setWeekendsVisible] = useState(true)
-  const[currentEvents, setCurrentEvents] = useState([])
-  const[projects, setProjects] = useState([])
+  const [weekendsVisible, setWeekendsVisible] = useState(true)
+  const [currentEvents, setCurrentEvents] = useState([])
+  const [projects, setProjects] = useState([])
+  const [modalOpen, setModalOpen] = useState(false)
 
 
   useEffect(() => {
@@ -18,16 +20,17 @@ export default function DemoApp() {
       .then(data => {
         data.id = createEventId()
         setProjects([...data, ...INITIAL_EVENTS])
-        console.log(data)
       });
   }, [])
 
-  function handleDateSelect(selectInfo){
-    let title = prompt('Please enter a new title for your event')
+  function handleDateSelect(selectInfo) {
+    console.log(selectInfo)
+    setModalOpen(true)
+    let title
     let calendarApi = selectInfo.view.calendar
-  
+
     calendarApi.unselect() // clear date selection
-  
+
     if (title) {
       let obj = {
         id: createEventId(),
@@ -37,31 +40,40 @@ export default function DemoApp() {
         allDay: selectInfo.allDay
       }
       calendarApi.addEvent(obj)
-      
+
       addProyect(obj)
     }
   }
-  
-  function handleEventClick(clickInfo){
+
+  function handleEventClick(clickInfo) {
     let confirm = prompt('write "confirm" to delete the event').toLowerCase()
-    if (confirm === 'confirm'){
+    if (confirm === 'confirm') {
       // alert('elemento eliminado')
       clickInfo.event.remove()
     }
   }
 
   function handleEvents(events) {
-    setCurrentEvents(events) 
+    setCurrentEvents(events)
   }
 
   function handleWeekendsToggle() {
-    setWeekendsVisible(!weekendsVisible) 
+    setWeekendsVisible(!weekendsVisible)
   }
 
   return (
+
     <div className='demo-app'>
-      {<RenderSidebar handleWeekendsToggle={handleWeekendsToggle} currentEvents={currentEvents} weekendsVisible={weekendsVisible}/>}
+      {<RenderSidebar handleWeekendsToggle={handleWeekendsToggle} currentEvents={currentEvents} weekendsVisible={weekendsVisible} />}
       <div className='demo-app-main'>
+        <div className='modal' style={{
+          display: 'flex',
+          justifyContent: 'center',
+          zIndex: '999',
+          width: '100%',
+        }}>
+          {modalOpen && <Modal setOpenModal={setModalOpen} />}
+        </div>
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           headerToolbar={{
@@ -99,7 +111,7 @@ function addProyect(obj) {
   };
   fetch('http://localhost:8000/tasks', requestOptions)
     .then(response => response.json())
-    .then(data => console.log(data));
+    .then(data => console.log());
 }
 
 function deleteProyect(obj) {
@@ -110,10 +122,10 @@ function deleteProyect(obj) {
   };
   fetch('http://localhost:8000/tasks', requestOptions)
     .then(response => response.json())
-    .then(data => console.log(data));
+    .then(data => console.log());
 }
 
-function RenderSidebar({handleWeekendsToggle, currentEvents, weekendsVisible}) {
+function RenderSidebar({ handleWeekendsToggle, currentEvents, weekendsVisible }) {
   return (
     <div className='demo-app-sidebar'>
       <div className='demo-app-sidebar-section'>
