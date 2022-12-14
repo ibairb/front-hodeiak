@@ -1,5 +1,5 @@
 import "./ModalTask.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 
 function ModalTask({ setOpenModal }) {
 const [title, setTitle] = useState('')
@@ -8,6 +8,7 @@ const [title, setTitle] = useState('')
 const handleSubmit = event => {
   event.preventDefault();
   setTitle(event.target.title.value)
+  console.log(event.target.description.value)
   
   console.log('useState 👉️', title)
 
@@ -35,7 +36,7 @@ const handleSubmit = event => {
             <input type="text" placeholder="Title" className="title" name='title'/>
             <span></span>
             <span></span>
-            <input type="text" placeholder="Description" className="description"/>
+            <input type="text" placeholder="Description" className="description" name='description'/>
             <button type='submit' className="btn" id="continue">Continue</button>
             <span></span>
             <button
