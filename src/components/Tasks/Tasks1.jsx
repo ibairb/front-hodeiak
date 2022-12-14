@@ -5,7 +5,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import { INITIAL_EVENTS, createEventId } from './event-utils'
-import Modal from '../Modal/Modal'
+import ModalTask from '../Modal/ModalTask'
 
 export default function DemoApp() {
   const [weekendsVisible, setWeekendsVisible] = useState(true)
@@ -23,26 +23,26 @@ export default function DemoApp() {
       });
   }, [])
 
-  function handleDateSelect(selectInfo) {
-    console.log(selectInfo)
+  function handleDateSelect(event) {
+    console.log(event.username)
     setModalOpen(true)
-    let title
-    let calendarApi = selectInfo.view.calendar
+    // let title
+    // let calendarApi = selectInfo.view.calendar
 
-    calendarApi.unselect() // clear date selection
+    // calendarApi.unselect() // clear date selection
 
-    if (title) {
-      let obj = {
-        id: createEventId(),
-        title,
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        allDay: selectInfo.allDay
-      }
-      calendarApi.addEvent(obj)
+    // if (title) {
+    //   let obj = {
+    //     id: createEventId(),
+    //     title,
+    //     start: selectInfo.startStr,
+    //     end: selectInfo.endStr,
+    //     allDay: selectInfo.allDay
+    //   }
+    //   calendarApi.addEvent(obj)
 
-      addProyect(obj)
-    }
+    //   addProyect(obj)
+    // }
   }
 
   function handleEventClick(clickInfo) {
@@ -65,6 +65,29 @@ export default function DemoApp() {
     setWeekendsVisible(!weekendsVisible)
   }
 
+  function addProyect(obj) {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(obj)
+    };
+    fetch('http://localhost:8000/tasks', requestOptions)
+      .then(response => response.json())
+      .then(data => console.log());
+  }
+  
+  function deleteProyect(title) {
+    console.log(title)
+    const requestOptions = {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({title:title})
+    };
+    fetch('http://localhost:8000/tasks', requestOptions)
+      .then(response => response.json())
+      .then(data => console.log(data));
+  }
+
   return (
 
     <div className='demo-app'>
@@ -76,7 +99,7 @@ export default function DemoApp() {
           zIndex: '999',
           width: '100%',
         }}>
-          {modalOpen && <Modal setOpenModal={setModalOpen} />}
+          {modalOpen && <ModalTask setOpenModal={setModalOpen} />}
         </div>
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -107,30 +130,7 @@ export default function DemoApp() {
   )
 }
 
-function addProyect(obj) {
-  const requestOptions = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(obj)
-  };
-  fetch('http://localhost:8000/tasks', requestOptions)
-    .then(response => response.json())
-    .then(data => console.log());
-}
-
-function deleteProyect(title) {
-  console.log(title)
-  const requestOptions = {
-    method: 'DELETE',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({title:title})
-  };
-  fetch('http://localhost:8000/tasks', requestOptions)
-    .then(response => response.json())
-    .then(data => console.log(data));
-}
-
-function RenderSidebar({ handleWeekendsToggle, currentEvents, weekendsVisible }) {
+function RenderSidebar({ handleWeekendsToggle, weekendsVisible }) {
   return (
     <div className='demo-app-sidebar'>
       <div className='demo-app-sidebar-section'>
@@ -151,12 +151,6 @@ function RenderSidebar({ handleWeekendsToggle, currentEvents, weekendsVisible })
           toggle weekends
         </label>
       </div>
-      <div className='demo-app-sidebar-section'>
-        <h2>All Events ({currentEvents.length})</h2>
-        <ul>
-          {currentEvents.map(renderSidebarEvent)}
-        </ul>
-      </div>
     </div>
   )
 }
@@ -167,14 +161,5 @@ function renderEventContent(eventInfo) {
       <b>{eventInfo.timeText}</b>
       <i>{eventInfo.event.title}</i>
     </>
-  )
-}
-
-function renderSidebarEvent(event) {
-  return (
-    <li key={event.id}>
-      <b>{formatDate(event.start, { year: 'numeric', month: 'short', day: 'numeric' })}</b>
-      <i>{event.title}</i>
-    </li>
   )
 }
