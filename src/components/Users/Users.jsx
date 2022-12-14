@@ -51,7 +51,6 @@ const Users = () => {
         },
     };
 
-
     const columns = [
         {
             name: 'USERNAME',
