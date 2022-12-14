@@ -5,7 +5,7 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import { INITIAL_EVENTS, createEventId } from './event-utils'
-import Modal from '../Modal/Modal'
+import ModalTask from '../Modal/ModalTask'
 
 export default function DemoApp() {
   const [weekendsVisible, setWeekendsVisible] = useState(true)
@@ -23,26 +23,26 @@ export default function DemoApp() {
       });
   }, [])
 
-  function handleDateSelect(selectInfo) {
-    console.log(selectInfo)
+  function handleDateSelect(event) {
+    console.log(event.username)
     setModalOpen(true)
-    let title
-    let calendarApi = selectInfo.view.calendar
+    // let title
+    // let calendarApi = selectInfo.view.calendar
 
-    calendarApi.unselect() // clear date selection
+    // calendarApi.unselect() // clear date selection
 
-    if (title) {
-      let obj = {
-        id: createEventId(),
-        title,
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        allDay: selectInfo.allDay
-      }
-      calendarApi.addEvent(obj)
+    // if (title) {
+    //   let obj = {
+    //     id: createEventId(),
+    //     title,
+    //     start: selectInfo.startStr,
+    //     end: selectInfo.endStr,
+    //     allDay: selectInfo.allDay
+    //   }
+    //   calendarApi.addEvent(obj)
 
-      addProyect(obj)
-    }
+    //   addProyect(obj)
+    // }
   }
 
   function handleEventClick(clickInfo) {
@@ -72,7 +72,7 @@ export default function DemoApp() {
           zIndex: '999',
           width: '100%',
         }}>
-          {modalOpen && <Modal setOpenModal={setModalOpen} />}
+          {modalOpen && <ModalTask setOpenModal={setModalOpen} />}
         </div>
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
