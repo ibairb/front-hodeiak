@@ -18,6 +18,7 @@ export default function DemoApp() {
       .then(data => {
         data.id = createEventId()
         setProjects([...data, ...INITIAL_EVENTS])
+        console.log(data)
       });
   }, [])
 
@@ -42,10 +43,13 @@ export default function DemoApp() {
   }
   
   function handleEventClick(clickInfo){
-    // let confirm = prompt('write "confirm" to delete the event').toLowerCase()
-    if (clickInfo.event){
-      alert('elemento eliminado')
-      clickInfo.event.remove()
+    let confirm = prompt('write "confirm" to delete the event').toLowerCase()
+    
+    if (confirm === "confirm"){
+      deleteProyect(clickInfo.event._def.title)
+      // alert('elemento eliminado')
+      // deleteProyect(title)
+      
     }
   }
 
@@ -96,9 +100,21 @@ function addProyect(obj) {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(obj)
   };
-  fetch('http://localhost:8000/projects/create', requestOptions)
+  fetch('http://localhost:8000/tasks', requestOptions)
     .then(response => response.json())
     .then(data => console.log(data));
+}
+
+function deleteProyect(title) {
+  console.log(title)
+  const requestOptions = {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({title:title})
+  };
+  fetch('http://localhost:8000/tasks', requestOptions)
+    .then(response => response.json())
+    .then(data => console.log(title));
 }
 
 function RenderSidebar({handleWeekendsToggle, currentEvents, weekendsVisible}) {
