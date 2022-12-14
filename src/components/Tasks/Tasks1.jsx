@@ -5,11 +5,13 @@ import dayGridPlugin from '@fullcalendar/daygrid'
 import timeGridPlugin from '@fullcalendar/timegrid'
 import interactionPlugin from '@fullcalendar/interaction'
 import { INITIAL_EVENTS, createEventId } from './event-utils'
+import ModalTask from '../Modal/ModalTask'
 
 export default function DemoApp() {
-  const[weekendsVisible, setWeekendsVisible] = useState(true)
-  const[currentEvents, setCurrentEvents] = useState([])
-  const[projects, setProjects] = useState([])
+  const [weekendsVisible, setWeekendsVisible] = useState(true)
+  const [currentEvents, setCurrentEvents] = useState([])
+  const [projects, setProjects] = useState([])
+  const [modalOpen, setModalOpen] = useState(false)
 
 
   useEffect(() => {
@@ -18,53 +20,86 @@ export default function DemoApp() {
       .then(data => {
         data.id = createEventId()
         setProjects([...data, ...INITIAL_EVENTS])
-        console.log(data)
       });
   }, [])
 
-  function handleDateSelect(selectInfo){
-    let title = prompt('Please enter a new title for your event')
-    let calendarApi = selectInfo.view.calendar
-  
-    calendarApi.unselect() // clear date selection
-  
-    if (title) {
-      let obj = {
-        id: createEventId(),
-        title,
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        allDay: selectInfo.allDay
-      }
-      calendarApi.addEvent(obj)
-      
-      addProyect(obj)
-    }
+  function handleDateSelect(event) {
+    console.log(event.username)
+    setModalOpen(true)
+    // let title
+    // let calendarApi = selectInfo.view.calendar
+
+    // calendarApi.unselect() // clear date selection
+
+    // if (title) {
+    //   let obj = {
+    //     id: createEventId(),
+    //     title,
+    //     start: selectInfo.startStr,
+    //     end: selectInfo.endStr,
+    //     allDay: selectInfo.allDay
+    //   }
+    //   calendarApi.addEvent(obj)
+
+    //   addProyect(obj)
+    // }
   }
-  
-  function handleEventClick(clickInfo){
+
+  function handleEventClick(clickInfo) {
     let confirm = prompt('write "confirm" to delete the event').toLowerCase()
     
     if (confirm === "confirm"){
       deleteProyect(clickInfo.event._def.title)
       // alert('elemento eliminado')
-      // deleteProyect(title)
       
+      clickInfo.event.remove()
     }
   }
 
   function handleEvents(events) {
-    setCurrentEvents(events) 
+    setCurrentEvents(events)
   }
 
   function handleWeekendsToggle() {
-    setWeekendsVisible(!weekendsVisible) 
+    setWeekendsVisible(!weekendsVisible)
+  }
+
+  function addProyect(obj) {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(obj)
+    };
+    fetch('http://localhost:8000/tasks', requestOptions)
+      .then(response => response.json())
+      .then(data => console.log());
+  }
+  
+  function deleteProyect(title) {
+    console.log(title)
+    const requestOptions = {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({title:title})
+    };
+    fetch('http://localhost:8000/tasks', requestOptions)
+      .then(response => response.json())
+      .then(data => console.log(data));
   }
 
   return (
+
     <div className='demo-app'>
-      {<RenderSidebar handleWeekendsToggle={handleWeekendsToggle} currentEvents={currentEvents} weekendsVisible={weekendsVisible}/>}
+      {<RenderSidebar handleWeekendsToggle={handleWeekendsToggle} currentEvents={currentEvents} weekendsVisible={weekendsVisible} />}
       <div className='demo-app-main'>
+        <div className='modal' style={{
+          display: 'flex',
+          justifyContent: 'center',
+          zIndex: '999',
+          width: '100%',
+        }}>
+          {modalOpen && <ModalTask setOpenModal={setModalOpen} />}
+        </div>
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
           headerToolbar={{
@@ -94,30 +129,7 @@ export default function DemoApp() {
   )
 }
 
-function addProyect(obj) {
-  const requestOptions = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(obj)
-  };
-  fetch('http://localhost:8000/tasks', requestOptions)
-    .then(response => response.json())
-    .then(data => console.log(data));
-}
-
-function deleteProyect(title) {
-  console.log(title)
-  const requestOptions = {
-    method: 'DELETE',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({title:title})
-  };
-  fetch('http://localhost:8000/tasks', requestOptions)
-    .then(response => response.json())
-    .then(data => console.log(title));
-}
-
-function RenderSidebar({handleWeekendsToggle, currentEvents, weekendsVisible}) {
+function RenderSidebar({ handleWeekendsToggle, weekendsVisible }) {
   return (
     <div className='demo-app-sidebar'>
       <div className='demo-app-sidebar-section'>
@@ -138,12 +150,6 @@ function RenderSidebar({handleWeekendsToggle, currentEvents, weekendsVisible}) {
           toggle weekends
         </label>
       </div>
-      <div className='demo-app-sidebar-section'>
-        <h2>All Events ({currentEvents.length})</h2>
-        <ul>
-          {currentEvents.map(renderSidebarEvent)}
-        </ul>
-      </div>
     </div>
   )
 }
@@ -154,14 +160,5 @@ function renderEventContent(eventInfo) {
       <b>{eventInfo.timeText}</b>
       <i>{eventInfo.event.title}</i>
     </>
-  )
-}
-
-function renderSidebarEvent(event) {
-  return (
-    <li key={event.id}>
-      <b>{formatDate(event.start, { year: 'numeric', month: 'short', day: 'numeric' })}</b>
-      <i>{event.title}</i>
-    </li>
   )
 }
