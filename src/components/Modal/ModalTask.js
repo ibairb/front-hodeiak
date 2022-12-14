@@ -2,14 +2,14 @@ import "./ModalTask.css";
 import React, { useState } from "react";
 
 function ModalTask({ setOpenModal }) {
-const [username, setUserName] = useState('')
+const [title, setTitle] = useState('')
 
 
 const handleSubmit = event => {
   event.preventDefault();
-  setTimeout(setUserName(event.target.username.value),10000)
+  setTitle(event.target.title.value)
   
-  console.log('useState 👉️', username)
+  console.log('useState 👉️', title)
 
   event.target.reset();
 };
