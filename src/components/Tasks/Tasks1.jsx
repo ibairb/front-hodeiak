@@ -12,7 +12,7 @@ export default function DemoApp() {
   const [currentEvents, setCurrentEvents] = useState([])
   const [projects, setProjects] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
-
+  const [obj, setObj] = useState ({})
 
   useEffect(() => {
     fetch('http://localhost:8000/tasks')
@@ -23,26 +23,26 @@ export default function DemoApp() {
       });
   }, [])
 
-  function handleDateSelect(event) {
-    console.log(event.username)
+  function handleDateSelect(selectInfo) {
     setModalOpen(true)
-    // let title
-    // let calendarApi = selectInfo.view.calendar
+    console.log(modalOpen)
+    let title
+    let calendarApi = selectInfo.view.calendar
 
-    // calendarApi.unselect() // clear date selection
+    calendarApi.unselect() // clear date selection
 
-    // if (title) {
-    //   let obj = {
-    //     id: createEventId(),
-    //     title,
-    //     start: selectInfo.startStr,
-    //     end: selectInfo.endStr,
-    //     allDay: selectInfo.allDay
-    //   }
-    //   calendarApi.addEvent(obj)
-
-    //   addProyect(obj)
-    // }
+    if (modalOpen) {
+      console.log('estoy aqui')
+      setObj( {
+        id: createEventId(),
+        title,
+        start: selectInfo.startStr,
+        end: selectInfo.endStr,
+        allDay: selectInfo.allDay
+      })
+      calendarApi.addEvent(obj)
+      console.log(obj)
+    }
   }
 
   function handleEventClick(clickInfo) {
@@ -144,7 +144,7 @@ export default function DemoApp() {
           zIndex: '999',
           width: '100%',
         }}>
-          {modalOpen && <ModalTask setOpenModal={setModalOpen} />}
+          {modalOpen && <ModalTask setOpenModal={setModalOpen} obj={obj}/>}
         </div>
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -162,7 +162,6 @@ export default function DemoApp() {
           events={projects} // alternatively, use the `events` setting to fetch from a feed
           select={handleDateSelect}
           eventContent={renderEventContent} // custom render function
-
           eventsSet={handleEvents} // called after events are initialized/added/changed/removed
         /* you can update a remote database when these fire:
           eventAdd={function(){}}

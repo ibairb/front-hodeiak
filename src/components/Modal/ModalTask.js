@@ -1,16 +1,16 @@
 import "./ModalTask.css";
 import React, { useEffect, useState } from "react";
 
-function ModalTask({ setOpenModal }) {
+function ModalTask({ setOpenModal }, obj) {
 const [title, setTitle] = useState('')
 
+useEffect(() => {
+  console.log(obj)
+},[title])
 
 const handleSubmit = event => {
   event.preventDefault();
   setTitle(event.target.title.value)
-  console.log(event.target.description.value)
-  
-  console.log('useState 👉️', title)
 
   event.target.reset();
 };
