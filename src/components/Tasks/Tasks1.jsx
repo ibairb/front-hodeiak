@@ -47,7 +47,9 @@ export default function DemoApp() {
 
   function handleEventClick(clickInfo) {
     let confirm = prompt('write "confirm" to delete the event').toLowerCase()
-    if (confirm === 'confirm') {
+    
+    if (confirm === "confirm"){
+      deleteProject(clickInfo.event._def.title)
       // alert('elemento eliminado')
       deleteProject(clickInfo.target.id)
     }
@@ -68,69 +70,6 @@ export default function DemoApp() {
 
   function handleWeekendsToggle() {
     setWeekendsVisible(!weekendsVisible)
-  }
-
-  function addProject(obj) {
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(obj)
-    };
-    fetch('http://localhost:8000/tasks', requestOptions)
-      .then(response => response.json())
-      .then(data => console.log());
-  }
-  
-  function deleteProject(obj) {
-    console.log(obj)
-    const requestOptions = {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({obj:obj})
-    };
-    fetch('http://localhost:8000/tasks', requestOptions)
-      .then(response => response.json())
-      .then(data => console.log());
-  }
-
-  function renderSidebarEvent(event) {
-    return (
-      <li key={event.id}>
-        <b>{formatDate(event.start, { year: 'numeric', month: 'short', day: 'numeric' })}</b>
-        <i>{event.title}</i>
-      </li>
-    )
-  }
-
-  function RenderSidebar({ handleWeekendsToggle, currentEvents, weekendsVisible }) {
-    return (
-      <div className='demo-app-sidebar'>
-        <div className='demo-app-sidebar-section'>
-          <h2>Instructions</h2>
-          <ul>
-            <li>Select dates and you will be prompted to create a new event</li>
-            <li>Drag, drop, and resize events</li>
-            <li>Click an event to delete it</li>
-          </ul>
-        </div>
-        <div className='demo-app-sidebar-section'>
-          <label>
-            <input
-              type='checkbox'
-              checked={weekendsVisible}
-              onChange={handleWeekendsToggle}
-            ></input>
-            toggle weekends
-          </label>
-        </div>
-        <div className='demo-app-sidebar-section'>
-          <h2>All Events ({currentEvents.length})</h2>
-          <ul>
-            {currentEvents.map(renderSidebarEvent)}
-          </ul>
-        </div>
-      </div>
-    )
   }
 
   return (
@@ -171,5 +110,76 @@ export default function DemoApp() {
         />
       </div>
     </div>
+  )
+}
+
+function addProyect(obj) {
+  const requestOptions = {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(obj)
+  };
+  fetch('http://localhost:8000/tasks', requestOptions)
+    .then(response => response.json())
+    .then(data => console.log());
+}
+
+function deleteProject(obj) {
+  const requestOptions = {
+    method: 'DELETE',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(obj)
+  };
+  fetch('http://localhost:8000/tasks', requestOptions)
+    .then(response => response.json())
+    .then(data => console.log());
+}
+
+function RenderSidebar({ handleWeekendsToggle, currentEvents, weekendsVisible }) {
+  return (
+    <div className='demo-app-sidebar'>
+      <div className='demo-app-sidebar-section'>
+        <h2>Instructions</h2>
+        <ul>
+          <li>Select dates and you will be prompted to create a new event</li>
+          <li>Drag, drop, and resize events</li>
+          <li>Click an event to delete it</li>
+        </ul>
+      </div>
+      <div className='demo-app-sidebar-section'>
+        <label>
+          <input
+            type='checkbox'
+            checked={weekendsVisible}
+            onChange={handleWeekendsToggle}
+          ></input>
+          toggle weekends
+        </label>
+      </div>
+      <div className='demo-app-sidebar-section'>
+        <h2>All Events ({currentEvents.length})</h2>
+        <ul>
+          {currentEvents.map(renderSidebarEvent)}
+        </ul>
+      </div>
+    </div>
+  )
+}
+
+function renderEventContent(eventInfo) {
+  return (
+    <>
+      <b>{eventInfo.timeText}</b>
+      <i>{eventInfo.event.title}</i>
+    </>
+  )
+}
+
+function renderSidebarEvent(event) {
+  return (
+    <li key={event.id}>
+      <b>{formatDate(event.start, { year: 'numeric', month: 'short', day: 'numeric' })}</b>
+      <i>{event.title}</i>
+    </li>
   )
 }

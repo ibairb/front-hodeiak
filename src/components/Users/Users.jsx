@@ -100,7 +100,8 @@ const Users = () => {
                         width: '80px',
                         height: '30px',
                         borderRadius: '8px',
-                        fontSize:'15px'
+                        fontSize:'15px',
+                        cursor: 'pointer'
                     }}
                     onClick={() => {
                         setModalOpen(true);
