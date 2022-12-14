@@ -44,10 +44,12 @@ export default function DemoApp() {
   
   function handleEventClick(clickInfo){
     let confirm = prompt('write "confirm" to delete the event').toLowerCase()
-    if (confirm === 'confirm'){
+    
+    if (confirm === "confirm"){
+      deleteProyect(clickInfo.event._def.title)
       // alert('elemento eliminado')
+      // deleteProyect(title)
       
-      clickInfo.event.remove()
     }
   }
 
@@ -103,15 +105,16 @@ function addProyect(obj) {
     .then(data => console.log(data));
 }
 
-function deleteProyect(obj) {
+function deleteProyect(title) {
+  console.log(title)
   const requestOptions = {
     method: 'DELETE',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(obj)
+    body: JSON.stringify({title:title})
   };
   fetch('http://localhost:8000/tasks', requestOptions)
     .then(response => response.json())
-    .then(data => console.log(data));
+    .then(data => console.log(title));
 }
 
 function RenderSidebar({handleWeekendsToggle, currentEvents, weekendsVisible}) {
