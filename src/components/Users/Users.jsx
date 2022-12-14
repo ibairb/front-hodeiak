@@ -54,18 +54,29 @@ const Users = () => {
 
     const columns = [
         {
-            name: 'NAME',
-            selector: row => row.name,
+            name: 'USERNAME',
+            selector: row => row.username,
             sortable: true
         },
         {
-            name: 'SURNAME',
-            selector: row => row.surname,
+            name: 'STATUS',
+            selector: row => row.status,
             sortable: true
         },
         {
             name: 'EMAIL',
             selector: row => row.email,
+            sortable: true
+        },
+        
+        {
+            name: 'PHONE',
+            selector: row => row.phone,
+            sortable: true
+        },
+        {
+            name: 'HOUR COST',
+            selector: row => row.hourCost,
             sortable: true
         }
     ]
@@ -73,8 +84,15 @@ const Users = () => {
 
     return (
         <>
-            <div className='content'>
-                <button
+            <div className='modal' style={{
+                display: 'flex',
+                justifyContent: 'center',
+                zIndex: '999',
+                position: 'absolute',
+                width: '100%',
+                paddingTop: '50px',
+            }}>
+            <button
                     style={{
                         marginLeft: '90%',
                         background: 'salmon',
@@ -83,7 +101,8 @@ const Users = () => {
                         width: '80px',
                         height: '30px',
                         borderRadius: '8px',
-                        fontSize:'15px'
+                        fontSize:'15px',
+                        cursor: 'pointer'
                     }}
                     id="openModalBtn"
                     onClick={() => {
@@ -94,7 +113,8 @@ const Users = () => {
                 </button>
 
                 {modalOpen && <Modal setOpenModal={setModalOpen} />}
-
+            </div>
+            <div className='content'>
                 <DataTable
                     title='Users'
                     customStyles={customStyles}
