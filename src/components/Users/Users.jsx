@@ -84,7 +84,7 @@ const Users = () => {
 
     return (
         <>
-            <div className='modal' style={{
+        <div className='modal' style={{
                 display: 'flex',
                 justifyContent: 'center',
                 zIndex: '999',
@@ -92,7 +92,7 @@ const Users = () => {
                 width: '100%',
                 paddingTop: '50px',
             }}>
-            <button
+                 <button
                     style={{
                         marginLeft: '90%',
                         background: 'salmon',
@@ -104,14 +104,12 @@ const Users = () => {
                         fontSize:'15px',
                         cursor: 'pointer'
                     }}
-                    id="openModalBtn"
                     onClick={() => {
                         setModalOpen(true);
                     }}
                 >
                     New User
                 </button>
-
                 {modalOpen && <Modal setOpenModal={setModalOpen} />}
             </div>
             <div className='content'>
