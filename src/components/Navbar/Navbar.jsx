@@ -5,6 +5,7 @@ import Clients from '../Clients/Clients';
 import Profile from '../Profile/Profile';
 import Projects from '../Projects/Projects';
 import Tasks1 from '../Tasks/Tasks1';
+import Login from '../Login/Login';
 
 const Navbar = () => {
 
@@ -40,6 +41,7 @@ const Navbar = () => {
                         <Route path='/projects' element={<Projects />} />
                         <Route path='/profile' element={<Profile />} />
                         <Route path='/tasks' element={<Tasks1 />} />
+                        <Route path='/' element={<Login />} />
                     </Route>
                 </Routes>
 
