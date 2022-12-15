@@ -10,18 +10,22 @@ const Login = () => {
     var txtEmail = document.getElementById("txtEmail").value;
     var txtPas = document.getElementById("txtPas").value;
 
-    fetch('http://localhost:8000/users')
+    fetch(`http://localhost:8000/users/${txtEmail}`)
       .then((res) => res.json())
       .then((res) => {
-        res.map(element => {
-          console.log(element.password)
-          if (element.password == txtPas && element.email == txtEmail) {
-            if(element.status == 'admin'){
-            window.location.href='http://localhost:3000/users'}else {
-              window.location.href='http://localhost:3000/tasks'
+        if(res.error){
+          alert("errrrrrroooooooor")
+        } else {
+          if (res.password == txtPas){
+            if (res.status === 'user'){
+              window.location.href = 'http://localhost:3000/projects'
+            }else {
+              window.location.href = 'http://localhost:3000/users'
             }
+          }else {
+            alert ('usuario o contraseña incorrecta')
           }
-        })
+        }
       })
   }
 
