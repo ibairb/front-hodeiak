@@ -14,6 +14,7 @@ export default function DemoApp() {
   const [currentEvents, setCurrentEvents] = useState([])
   const [projects, setProjects] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
+  const [obj, setObj] = useState("")
 
 
   useEffect(() => {
@@ -30,25 +31,18 @@ export default function DemoApp() {
   }, [obj])
 
   function handleDateSelect(selectInfo) {
-    // console.log(event)
     setModalOpen(true)
-    // let title
-    // let calendarApi = selectInfo.view.calendar
+    let calendarApi = selectInfo.view.calendar
 
-    // calendarApi.unselect() // clear date selection
+    calendarApi.unselect() // clear date selection
 
-    // if (title) {
-    //   let obj = {
-    //     id: createEventId(),
-    //     title,
-    //     start: selectInfo.startStr,
-    //     end: selectInfo.endStr,
-    //     allDay: selectInfo.allDay
-    //   }
-    //   calendarApi.addEvent(obj)
 
-    //   addProyect(obj)
-    // }
+      setObj ({
+        id: createEventId(),
+        start: selectInfo.startStr,
+        end: selectInfo.endStr,
+        allDay: selectInfo.allDay
+      })
   }
 
   function handleEventClick(clickInfo) {
@@ -97,6 +91,15 @@ export default function DemoApp() {
       .then(data => console.log(data));
   }
 
+  function renderEventContent(eventInfo) {
+    return (
+      <>
+        <b>{eventInfo.timeText}</b>
+        <i>{eventInfo.event.title}</i>
+      </>
+    )
+  }
+
   return (
 
     <div className='demo-app'>
@@ -108,7 +111,7 @@ export default function DemoApp() {
           zIndex: '999',
           width: '100%',
         }}>
-          {modalOpen && <ModalTask setOpenModal={setModalOpen} />}
+          {modalOpen && <ModalTask setOpenModal={setModalOpen} obj={obj} setObj={setObj}/>}
         </div>
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -188,15 +191,6 @@ function RenderSidebar({ handleWeekendsToggle, currentEvents, weekendsVisible })
         </ul>
       </div>
     </div>
-  )
-}
-
-function renderEventContent(eventInfo) {
-  return (
-    <>
-      <b>{eventInfo.timeText}</b>
-      <i>{eventInfo.event.title}</i>
-    </>
   )
 }
 
