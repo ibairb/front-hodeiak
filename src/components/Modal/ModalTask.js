@@ -1,7 +1,7 @@
 import "./ModalTask.css";
 import React, { useEffect, useState } from "react";
 
-function ModalTask({ setOpenModal }, obj) {
+function ModalTask({ setOpenModal }, {obj}) {
 const [title, setTitle] = useState('')
 
 useEffect(() => {
