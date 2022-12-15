@@ -14,7 +14,8 @@ export default function DemoApp() {
   const [currentEvents, setCurrentEvents] = useState([])
   const [projects, setProjects] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
-  const [obj, setObj] = useState("")
+  const [obj, setObj] = useState({})
+  
 
   useEffect(() => {
     fetch('http://localhost:8000/tasks')
@@ -26,14 +27,14 @@ export default function DemoApp() {
   }, [])
 
   useEffect(() => {
-   console.log(obj)
+   
   }, [obj])
 
   function handleDateSelect(selectInfo) {
     // console.log(event)
-    setModalOpen(true)
     
     let calendarApi = selectInfo.view.calendar
+    setModalOpen(calendarApi)
 
     calendarApi.unselect() // clear date selection
 
@@ -50,10 +51,6 @@ export default function DemoApp() {
     //     end: selectInfo.endStr,
     //     allDay: selectInfo.allDay
     //   }
-
-    //   calendarApi.addEvent(obj)
-
-
     // }
   }
 
@@ -102,7 +99,7 @@ export default function DemoApp() {
           zIndex: '999',
           width: '100%',
         }}>
-          {modalOpen && <ModalTask setObj={setObj} obj={obj} setOpenModal={setModalOpen} />}
+          {modalOpen != false && <ModalTask  setObj={setObj} obj={obj} setOpenModal={setModalOpen} modalOpen={modalOpen}/>}
         </div>
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
