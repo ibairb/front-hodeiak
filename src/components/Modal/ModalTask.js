@@ -1,21 +1,36 @@
 import "./ModalTask.css";
 import React, { useEffect, useState } from "react";
 
-function ModalTask({ setOpenModal, obj,setObj}) {
+function ModalTask({ setOpenModal, obj,setObj, modalOpen}) {
   
-  const [title, setTitle] = useState('')
+  
   const [description, setDescription] = useState('')
   
+  const [title,setTitle] = useState("")
+  let newObj = {
+    title:title,
+    start:obj.start,
+    end:obj.end
+  }
+  
   useEffect(()=>{
-    console.log(obj)
+    
+    
+   
   },[obj])
   
   
   function addProyect() {
+    let newObj = {
+      title:title,
+      start:obj.start,
+      end:obj.end
+    }
+    modalOpen.addEvent(newObj)
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify()
+      body: JSON.stringify(newObj)
     };
     fetch('http://localhost:8000/tasks', requestOptions)
       .then(response => response.json())
@@ -25,11 +40,11 @@ function ModalTask({ setOpenModal, obj,setObj}) {
 
   const handleSubmit = event => {
     event.preventDefault();
-    setTitle(event.target.title.value)
+    // setTitle(event.target.title.value)
     setDescription(event.target.description.value)
-    setObj(title)
-    
-
+    console.log(newObj)
+    addProyect()
+    setOpenModal(false)
     
     event.target.reset();
   };
@@ -52,7 +67,7 @@ function ModalTask({ setOpenModal, obj,setObj}) {
         </div>
         <div className="body">
           <form className="form" onSubmit={handleSubmit} >
-            <input type="text" placeholder="Title" className="title" name='title' />
+            <input type="text" placeholder="Title" className="title" name='title' value={title} onChange={(e)=>setTitle(e.target.value)} />
             <span></span>
             <span></span>
             <input type="text" placeholder="Description" className="description" name="description" />
