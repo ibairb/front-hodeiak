@@ -74,9 +74,10 @@ const Users = () => {
             selector: row => row.phone,
             sortable: true
         },
+        
         {
-            name: 'HOUR COST',
-            selector: row => row.hourCost,
+            name: 'PROJECTS',
+            selector: row => row.projects,
             sortable: true
         }
     ]
