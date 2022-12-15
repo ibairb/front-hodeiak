@@ -5,9 +5,15 @@ import Clients from '../Clients/Clients';
 import Profile from '../Profile/Profile';
 import Projects from '../Projects/Projects';
 import Tasks1 from '../Tasks/Tasks1';
+import Login from '../Login/Login';
 
 const Navbar = () => {
 
+    function Logout(){
+        window.location.href = 'http://localhost:3000/'
+    }
+
+    
     return (
         <>
            <BrowserRouter>
@@ -29,7 +35,7 @@ const Navbar = () => {
                         <Link to="/tasks">Tareas</Link>
                     </li>
                     <li>
-                        <button className='boton'>Logout</button>
+                        <button className='boton' onClick={Logout}>Logout</button>
                     </li>
                 </ul>
 
@@ -40,6 +46,7 @@ const Navbar = () => {
                         <Route path='/projects' element={<Projects />} />
                         <Route path='/profile' element={<Profile />} />
                         <Route path='/tasks' element={<Tasks1 />} />
+                        <Route path='/' element={<Login />} />
                     </Route>
                 </Routes>
 
