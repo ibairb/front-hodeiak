@@ -1,7 +1,7 @@
 import "./ModalTask.css";
 import React, { useEffect, useState } from "react";
 
-function ModalTask({ setOpenModal, obj}) {
+function ModalTask({ setOpenModal, obj,setObj}) {
   
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
@@ -27,6 +27,7 @@ function ModalTask({ setOpenModal, obj}) {
     event.preventDefault();
     setTitle(event.target.title.value)
     setDescription(event.target.description.value)
+    setObj(title)
     
 
     

@@ -111,7 +111,7 @@ export default function DemoApp() {
           zIndex: '999',
           width: '100%',
         }}>
-          {modalOpen && <ModalTask setOpenModal={setModalOpen} obj={obj} setObj={setObj}/>}
+          {modalOpen && <ModalTask setObj={setObj} obj={obj} setOpenModal={setModalOpen} />}
         </div>
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
