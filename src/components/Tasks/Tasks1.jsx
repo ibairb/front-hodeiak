@@ -7,12 +7,14 @@ import interactionPlugin from '@fullcalendar/interaction'
 import { INITIAL_EVENTS, createEventId } from './event-utils'
 import ModalTask from '../Modal/ModalTask'
 
+
+
 export default function DemoApp() {
   const [weekendsVisible, setWeekendsVisible] = useState(true)
   const [currentEvents, setCurrentEvents] = useState([])
   const [projects, setProjects] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
-
+  const [obj, setObj] = useState("")
 
   useEffect(() => {
     fetch('http://localhost:8000/tasks')
@@ -23,36 +25,46 @@ export default function DemoApp() {
       });
   }, [])
 
-  function handleDateSelect(event) {
-    console.log(event.username)
+  useEffect(() => {
+   console.log(obj)
+  }, [obj])
+
+  function handleDateSelect(selectInfo) {
+    // console.log(event)
     setModalOpen(true)
-    // let title
-    // let calendarApi = selectInfo.view.calendar
+    
+    let calendarApi = selectInfo.view.calendar
 
-    // calendarApi.unselect() // clear date selection
+    calendarApi.unselect() // clear date selection
 
-    // if (title) {
-    //   let obj = {
+    setObj({
+      id: createEventId(),
+      start: selectInfo.startStr,
+      end: selectInfo.endStr,
+      allDay: selectInfo.allDay
+    })
+    // if (modalOpen) {
+    //   let objecto = {
     //     id: createEventId(),
-    //     title,
     //     start: selectInfo.startStr,
     //     end: selectInfo.endStr,
     //     allDay: selectInfo.allDay
     //   }
+
     //   calendarApi.addEvent(obj)
 
-    //   addProyect(obj)
+
     // }
   }
 
   function handleEventClick(clickInfo) {
     let confirm = prompt('write "confirm" to delete the event').toLowerCase()
-    
-    if (confirm === "confirm"){
+
+    if (confirm === "confirm") {
       console.log(clickInfo.event._def)
-      deleteProyect(clickInfo.event._def.title)
+      deleteProject(clickInfo.event._def.title)
       // alert('elemento eliminado')
-      
+
       clickInfo.event.remove()
     }
   }
@@ -65,23 +77,14 @@ export default function DemoApp() {
     setWeekendsVisible(!weekendsVisible)
   }
 
-  function addProyect(obj) {
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(obj)
-    };
-    fetch('http://localhost:8000/tasks', requestOptions)
-      .then(response => response.json())
-      .then(data => console.log());
-  }
-  
-  function deleteProyect(title) {
+
+
+  function deleteProject(title) {
     console.log(title)
     const requestOptions = {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({title:title})
+      body: JSON.stringify({ title: title })
     };
     fetch('http://localhost:8000/tasks', requestOptions)
       .then(response => response.json())
@@ -99,7 +102,7 @@ export default function DemoApp() {
           zIndex: '999',
           width: '100%',
         }}>
-          {modalOpen && <ModalTask setOpenModal={setModalOpen} />}
+          {modalOpen && <ModalTask obj={obj} setOpenModal={setModalOpen} />}
         </div>
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
