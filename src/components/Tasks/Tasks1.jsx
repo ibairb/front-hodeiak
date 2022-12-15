@@ -7,12 +7,14 @@ import interactionPlugin from '@fullcalendar/interaction'
 import { INITIAL_EVENTS, createEventId } from './event-utils'
 import ModalTask from '../Modal/ModalTask'
 
+
+
 export default function DemoApp() {
   const [weekendsVisible, setWeekendsVisible] = useState(true)
   const [currentEvents, setCurrentEvents] = useState([])
   const [projects, setProjects] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
-  const [obj, setObj] = useState ({})
+
 
   useEffect(() => {
     fetch('http://localhost:8000/tasks')
@@ -23,35 +25,44 @@ export default function DemoApp() {
       });
   }, [])
 
+  useEffect(() => {
+   console.log(obj)
+  }, [obj])
+
   function handleDateSelect(selectInfo) {
+    // console.log(event)
     setModalOpen(true)
-    console.log(modalOpen)
-    let title
-    let calendarApi = selectInfo.view.calendar
+    // let title
+    // let calendarApi = selectInfo.view.calendar
 
-    calendarApi.unselect() // clear date selection
+    // calendarApi.unselect() // clear date selection
 
-    if (modalOpen) {
-      console.log('estoy aqui')
-      setObj( {
-        id: createEventId(),
-        title,
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        allDay: selectInfo.allDay
-      })
-      calendarApi.addEvent(obj)
-      console.log(obj)
-    }
+    // if (title) {
+    //   let obj = {
+    //     id: createEventId(),
+    //     title,
+    //     start: selectInfo.startStr,
+    //     end: selectInfo.endStr,
+    //     allDay: selectInfo.allDay
+    //   }
+    //   calendarApi.addEvent(obj)
+
+    //   addProyect(obj)
+    // }
   }
 
   function handleEventClick(clickInfo) {
     let confirm = prompt('write "confirm" to delete the event').toLowerCase()
+
+    if (confirm === "confirm") {
+      console.log(clickInfo.event._def)
+      deleteProject(clickInfo.event._def.title)
     
     if (confirm === "confirm"){
       deleteProject(clickInfo.event._def.title)
       // alert('elemento eliminado')
-      deleteProject(clickInfo.target.id)
+
+      clickInfo.event.remove()
     }
   }
   function renderEventContent(eventInfo) {
@@ -72,6 +83,20 @@ export default function DemoApp() {
     setWeekendsVisible(!weekendsVisible)
   }
 
+
+
+  function deleteProject(title) {
+    console.log(title)
+    const requestOptions = {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ title: title })
+    };
+    fetch('http://localhost:8000/tasks', requestOptions)
+      .then(response => response.json())
+      .then(data => console.log(data));
+  }
+
   return (
 
     <div className='demo-app'>
@@ -83,7 +108,7 @@ export default function DemoApp() {
           zIndex: '999',
           width: '100%',
         }}>
-          {modalOpen && <ModalTask setOpenModal={setModalOpen} obj={obj}/>}
+          {modalOpen && <ModalTask setOpenModal={setModalOpen} />}
         </div>
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -182,4 +207,4 @@ function renderSidebarEvent(event) {
       <i>{event.title}</i>
     </li>
   )
-}
+}}
