@@ -9,6 +9,11 @@ import Login from '../Login/Login';
 
 const Navbar = () => {
 
+    function Logout(){
+        window.location.href = 'http://localhost:3000/'
+    }
+
+    
     return (
         <>
            <BrowserRouter>
@@ -30,7 +35,7 @@ const Navbar = () => {
                         <Link to="/tasks">Tareas</Link>
                     </li>
                     <li>
-                        <button className='boton'>Logout</button>
+                        <button className='boton' onClick={Logout}>Logout</button>
                     </li>
                 </ul>
 
