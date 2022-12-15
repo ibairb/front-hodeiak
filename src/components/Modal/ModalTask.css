@@ -1,3 +1,9 @@
+.modal {
+    position: absolute;
+    top: 30%;
+    left: 0;
+}
+
 .modalBackground {
     width: 50vw;
     height: 50vh;
