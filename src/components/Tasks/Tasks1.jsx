@@ -15,6 +15,7 @@ export default function DemoApp() {
   const [projects, setProjects] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
   const [obj, setObj] = useState({})
+
   
 
   useEffect(() => {
@@ -30,6 +31,8 @@ export default function DemoApp() {
    
   }, [obj])
 
+  
+  
   function handleDateSelect(selectInfo) {
     // console.log(event)
     
@@ -39,7 +42,6 @@ export default function DemoApp() {
     calendarApi.unselect() // clear date selection
 
     setObj({
-      id: createEventId(),
       title:"",
       start: selectInfo.startStr,
       end: selectInfo.endStr,
@@ -152,7 +154,7 @@ export default function DemoApp() {
   return (
 
     <div className='demo-app'>
-      {<RenderSidebar handleWeekendsToggle={handleWeekendsToggle} currentEvents={currentEvents} weekendsVisible={weekendsVisible} />}
+      {<RenderSidebar handleWeekendsToggle={handleWeekendsToggle} id={createEventId} currentEvents={currentEvents} weekendsVisible={weekendsVisible} />}
       <div className='demo-app-main'>
         <div className='modal' style={{
           display: 'flex',
@@ -160,7 +162,7 @@ export default function DemoApp() {
           zIndex: '999',
           width: '100%',
         }}>
-          {modalOpen != false && <ModalTask  setObj={setObj} obj={obj} setOpenModal={setModalOpen} modalOpen={modalOpen}/>}
+          {modalOpen != false && <ModalTask   setObj={setObj} obj={obj} setOpenModal={setModalOpen} modalOpen={modalOpen}/>}
         </div>
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}

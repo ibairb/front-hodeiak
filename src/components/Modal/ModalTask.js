@@ -7,12 +7,7 @@ function ModalTask({ setOpenModal, obj,setObj, modalOpen}) {
   const [description, setDescription] = useState('')
   
   const [title,setTitle] = useState("")
-  let newObj = {
-    title:title,
-    start:obj.start,
-    end:obj.end
-  }
-  
+ 
   useEffect(()=>{
     
     
@@ -21,7 +16,9 @@ function ModalTask({ setOpenModal, obj,setObj, modalOpen}) {
   
   
   function addProyect() {
+    
     let newObj = {
+      id:eventGuid2,
       title:title,
       start:obj.start,
       end:obj.end
