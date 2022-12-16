@@ -1,12 +1,13 @@
 import "./ModalTask.css";
 import React, { useEffect, useState } from "react";
+import { v4 as uuid } from 'uuid';
 
-function ModalTask({ setOpenModal, obj,setObj, modalOpen}) {
-  
-  
+function ModalTask({ setOpenModal, obj, modalOpen}) {
   const [description, setDescription] = useState('')
+  const unique_id = uuid();
   
   const [title,setTitle] = useState("")
+<<<<<<< HEAD
  
   useEffect(()=>{
     
@@ -14,16 +15,21 @@ function ModalTask({ setOpenModal, obj,setObj, modalOpen}) {
    
   },[obj])
   
+=======
+>>>>>>> origin/dev
   
   function addProyect() {
     
     let newObj = {
+<<<<<<< HEAD
       id:eventGuid2,
+=======
+      id: unique_id,
+>>>>>>> origin/dev
       title:title,
       start:obj.start,
       end:obj.end
     }
-    console.log(newObj)
     modalOpen.addEvent(newObj)
     const requestOptions = {
       method: 'POST',

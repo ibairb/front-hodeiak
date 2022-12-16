@@ -53,8 +53,8 @@ export default function DemoApp() {
     let confirm = prompt('write "confirm" to delete the event').toLowerCase()
 
     if (confirm === "confirm") {
-      console.log(clickInfo.event._def)
-      deleteProject(clickInfo.event._def.title)
+      console.log(clickInfo.event._def.id)
+      deleteProject(clickInfo.event._def.id)
 
       clickInfo.event.remove()
     }
@@ -68,14 +68,12 @@ export default function DemoApp() {
     setWeekendsVisible(!weekendsVisible)
   }
 
-
-
-  function deleteProject(title) {
-    console.log(title)
+  function deleteProject(id) {
+    console.log(id)
     const requestOptions = {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ title: title })
+      body: JSON.stringify({ id: id })
     };
     fetch('http://localhost:8000/tasks', requestOptions)
       .then(response => response.json())
@@ -98,28 +96,7 @@ export default function DemoApp() {
       </li>
     )
   }
-  function addProyect(obj) {
-    const requestOptions = {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(obj)
-    };
-    fetch('http://localhost:8000/tasks', requestOptions)
-      .then(response => response.json())
-      .then(data => console.log());
-  }
-  
-  function deleteProject(obj) {
-    const requestOptions = {
-      method: 'DELETE',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(obj)
-    };
-    fetch('http://localhost:8000/tasks', requestOptions)
-      .then(response => response.json())
-      .then(data => console.log());
-  }
-  
+
   function RenderSidebar({ handleWeekendsToggle, currentEvents, weekendsVisible }) {
     return (
       <div className='demo-app-sidebar'>
