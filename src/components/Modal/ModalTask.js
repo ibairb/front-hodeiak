@@ -1,36 +1,40 @@
 import "./ModalTask.css";
 import React, { useEffect, useState } from "react";
 
-function ModalTask({ setOpenModal, obj,setObj}) {
-  
+function ModalTask({ setOpenModal, obj, setObj }) {
   const [title, setTitle] = useState('')
   const [description, setDescription] = useState('')
-  
-  useEffect(()=>{
+
+
+  useEffect(() => {
     console.log(obj)
-  },[obj])
-  
-  
-  function addProyect() {
+  }, [obj])
+
+
+  function addProject() {
+    let newObj = {
+      id: obj.id,
+      title: title,
+      start: obj.start,
+      end: obj.end,
+      allDay: obj.allDay
+    }
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify()
+      body: JSON.stringify(newObj)
     };
     fetch('http://localhost:8000/tasks', requestOptions)
       .then(response => response.json())
       .then(data => console.log());
   }
 
-
   const handleSubmit = event => {
     event.preventDefault();
     setTitle(event.target.title.value)
     setDescription(event.target.description.value)
-    setObj(title)
-    
+    addProject()
 
-    
     event.target.reset();
   };
 

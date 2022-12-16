@@ -14,8 +14,7 @@ export default function DemoApp() {
   const [currentEvents, setCurrentEvents] = useState([])
   const [projects, setProjects] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
-  const [obj, setObj] = useState("")
-
+  const [obj, setObj] = useState({})
 
   useEffect(() => {
     fetch('http://localhost:8000/tasks')
@@ -31,18 +30,32 @@ export default function DemoApp() {
   }, [obj])
 
   function handleDateSelect(selectInfo) {
+    // console.log(event)
     setModalOpen(true)
+    
     let calendarApi = selectInfo.view.calendar
 
     calendarApi.unselect() // clear date selection
 
+    setObj({
+      id: createEventId(),
+      title:"",
+      start: selectInfo.startStr,
+      end: selectInfo.endStr,
+      allDay: selectInfo.allDay
+    })
+    // if (modalOpen) {
+    //   let objecto = {
+    //     id: createEventId(),
+    //     start: selectInfo.startStr,
+    //     end: selectInfo.endStr,
+    //     allDay: selectInfo.allDay
+    //   }
 
-      setObj ({
-        id: createEventId(),
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        allDay: selectInfo.allDay
-      })
+    //   calendarApi.addEvent(obj)
+
+
+    // }
   }
 
   function handleEventClick(clickInfo) {
@@ -51,22 +64,10 @@ export default function DemoApp() {
     if (confirm === "confirm") {
       console.log(clickInfo.event._def)
       deleteProject(clickInfo.event._def.title)
-    
-    if (confirm === "confirm"){
-      deleteProject(clickInfo.event._def.title)
       // alert('elemento eliminado')
 
       clickInfo.event.remove()
     }
-  }
-  function renderEventContent(eventInfo) {
-    return (
-      <>
-        <b>{eventInfo.timeText}</b>
-        <i>{eventInfo.event.title}</i>
-        <span className="material-symbols-outlined" onClick={handleEventClick} id={eventInfo.event.title}>delete</span>
-      </>
-    )
   }
 
   function handleEvents(events) {
@@ -89,15 +90,6 @@ export default function DemoApp() {
     fetch('http://localhost:8000/tasks', requestOptions)
       .then(response => response.json())
       .then(data => console.log(data));
-  }
-
-  function renderEventContent(eventInfo) {
-    return (
-      <>
-        <b>{eventInfo.timeText}</b>
-        <i>{eventInfo.event.title}</i>
-      </>
-    )
   }
 
   return (
@@ -129,6 +121,7 @@ export default function DemoApp() {
           events={projects} // alternatively, use the `events` setting to fetch from a feed
           select={handleDateSelect}
           eventContent={renderEventContent} // custom render function
+          eventClick={handleEventClick}
           eventsSet={handleEvents} // called after events are initialized/added/changed/removed
         /* you can update a remote database when these fire:
           eventAdd={function(){}}
@@ -141,29 +134,7 @@ export default function DemoApp() {
   )
 }
 
-function addProyect(obj) {
-  const requestOptions = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(obj)
-  };
-  fetch('http://localhost:8000/tasks', requestOptions)
-    .then(response => response.json())
-    .then(data => console.log());
-}
-
-function deleteProject(obj) {
-  const requestOptions = {
-    method: 'DELETE',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(obj)
-  };
-  fetch('http://localhost:8000/tasks', requestOptions)
-    .then(response => response.json())
-    .then(data => console.log());
-}
-
-function RenderSidebar({ handleWeekendsToggle, currentEvents, weekendsVisible }) {
+function RenderSidebar({ handleWeekendsToggle, weekendsVisible }) {
   return (
     <div className='demo-app-sidebar'>
       <div className='demo-app-sidebar-section'>
@@ -184,21 +155,15 @@ function RenderSidebar({ handleWeekendsToggle, currentEvents, weekendsVisible })
           toggle weekends
         </label>
       </div>
-      <div className='demo-app-sidebar-section'>
-        <h2>All Events ({currentEvents.length})</h2>
-        <ul>
-          {currentEvents.map(renderSidebarEvent)}
-        </ul>
-      </div>
     </div>
   )
 }
 
-function renderSidebarEvent(event) {
+function renderEventContent(eventInfo) {
   return (
-    <li key={event.id}>
-      <b>{formatDate(event.start, { year: 'numeric', month: 'short', day: 'numeric' })}</b>
-      <i>{event.title}</i>
-    </li>
+    <>
+      <b>{eventInfo.timeText}</b>
+      <i>{eventInfo.event.title}</i>
+    </>
   )
-}}
+}
