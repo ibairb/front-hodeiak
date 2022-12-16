@@ -1,5 +1,5 @@
 import "./ModalTask.css";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { v4 as uuid } from 'uuid';
 
 function ModalTask({ setOpenModal, obj, modalOpen}) {
@@ -28,7 +28,7 @@ function ModalTask({ setOpenModal, obj, modalOpen}) {
 
   const handleSubmit = event => {
     event.preventDefault();
-    // setTitle(event.target.title.value)
+    setTitle(event.target.title.value)
     setDescription(event.target.description.value)
     
     addProyect()

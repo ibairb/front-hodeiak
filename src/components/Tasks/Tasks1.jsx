@@ -11,11 +11,10 @@ import ModalTask from '../Modal/ModalTask'
 
 export default function DemoApp() {
   const [weekendsVisible, setWeekendsVisible] = useState(true)
-  const [currentEvents, setCurrentEvents] = useState([])
   const [projects, setProjects] = useState([])
   const [modalOpen, setModalOpen] = useState(false)
   const [obj, setObj] = useState({})
-  
+
 
   useEffect(() => {
     fetch('http://localhost:8000/tasks')
@@ -27,12 +26,12 @@ export default function DemoApp() {
   }, [])
 
   useEffect(() => {
-   
+
   }, [obj])
 
   function handleDateSelect(selectInfo) {
     // console.log(event)
-    
+
     let calendarApi = selectInfo.view.calendar
     setModalOpen(calendarApi)
 
@@ -40,7 +39,7 @@ export default function DemoApp() {
 
     setObj({
       id: createEventId(),
-      title:"",
+      title: "",
       start: selectInfo.startStr,
       end: selectInfo.endStr,
       allDay: selectInfo.allDay
@@ -55,10 +54,6 @@ export default function DemoApp() {
 
       clickInfo.event.remove()
     }
-  }
-
-  function handleEvents(events) {
-    setCurrentEvents(events)
   }
 
   function handleWeekendsToggle() {
@@ -84,7 +79,7 @@ export default function DemoApp() {
       </>
     )
   }
-  
+
   function renderSidebarEvent(event) {
     return (
       <li>
@@ -94,7 +89,7 @@ export default function DemoApp() {
     )
   }
 
-  function RenderSidebar({ handleWeekendsToggle, currentEvents, weekendsVisible }) {
+  function RenderSidebar({ handleWeekendsToggle, weekendsVisible }) {
     return (
       <div className='demo-app-sidebar'>
         <div className='demo-app-sidebar-section'>
@@ -115,20 +110,48 @@ export default function DemoApp() {
             toggle weekends
           </label>
         </div>
+      </div>
+    )
+  }
+
+  function RenderSidebar({ handleWeekendsToggle, weekendsVisible }) {
+    return (
+      <div className='demo-app-sidebar'>
         <div className='demo-app-sidebar-section'>
-          <h2>All Events ({currentEvents.length})</h2>
+          <h2>Instructions</h2>
           <ul>
-            {currentEvents.map(renderSidebarEvent)}
+            <li>Select dates and you will be prompted to create a new event</li>
+            <li>Drag, drop, and resize events</li>
+            <li>Click an event to delete it</li>
           </ul>
+        </div>
+        <div className='demo-app-sidebar-section'>
+          <label>
+            <input
+              type='checkbox'
+              checked={weekendsVisible}
+              onChange={handleWeekendsToggle}
+            ></input>
+            toggle weekends
+          </label>
         </div>
       </div>
     )
   }
-  
+
+  function renderEventContent(eventInfo) {
+    return (
+      <>
+        <b>{eventInfo.timeText}</b>
+        <i>{eventInfo.event.title}</i>
+      </>
+    )
+  }
+
   return (
 
     <div className='demo-app'>
-      {<RenderSidebar handleWeekendsToggle={handleWeekendsToggle} currentEvents={currentEvents} weekendsVisible={weekendsVisible} />}
+      {<RenderSidebar handleWeekendsToggle={handleWeekendsToggle} weekendsVisible={weekendsVisible} />}
       <div className='demo-app-main'>
         <div className='modal' style={{
           display: 'flex',
@@ -136,7 +159,7 @@ export default function DemoApp() {
           zIndex: '999',
           width: '100%',
         }}>
-          {modalOpen != false && <ModalTask  setObj={setObj} obj={obj} setOpenModal={setModalOpen} modalOpen={modalOpen}/>}
+          {modalOpen != false && <ModalTask setObj={setObj} obj={obj} setOpenModal={setModalOpen} modalOpen={modalOpen} />}
         </div>
         <FullCalendar
           plugins={[dayGridPlugin, timeGridPlugin, interactionPlugin]}
@@ -155,48 +178,9 @@ export default function DemoApp() {
           select={handleDateSelect}
           eventContent={renderEventContent} // custom render function
           eventClick={handleEventClick}
-          eventsSet={handleEvents} // called after events are initialized/added/changed/removed
-        /* you can update a remote database when these fire:
-          eventAdd={function(){}}
-          eventChange={function(){}}
-          eventRemove={function(){}}
-        */
+
         />
       </div>
     </div>
-  )
-}
-
-function RenderSidebar({ handleWeekendsToggle, weekendsVisible }) {
-  return (
-    <div className='demo-app-sidebar'>
-      <div className='demo-app-sidebar-section'>
-        <h2>Instructions</h2>
-        <ul>
-          <li>Select dates and you will be prompted to create a new event</li>
-          <li>Drag, drop, and resize events</li>
-          <li>Click an event to delete it</li>
-        </ul>
-      </div>
-      <div className='demo-app-sidebar-section'>
-        <label>
-          <input
-            type='checkbox'
-            checked={weekendsVisible}
-            onChange={handleWeekendsToggle}
-          ></input>
-          toggle weekends
-        </label>
-      </div>
-    </div>
-  )
-}
-
-function renderEventContent(eventInfo) {
-  return (
-    <>
-      <b>{eventInfo.timeText}</b>
-      <i>{eventInfo.event.title}</i>
-    </>
   )
 }

@@ -21,26 +21,23 @@ function Modal({ setOpenModal }) {
       status: status,
       hourCost: hourCost,
     }
-    console.log(newUser)
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(newUser)
     };
-    fetch('http://localhost:8000/users', requestOptions)
+    fetch('http://localhost:8000/users/create', requestOptions)
       .then(response => response.json())
       .then(data => console.log());
   }
 
   const handleSubmit = event => {
     event.preventDefault();
-    console.log(event.target.username.value)
-    console.log(event.target.email.value)
-    console.log(event.target.password.value)
-    console.log(event.target.status.value)
-    console.log(event.target.hourCost.value)
-    
-    console.log('useState 👉️', username)
+    setUserName(event.target.username.value)
+    setEmail(event.target.email.value)
+    setPassword(event.target.password.value)
+    setStatus(event.target.status.value)
+    setHourCost(event.target.hourCost.value)
     
     addNewUser()
     event.target.reset();
