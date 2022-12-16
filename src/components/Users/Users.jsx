@@ -94,6 +94,7 @@ const Users = () => {
             }}>
                  <button
                     style={{
+                        position: 'absolute',
                         marginLeft: '90%',
                         background: 'salmon',
                         border: 'none',
@@ -102,7 +103,9 @@ const Users = () => {
                         height: '30px',
                         borderRadius: '8px',
                         fontSize:'15px',
-                        cursor: 'pointer'
+                        cursor: 'pointer',
+                        right: '10%',
+                        bottom: '150%',
                     }}
                     onClick={() => {
                         setModalOpen(true);
