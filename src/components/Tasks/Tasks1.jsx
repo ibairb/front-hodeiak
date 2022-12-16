@@ -190,8 +190,6 @@ export default function DemoApp() {
     </div>
   )
 }
-<<<<<<< HEAD
-=======
 
 function RenderSidebar({ handleWeekendsToggle, weekendsVisible }) {
   return (
@@ -225,5 +223,4 @@ function renderEventContent(eventInfo) {
       <i>{eventInfo.event.title}</i>
     </>
   )
->>>>>>> 94158bf19e8d4f1963c34b49560be6d2559c6bb1
 }
