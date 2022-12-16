@@ -38,7 +38,6 @@ function ModalTask({ setOpenModal, obj,setObj, modalOpen}) {
       .then(data => console.log());
   }
 
-
   const handleSubmit = event => {
     event.preventDefault();
     // setTitle(event.target.title.value)
