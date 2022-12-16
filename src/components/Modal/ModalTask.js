@@ -1,19 +1,52 @@
 import "./ModalTask.css";
 import React, { useEffect, useState } from "react";
 
-function ModalTask({ setOpenModal }) {
-const [title, setTitle] = useState('')
-
-
-const handleSubmit = event => {
-  event.preventDefault();
-  setTitle(event.target.title.value)
-  console.log(event.target.description.value)
+function ModalTask({ setOpenModal, obj,setObj, modalOpen}) {
   
-  console.log('useState 👉️', title)
+  
+  const [description, setDescription] = useState('')
+  
+  const [title,setTitle] = useState("")
+  let newObj = {
+    title:title,
+    start:obj.start,
+    end:obj.end
+  }
+  
+  useEffect(()=>{
+    
+    
+   
+  },[obj])
+  
+  
+  function addProyect() {
+    let newObj = {
+      title:title,
+      start:obj.start,
+      end:obj.end
+    }
+    modalOpen.addEvent(newObj)
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(newObj)
+    };
+    fetch('http://localhost:8000/tasks', requestOptions)
+      .then(response => response.json())
+      .then(data => console.log());
+  }
 
-  event.target.reset();
-};
+  const handleSubmit = event => {
+    event.preventDefault();
+    // setTitle(event.target.title.value)
+    setDescription(event.target.description.value)
+    console.log(newObj.start)
+    addProyect()
+    setOpenModal(false)
+    
+    event.target.reset();
+  };
 
 
   return (
@@ -33,24 +66,24 @@ const handleSubmit = event => {
         </div>
         <div className="body">
           <form className="form" onSubmit={handleSubmit} >
-            <input type="text" placeholder="Title" className="title" name='title'/>
+            <input type="text" placeholder="Title" className="title" name='title' value={title} onChange={(e)=>setTitle(e.target.value)} />
             <span></span>
             <span></span>
-            <input type="text" placeholder="Description" className="description" name='description'/>
+            <input type="text" placeholder="Description" className="description" name="description" />
             <button type='submit' className="btn" id="continue">Continue</button>
             <span></span>
             <button
-            onClick={() => {
-              setOpenModal(false);
-            }}
-            className="btn"
-          >
-            Cancel
-          </button>
+              onClick={() => {
+                setOpenModal(false);
+              }}
+              className="btn"
+            >
+              Cancel
+            </button>
           </form>
         </div>
         <div className="footer">
-          
+
         </div>
       </div>
     </div>
