@@ -51,8 +51,7 @@ export default function DemoApp() {
     let confirm = prompt('write "confirm" to delete the event').toLowerCase()
 
     if (confirm === "confirm") {
-      console.log(clickInfo.event._def.id)
-      deleteProject(clickInfo.event._def.id)
+      deleteProject(clickInfo.event._def.publicId)
 
       clickInfo.event.remove()
     }
@@ -73,7 +72,7 @@ export default function DemoApp() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ id: id })
     };
-    fetch('http://localhost:8000/tasks', requestOptions)
+    fetch(`http://localhost:8000/tasks/${id}`, requestOptions)
       .then(response => response.json())
       .then(data => console.log(data));
   }
@@ -88,7 +87,7 @@ export default function DemoApp() {
   
   function renderSidebarEvent(event) {
     return (
-      <li key={event.id}>
+      <li>
         <b>{formatDate(event.start, { year: 'numeric', month: 'short', day: 'numeric' })}</b>
         <i>{event.title}</i>
       </li>
