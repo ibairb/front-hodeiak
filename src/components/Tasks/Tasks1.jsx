@@ -45,14 +45,6 @@ export default function DemoApp() {
       end: selectInfo.endStr,
       allDay: selectInfo.allDay
     })
-    // if (modalOpen) {
-    //   let objecto = {
-    //     id: createEventId(),
-    //     start: selectInfo.startStr,
-    //     end: selectInfo.endStr,
-    //     allDay: selectInfo.allDay
-    //   }
-    // }
   }
 
   function handleEventClick(clickInfo) {
@@ -61,7 +53,6 @@ export default function DemoApp() {
     if (confirm === "confirm") {
       console.log(clickInfo.event._def)
       deleteProject(clickInfo.event._def.title)
-      // alert('elemento eliminado')
 
       clickInfo.event.remove()
     }
