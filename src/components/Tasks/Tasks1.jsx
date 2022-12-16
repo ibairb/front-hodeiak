@@ -40,18 +40,11 @@ export default function DemoApp() {
 
     setObj({
       id: createEventId(),
+      title:"",
       start: selectInfo.startStr,
       end: selectInfo.endStr,
       allDay: selectInfo.allDay
     })
-    // if (modalOpen) {
-    //   let objecto = {
-    //     id: createEventId(),
-    //     start: selectInfo.startStr,
-    //     end: selectInfo.endStr,
-    //     allDay: selectInfo.allDay
-    //   }
-    // }
   }
 
   function handleEventClick(clickInfo) {
@@ -60,22 +53,9 @@ export default function DemoApp() {
     if (confirm === "confirm") {
       console.log(clickInfo.event._def)
       deleteProject(clickInfo.event._def.title)
-    
-    if (confirm === "confirm"){
-      deleteProject(clickInfo.event._def.title)
-      // alert('elemento eliminado')
 
       clickInfo.event.remove()
     }
-  }
-  function renderEventContent(eventInfo) {
-    return (
-      <>
-        <b>{eventInfo.timeText}</b>
-        <i>{eventInfo.event.title}</i>
-        <span className="material-symbols-outlined" onClick={handleEventClick} id={eventInfo.event.title}>delete</span>
-      </>
-    )
   }
 
   function handleEvents(events) {
@@ -99,7 +79,76 @@ export default function DemoApp() {
       .then(response => response.json())
       .then(data => console.log(data));
   }
-
+  function renderEventContent(eventInfo) {
+    return (
+      <>
+        <b>{eventInfo.timeText}</b>
+        <i>{eventInfo.event.title}</i>
+      </>
+    )
+  }
+  
+  function renderSidebarEvent(event) {
+    return (
+      <li key={event.id}>
+        <b>{formatDate(event.start, { year: 'numeric', month: 'short', day: 'numeric' })}</b>
+        <i>{event.title}</i>
+      </li>
+    )
+  }
+  function addProyect(obj) {
+    const requestOptions = {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(obj)
+    };
+    fetch('http://localhost:8000/tasks', requestOptions)
+      .then(response => response.json())
+      .then(data => console.log());
+  }
+  
+  function deleteProject(obj) {
+    const requestOptions = {
+      method: 'DELETE',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(obj)
+    };
+    fetch('http://localhost:8000/tasks', requestOptions)
+      .then(response => response.json())
+      .then(data => console.log());
+  }
+  
+  function RenderSidebar({ handleWeekendsToggle, currentEvents, weekendsVisible }) {
+    return (
+      <div className='demo-app-sidebar'>
+        <div className='demo-app-sidebar-section'>
+          <h2>Instructions</h2>
+          <ul>
+            <li>Select dates and you will be prompted to create a new event</li>
+            <li>Drag, drop, and resize events</li>
+            <li>Click an event to delete it</li>
+          </ul>
+        </div>
+        <div className='demo-app-sidebar-section'>
+          <label>
+            <input
+              type='checkbox'
+              checked={weekendsVisible}
+              onChange={handleWeekendsToggle}
+            ></input>
+            toggle weekends
+          </label>
+        </div>
+        <div className='demo-app-sidebar-section'>
+          <h2>All Events ({currentEvents.length})</h2>
+          <ul>
+            {currentEvents.map(renderSidebarEvent)}
+          </ul>
+        </div>
+      </div>
+    )
+  }
+  
   return (
 
     <div className='demo-app'>
@@ -129,7 +178,7 @@ export default function DemoApp() {
           events={projects} // alternatively, use the `events` setting to fetch from a feed
           select={handleDateSelect}
           eventContent={renderEventContent} // custom render function
-
+          eventClick={handleEventClick}
           eventsSet={handleEvents} // called after events are initialized/added/changed/removed
         /* you can update a remote database when these fire:
           eventAdd={function(){}}
@@ -142,29 +191,7 @@ export default function DemoApp() {
   )
 }
 
-function addProyect(obj) {
-  const requestOptions = {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(obj)
-  };
-  fetch('http://localhost:8000/tasks', requestOptions)
-    .then(response => response.json())
-    .then(data => console.log());
-}
-
-function deleteProject(obj) {
-  const requestOptions = {
-    method: 'DELETE',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(obj)
-  };
-  fetch('http://localhost:8000/tasks', requestOptions)
-    .then(response => response.json())
-    .then(data => console.log());
-}
-
-function RenderSidebar({ handleWeekendsToggle, currentEvents, weekendsVisible }) {
+function RenderSidebar({ handleWeekendsToggle, weekendsVisible }) {
   return (
     <div className='demo-app-sidebar'>
       <div className='demo-app-sidebar-section'>
@@ -185,12 +212,6 @@ function RenderSidebar({ handleWeekendsToggle, currentEvents, weekendsVisible })
           toggle weekends
         </label>
       </div>
-      <div className='demo-app-sidebar-section'>
-        <h2>All Events ({currentEvents.length})</h2>
-        <ul>
-          {currentEvents.map(renderSidebarEvent)}
-        </ul>
-      </div>
     </div>
   )
 }
@@ -203,12 +224,3 @@ function renderEventContent(eventInfo) {
     </>
   )
 }
-
-function renderSidebarEvent(event) {
-  return (
-    <li key={event.id}>
-      <b>{formatDate(event.start, { year: 'numeric', month: 'short', day: 'numeric' })}</b>
-      <i>{event.title}</i>
-    </li>
-  )
-}}

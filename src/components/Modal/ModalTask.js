@@ -26,6 +26,7 @@ function ModalTask({ setOpenModal, obj,setObj, modalOpen}) {
       start:obj.start,
       end:obj.end
     }
+    console.log(newObj)
     modalOpen.addEvent(newObj)
     const requestOptions = {
       method: 'POST',
@@ -37,12 +38,11 @@ function ModalTask({ setOpenModal, obj,setObj, modalOpen}) {
       .then(data => console.log());
   }
 
-
   const handleSubmit = event => {
     event.preventDefault();
     // setTitle(event.target.title.value)
     setDescription(event.target.description.value)
-    console.log(newObj)
+    
     addProyect()
     setOpenModal(false)
     
