@@ -9,6 +9,8 @@ const Login = () => {
     var txtEmail = document.getElementById("txtEmail").value;
     var txtPas = document.getElementById("txtPas").value;
 
+    localStorage.setItem('email',txtEmail);
+
     fetch(`http://localhost:8000/users/${txtEmail}`)
       .then((res) => res.json())
       .then((res) => {
@@ -38,6 +40,7 @@ const Login = () => {
         <p>Password</p>
         <input type="password" id="txtPas" onChange={e => setPassword(e.target.value)} required />
       </label>
+      <br></br>
       <div>
         <button type="submit" onClick={Login}>Submit</button>
       </div>
