@@ -1,12 +1,23 @@
+
+import { FormControl, InputLabel, MenuItem, Select } from "@mui/material"
 import { useEffect, useState } from "react"
 
-export const DropDownList = ({list,setValue,string}) => {
-  console.log(list);
-   
+
+export const DropDownList = ({ list, setValue, string }) => {
+
   return (
-    <select onClick={e=>setValue(e.target.value)}>
-        {list.map(collection=>string === "projects"? <option key={collection.projectname} value={collection.projectname}>{collection.projectname}</option>:string === "epics"?<option key={collection.epicname} value={collection.epicname}>{collection.epicname}</option>:string === "features"?<option key={collection.featurename} value={collection.featurename}>{collection.featurename}</option>:string === "pbis"?<option key={collection.pbiname} value={collection.pbiname}>{collection.pbiname}</option>:
-        <></>)}
-    </select>
+    <FormControl sx={{ m: 1, minWidth: 120 }}>
+      <InputLabel id="demo-simple-select-label">{string}</InputLabel>
+      <Select
+        onChange={e => setValue(e.target.value)}
+        required
+        className="dropdownlist"
+        defaultOpen={true}
+        label={string}
+        >
+        {list.map(collection => string === "projects" ? <MenuItem key={collection.projectname} value={collection.projectname}>{collection.projectname}</MenuItem> : string === "epics" ? <MenuItem key={collection.epicname} value={collection.epicname}>{collection.epicname}</MenuItem> : string === "features" ? <MenuItem key={collection.featurename} value={collection.featurename}>{collection.featurename}</MenuItem> : string === "pbis" ? <MenuItem key={collection.pbiname} value={collection.pbiname}>{collection.pbiname}</MenuItem> :
+          <></>)}
+      </Select>
+    </FormControl>
   )
 }
