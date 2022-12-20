@@ -5,7 +5,7 @@ import Select from 'react-select'
 import Modal from '../Modal/Modal';
 import "./projects.scss"
 
-const Users = () => {
+const Projects = () => {
     let [modalOpen, setModalOpen] = useState(false)
     let [projects, setProjects] = useState([])
     let [projectName,setProjectName] = useState([])
@@ -127,6 +127,17 @@ const Users = () => {
 
 
 
+    const columns = [
+        {
+            name: 'PROJECT',
+            selector: row => row.projectname
+        },
+        {
+            name: 'STATUS',
+            selector: row => row.status
+        },
+        
+    ]
     return (
         <>
            
@@ -160,12 +171,13 @@ const Users = () => {
                 }/>
                 
                 </div>
-            <div id="text">asdasasdasdd</div>          
+                     
             
             
         </>
     )
-
 }
+export default Projects;
 
-export default Users
+
+
