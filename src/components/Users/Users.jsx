@@ -86,7 +86,8 @@ const Users = () => {
             cell: row => <button
                 style={{
                     backgroundColor: 'transparent',
-                    border: 'none'
+                    border: 'none',
+                    cursor: 'pointer'
                 }}
                 className="material-symbols-outlined"
                 onClick={() => deleteSelectedUser(row.email)}
