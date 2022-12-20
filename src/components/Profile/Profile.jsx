@@ -7,6 +7,8 @@ const Profile = () => {
     const [status, setStatus] = useState(' ');
     const [username, setUsername] = useState(' ');
     const [projects, setProjects] = useState(' ');
+    const [phone, setPhone] = useState(' ');
+    const [hourCost, setHourCost] = useState(' ');
 
     const getData = () => {
 
@@ -22,7 +24,8 @@ const Profile = () => {
         .then((res) => {
             setStatus(res.status)
             setUsername(res.username)
-            setProjects(res.projects)
+            setPhone(res.phone)
+            setHourCost(res.hourCost)
         })
 
     return (
@@ -39,13 +42,15 @@ const Profile = () => {
                             <p>email: </p>
                             <p>status: </p>
                             <p>username: </p>
-                            <p>projects: </p>
+                            <p>phone: </p>
+                            <p>hour cost: </p>
                         </div>
                         <div className='listName'>
                             <p>{email}</p>
                             <p>{status}</p>
                             <p>{username}</p>
-                            <p>{projects}</p>
+                            <p>{phone}</p>
+                            <p>{hourCost}</p>
                         </div>
                     </div>
                 </div>
