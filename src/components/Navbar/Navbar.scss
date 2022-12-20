@@ -58,6 +58,19 @@ ul {
 
     }
   }
+  .login-data1{
+    margin-top: 15rem;
+    display: flex;
+    img{
+    width: 40px;
+    height: 40px;
+    margin-top: 8px;
+    }
+    #username{
+      color: white;
+      font-family: 'Noto Sans JP', sans-serif;
+    }
+  }
   .boton{
     margin-bottom: 10rem;
     border-radius: 8px;
