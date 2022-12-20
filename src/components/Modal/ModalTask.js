@@ -6,10 +6,10 @@ import { SecondModal } from "./SecondModal/SecondModal";
 function ModalTask({ setOpenModal, obj, modalOpen}) {
   const [title,setTitle] = useState("");
   const [description, setDescription] = useState('');
-  // const[star,setStar]=useState(date);
-  // const[star,setStar]=useState(date);
+  const[start,setStart]=useState(Date);
+  const[end,setEnd]=useState(Date);
+  const[user,setUser]=useState("");
   const [secondModalOpen, setSecondModalOpen] = useState(false)
-
   const unique_id = uuid();
  
   
@@ -18,8 +18,10 @@ function ModalTask({ setOpenModal, obj, modalOpen}) {
     let newObj = {
       id: unique_id,
       title:title,
+      description:description,
       start:obj.start,
-      end:obj.end
+      end:obj.end,
+      user:user
     }
     modalOpen.addEvent(newObj)
     const requestOptions = {
@@ -34,12 +36,11 @@ function ModalTask({ setOpenModal, obj, modalOpen}) {
 
   const handleSubmit = event => {
     event.preventDefault();
-    // setTitle(event.target.title.value)
+    setTitle(event.target.title.value)
     setDescription(event.target.description.value)
     
     addProyect()
     setOpenModal(false)
-    
     event.target.reset();
   };
 
