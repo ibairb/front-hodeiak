@@ -1,14 +1,18 @@
 import "./ModalTask.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { v4 as uuid } from 'uuid';
 import { SecondModal } from "./SecondModal/SecondModal";
-
-function ModalTask({ setOpenModal, obj, modalOpen}) {
-  const [title,setTitle] = useState("");
+import { DropDownList } from "./SecondModal/DropDownList";
+import { Button, Stack, TextField } from "@mui/material";
+import CancelIcon from '@mui/icons-material/Cancel';
+import CheckBoxIcon from '@mui/icons-material/CheckBox';
+function ModalTask({ setOpenModal, obj, modalOpen }) {
+  const [title, setTitle] = useState("");
   const [description, setDescription] = useState('');
-  const[start,setStart]=useState(Date);
-  const[end,setEnd]=useState(Date);
-  const[user,setUser]=useState("");
+  const [pbi, setPbi] = useState(null);
+  const [start, setStart] = useState(Date);
+  const [end, setEnd] = useState(Date);
+  const [user, setUser] = useState("");
   const [secondModalOpen, setSecondModalOpen] = useState(false)
   const unique_id = uuid();
  
@@ -23,6 +27,25 @@ console.log('diferencia', diferenciaEnMilisegundos);
 
 console.log('Diferencia en horas', diferenciaEnMilisegundos / 3600000)}
   
+  useEffect(() => {
+    setLocalUser()
+
+  }, [])
+
+  useEffect(() => {
+    if (pbi) {
+      console.log(pbi);
+    }
+
+  }, [pbi])
+
+  function setLocalUser() {
+
+    setUser(localStorage.getItem('email'));
+    console.log("usuario", user)
+
+  }
+
   function addProyect() {
     horario()
     let newObj = {
@@ -42,13 +65,21 @@ console.log('Diferencia en horas', diferenciaEnMilisegundos / 3600000)}
     fetch('http://localhost:8000/tasks', requestOptions)
       .then(response => response.json())
       .then(data => console.log());
+
+    pbi.tasks = [...pbi.tasks, unique_id]
+    console.log(pbi);
+    console.log(pbi.id);
+    const putTaskInPbi = {
+      method: 'PUT',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(pbi)
+    };
+    fetch(`http://localhost:8000/pbis/${pbi.id}`, putTaskInPbi)
+      .then(response => response.json())
+      .then(data => console.log(data));
   }
 
   const handleSubmit = event => {
-    event.preventDefault();
-    setTitle(event.target.title.value)
-    setDescription(event.target.description.value)
-    
     addProyect()
     setOpenModal(false)
     event.target.reset();
@@ -57,46 +88,77 @@ console.log('Diferencia en horas', diferenciaEnMilisegundos / 3600000)}
 
   return (
     <>
-    <div className="modalBackground">
-      <div className="modalContainer">
-        <div className="titleCloseBtn">
-          <button
-            onClick={() => {
-              setOpenModal(false);
-            }}
-          >
-            X
-          </button>
-        </div>
-        <div className="title">
-          <h1>Fill below fields to create a new task</h1>
-        </div>
-        <button className="btn" onClick={()=>{setSecondModalOpen(true)}} id="taskSelection">Select Task</button>
-        <div className="body">
-          <form className="form" onSubmit={handleSubmit} >
-            
-            <input type="text" placeholder="Title" className="title" name='title' value={title} onChange={(e)=>setTitle(e.target.value)} />
-            <span></span>
-            <span></span>
-            <input type="text" placeholder="Description" className="description" name="description" />
-            <button type='submit' className="btn" id="continue">Continue</button>
-            <span></span>
+      <div className="modalBackground">
+        <div className="modalContainer">
+          <div className="titleCloseBtn">
             <button
               onClick={() => {
                 setOpenModal(false);
               }}
-              className="btn"
             >
-              Cancel
+              X
             </button>
-          </form>
-        </div>
-        <div className="footer">
+          </div>
+          <div className="projects">
+            <h2 className="titulo-modal">Select Project, Epic, Feature and PBI to assign task</h2>
+            <SecondModal setPbi={setPbi} />
+          </div>
+          <div className="line-width"></div>
+          <div className="title">
+            <h2 className="titulo-modal">Fill below fields to create a new task</h2>
+          </div>
+          <div className="body">
+            <form className="form" onSubmit={handleSubmit} >
+              <TextField
+                variant="standard"
+                color="warning"
+                focused
+                margin="normal"
+                placeholder="Title"
+                className="title"
+                name='title'
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                sx={{
+                  '& > :not(style)': { mb: 1, width: '30ch' },
+                }}
+              />
+              <TextField
+                variant="standard"
+                color="warning"
+                focused
+                margin="normal"
+                placeholder="Description"
+                className="description"
+                name='description'
+                value={description}
+                onChange={(e) => setDescription(e.target.value)}
+                sx={{
+                  '& > :not(style)': { mb: 5, width: '30ch' },
+                }}
+              />
+              <Stack direction="row" spacing={2}>
+                <Button style={{
+                  backgroundColor: "rgba(241, 171, 32, 0.853)"
+                }}
+                  variant="contained" startIcon={<CheckBoxIcon/>} onClick={() => handleSubmit()} >
+                  Confirm
+                </Button>
+                <Button style={{
+                  color: "rgba(241, 171, 32, 0.853)",
+                  borderColor: "rgba(241, 171, 32, 0.853)"
+                }}
+                variant="outlined" startIcon={<CancelIcon  />} onClick={() => { setOpenModal(false) }}>
+                  Delete
+                </Button>
+              </Stack>
+            </form>
+          </div>
+          <div className="footer">
 
+          </div>
         </div>
       </div>
-    </div>
-    {secondModalOpen && <SecondModal />}
     </>
   );
 }
