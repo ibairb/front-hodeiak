@@ -2,6 +2,18 @@
 
     .datos{
         display: flex;
+
+        .Data{
+            display: flex;
+
+            .list{
+                font-weight: bold;
+            }
+
+            .listName{
+                margin-left: 15px;
+            }
+        }
     }
 
   
