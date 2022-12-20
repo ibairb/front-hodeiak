@@ -6,7 +6,6 @@ import TaskContext from '../src/components/context/TaskContext';
 function App() {
   return (
     <>
-    <Logo/>
     <Navbar/>
     </>
   );
