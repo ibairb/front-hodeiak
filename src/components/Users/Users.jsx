@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react"
 import DataTable, { defaultThemes } from 'react-data-table-component'
-import Modal from '../Modal/Modal';
+import Modal from '../Modal/Modal'
 
 const Users = () => {
     let [users, setUsers] = useState()
     const [modalOpen, setModalOpen] = useState(false);
+    const [selectedUser, setSelectedUser] = useState();
+
 
     useEffect(() => {
         getData()
@@ -67,24 +69,36 @@ const Users = () => {
             selector: row => row.email,
             sortable: true
         },
-        
+
         {
             name: 'PHONE',
             selector: row => row.phone,
             sortable: true
         },
-        
+
         {
             name: 'PROJECTS',
             selector: row => row.projects,
             sortable: true
+        },
+        {
+            name: 'Delete User',
+            cell: row => <button
+                className="material-symbols-outlined"
+                onClick={() => console.log(row.email)}
+            >
+                Delete
+            </button>
         }
     ]
 
+    const deleteSelectedUser = (user) => {
+        setSelectedUser(user);
+    };
 
     return (
         <>
-        <div className='modal' style={{
+            <div className='modal' style={{
                 display: 'flex',
                 justifyContent: 'center',
                 zIndex: '999',
@@ -92,7 +106,7 @@ const Users = () => {
                 width: '100%',
                 paddingTop: '50px',
             }}>
-                 <button
+                <button
                     style={{
                         position: 'absolute',
                         marginLeft: '90%',
@@ -103,7 +117,7 @@ const Users = () => {
                         width: '80px',
                         height: '30px',
                         borderRadius: '8px',
-                        fontSize:'15px',
+                        fontSize: '15px',
                         cursor: 'pointer',
                     }}
                     onClick={() => {
@@ -121,8 +135,6 @@ const Users = () => {
                     columns={columns}
                     data={users}
                     pagination
-                    selectableRows
-                    selectableRowsHighlight
                     dense
                     subHeader
                     subHeaderComponent={
