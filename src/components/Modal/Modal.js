@@ -9,6 +9,7 @@ function Modal({ setOpenModal }) {
   const [image, setImage] = useState('')
   const [status, setStatus] = useState('')
   const [hourCost, setHourCost] = useState('')
+  const [phone, setPhone] = useState('')
   const unique_id = uuid();
 
   function addNewUser() {
@@ -20,6 +21,7 @@ function Modal({ setOpenModal }) {
       image: '',
       status: status,
       hourCost: hourCost,
+      phone: phone,
     }
     const requestOptions = {
       method: 'POST',
@@ -38,6 +40,7 @@ function Modal({ setOpenModal }) {
     setPassword(event.target.password.value)
     setStatus(event.target.status.value)
     setHourCost(event.target.hourCost.value)
+    setPhone(event.target.phone.value)
     
     addNewUser()
     event.target.reset();
@@ -66,6 +69,7 @@ function Modal({ setOpenModal }) {
             <input type="password" placeholder="Password" className="password" name="password"/>
             <input type="email" placeholder="email" name="email"/>
             <input type="text" placeholder="Hour Cost" className="hourCost" name="hourCost"/>
+            <input type="number" placeholder="phone" className="phone" name="phone"/>
             <button
               onClick={() => {
                 setOpenModal(false);
