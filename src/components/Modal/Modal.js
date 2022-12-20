@@ -1,6 +1,7 @@
 import "./Modal.css";
 import React, { useEffect, useState } from "react";
 import { v4 as uuid } from 'uuid';
+import { Password } from "@mui/icons-material";
 
 function Modal({ setOpenModal }) {
   const [username, setUserName] = useState('')
@@ -9,6 +10,7 @@ function Modal({ setOpenModal }) {
   const [image, setImage] = useState('')
   const [status, setStatus] = useState('')
   const [hourCost, setHourCost] = useState('')
+  const [phone, setPhone] = useState('')
   const unique_id = uuid();
 
   function addNewUser() {
@@ -20,6 +22,7 @@ function Modal({ setOpenModal }) {
       image: '',
       status: status,
       hourCost: hourCost,
+      phone: phone,
     }
     const requestOptions = {
       method: 'POST',
@@ -33,14 +36,17 @@ function Modal({ setOpenModal }) {
 
   const handleSubmit = event => {
     event.preventDefault();
-    setUserName(event.target.username.value)
-    setEmail(event.target.email.value)
-    setPassword(event.target.password.value)
-    setStatus(event.target.status.value)
-    setHourCost(event.target.hourCost.value)
-    
     addNewUser()
-    event.target.reset();
+
+    setUserName("")
+    setEmail("")
+    setPassword("")
+    setStatus("")
+    setHourCost("")
+    setPhone("")
+    setOpenModal(false)
+    // event.target.reset();
+    window.location.reload(false);
   };
 
 
@@ -61,11 +67,12 @@ function Modal({ setOpenModal }) {
         </div>
         <div className="body">
           <form className="form" onSubmit={handleSubmit} >
-            <input type="text" placeholder="Username" className="username" name='username' />
-            <input type="text" placeholder="Status" className="status" name="status"/>
-            <input type="password" placeholder="Password" className="password" name="password"/>
-            <input type="email" placeholder="email" name="email"/>
-            <input type="text" placeholder="Hour Cost" className="hourCost" name="hourCost"/>
+            <input type="text" placeholder="Username" className="username" name='username' value={username} onChange={(e)=>setUserName(e.target.value)} />
+            <input type="text" placeholder="Status" className="status" name="status" value={status} onChange={(e)=>setStatus(e.target.value)} />
+            <input type="password" placeholder="Password" className="password" name="password" value={password} onChange={(e)=>setPassword(e.target.value)} />
+            <input type="email" placeholder="email" name="email" value={email} onChange={(e)=>setEmail(e.target.value)} />
+            <input type="text" placeholder="Hour Cost" className="hourCost" name="hourCost" value={hourCost} onChange={(e)=>setHourCost(e.target.value)} />
+            <input type="number" placeholder="phone" className="phone" name="phone" value={phone} onChange={(e)=>setPhone(e.target.value)} />
             <button
               onClick={() => {
                 setOpenModal(false);
