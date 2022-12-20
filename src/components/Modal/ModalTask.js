@@ -1,10 +1,17 @@
 import "./ModalTask.css";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { v4 as uuid } from 'uuid';
+import { SecondModal } from "./SecondModal/SecondModal";
 
 function ModalTask({ setOpenModal, obj, modalOpen}) {
-  const [description, setDescription] = useState('')
+  const [title,setTitle] = useState("");
+  const [description, setDescription] = useState('');
+  const[start,setStart]=useState(Date);
+  const[end,setEnd]=useState(Date);
+  const[user,setUser]=useState("");
+  const [secondModalOpen, setSecondModalOpen] = useState(false)
   const unique_id = uuid();
+ 
   
   const [title,setTitle] = useState("")
  
@@ -22,13 +29,16 @@ let diferenciaEnMilisegundos = t - t2;
 console.log('diferencia', diferenciaEnMilisegundos);
 
 console.log('Diferencia en horas', diferenciaEnMilisegundos / 3600000)}
+  
   function addProyect() {
     horario()
     let newObj = {
       id:unique_id,
       title:title,
+      description:description,
       start:obj.start,
-      end:obj.end
+      end:obj.end,
+      user:user
     }
     modalOpen.addEvent(newObj)
     const requestOptions = {
@@ -43,17 +53,17 @@ console.log('Diferencia en horas', diferenciaEnMilisegundos / 3600000)}
 
   const handleSubmit = event => {
     event.preventDefault();
-    // setTitle(event.target.title.value)
+    setTitle(event.target.title.value)
     setDescription(event.target.description.value)
     
     addProyect()
     setOpenModal(false)
-    
     event.target.reset();
   };
 
 
   return (
+    <>
     <div className="modalBackground">
       <div className="modalContainer">
         <div className="titleCloseBtn">
@@ -68,8 +78,10 @@ console.log('Diferencia en horas', diferenciaEnMilisegundos / 3600000)}
         <div className="title">
           <h1>Fill below fields to create a new task</h1>
         </div>
+        <button className="btn" onClick={()=>{setSecondModalOpen(true)}} id="taskSelection">Select Task</button>
         <div className="body">
           <form className="form" onSubmit={handleSubmit} >
+            
             <input type="text" placeholder="Title" className="title" name='title' value={title} onChange={(e)=>setTitle(e.target.value)} />
             <span></span>
             <span></span>
@@ -91,6 +103,8 @@ console.log('Diferencia en horas', diferenciaEnMilisegundos / 3600000)}
         </div>
       </div>
     </div>
+    {secondModalOpen && <SecondModal />}
+    </>
   );
 }
 

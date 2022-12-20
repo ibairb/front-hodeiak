@@ -9,20 +9,22 @@ const Login = () => {
     var txtEmail = document.getElementById("txtEmail").value;
     var txtPas = document.getElementById("txtPas").value;
 
+    localStorage.setItem('email',txtEmail);
+
     fetch(`http://localhost:8000/users/${txtEmail}`)
       .then((res) => res.json())
       .then((res) => {
-        if(res.error){
+        if (res.error) {
           alert("errrrrrroooooooor")
         } else {
-          if (res.password == txtPas){
-            if (res.status === 'user'){
-              window.location.href = 'http://localhost:3000/projects'
-            }else {
+          if (res.password == txtPas) {
+            if (res.status === 'user') {
+              window.location.href = 'http://localhost:3000/profile'
+            } else {
               window.location.href = 'http://localhost:3000/users'
             }
-          }else {
-            alert ('usuario o contraseña incorrecta')
+          } else {
+            alert('usuario o contraseña incorrecta')
           }
         }
       })
@@ -38,6 +40,7 @@ const Login = () => {
         <p>Password</p>
         <input type="password" id="txtPas" onChange={e => setPassword(e.target.value)} required />
       </label>
+      <br></br>
       <div>
         <button type="submit" onClick={Login}>Submit</button>
       </div>

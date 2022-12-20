@@ -6,7 +6,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    z-index: 999;
+    z-index: 1;
 }
 
 .modalContainer {
@@ -77,4 +77,12 @@ form {
 
 input {
     height: 20px;
+}
+
+.contenedorPrincipal {
+    z-index: 100;
+}
+
+.ReactModal__Overlay--after-open {
+    z-index: 1000;
 }
