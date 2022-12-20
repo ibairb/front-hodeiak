@@ -7,25 +7,25 @@ function ModalTask({ setOpenModal, obj, modalOpen}) {
   const unique_id = uuid();
   
   const [title,setTitle] = useState("")
-<<<<<<< HEAD
  
   useEffect(()=>{
     
     
    
   },[obj])
-  
-=======
->>>>>>> origin/dev
-  
+  function horario() {
+  let t = new Date('Wed Dec 21 2022 00:00:00 GMT+0100');
+let t2 = new Date('Tue Dec 20 2022 00:00:00 GMT+0100');
+
+let diferenciaEnMilisegundos = t - t2;
+
+console.log('diferencia', diferenciaEnMilisegundos);
+
+console.log('Diferencia en horas', diferenciaEnMilisegundos / 3600000)}
   function addProyect() {
-    
+    horario()
     let newObj = {
-<<<<<<< HEAD
-      id:eventGuid2,
-=======
-      id: unique_id,
->>>>>>> origin/dev
+      id:unique_id,
       title:title,
       start:obj.start,
       end:obj.end

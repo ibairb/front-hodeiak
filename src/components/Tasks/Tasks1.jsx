@@ -53,8 +53,9 @@ export default function DemoApp() {
     let confirm = prompt('write "confirm" to delete the event').toLowerCase()
 
     if (confirm === "confirm") {
-      console.log(clickInfo.event._def.id)
-      deleteProject(clickInfo.event._def.id)
+      console.log(clickInfo.event
+        )
+      deleteProject(clickInfo.event._def.publicId)
 
       clickInfo.event.remove()
     }
