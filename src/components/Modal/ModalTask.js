@@ -12,11 +12,7 @@ function ModalTask({ setOpenModal, obj, modalOpen}) {
   const [secondModalOpen, setSecondModalOpen] = useState(false)
   const unique_id = uuid();
  
-  useEffect(()=>{
-    
-    
-   
-  },[obj])
+  
   function horario() {
   let t = new Date('Wed Dec 21 2022 00:00:00 GMT+0100');
 let t2 = new Date('Tue Dec 20 2022 00:00:00 GMT+0100');

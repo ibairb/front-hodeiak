@@ -171,7 +171,7 @@ const Projects = () => {
                 }/>
                 
                 </div>
-            <div id="text">asdasasdasdd</div>          
+                     
             
             
         </>
