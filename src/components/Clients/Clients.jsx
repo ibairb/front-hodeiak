@@ -21,16 +21,13 @@ const Clients = () => {
     const columns = [
         {
             name: 'CLIENT',
-            selector: row => row.client
+            selector: row => row.clientname
         },
         {
-            name: 'PROJECTS',
-            selector: row => row.projects
+            name: 'WEB',
+            selector: row => row.email
         },
-        {
-            name: 'REF NUMBER',
-            selector: row => row.ref
-        }
+        
     ]
 
 

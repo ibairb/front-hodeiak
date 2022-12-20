@@ -110,6 +110,7 @@ const Users = () => {
                     style={{
                         position: 'absolute',
                         marginLeft: '90%',
+                        marginTop: '-10%',
                         background: 'salmon',
                         border: 'none',
                         color: 'white',
@@ -118,8 +119,6 @@ const Users = () => {
                         borderRadius: '8px',
                         fontSize: '15px',
                         cursor: 'pointer',
-                        right: '10%',
-                        bottom: '150%',
                     }}
                     onClick={() => {
                         setModalOpen(true);
