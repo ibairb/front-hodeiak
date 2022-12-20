@@ -12,12 +12,8 @@ import Navbar from './components/Navbar/Navbar';
 function App() {
   return (
     <>
-<<<<<<< HEAD
-    <Navbar/>
-=======
       <BrowserRouter>
         <Logo />
-
         <Routes>
           <Route>
             <Route path='/users' element={<><Navbar/><Users /></>} />
@@ -29,7 +25,6 @@ function App() {
           </Route>
         </Routes>
       </BrowserRouter>
->>>>>>> 2996e72216e1cddd67928324626b66ab35d38035
     </>
   );
 }

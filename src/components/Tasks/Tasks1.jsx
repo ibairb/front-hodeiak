@@ -11,13 +11,7 @@ import ModalTask from '../Modal/ModalTask'
 
 export default function DemoApp() {
   const [weekendsVisible, setWeekendsVisible] = useState(true)
-<<<<<<< HEAD
-  const [currentEvents, setCurrentEvents] = useState([])
-  // const [projects, setProjects] = useState([])
-  const [task,setTask]=useState()
-=======
   const [projects, setProjects] = useState([])
->>>>>>> 2996e72216e1cddd67928324626b66ab35d38035
   const [modalOpen, setModalOpen] = useState(false)
   const [obj, setObj] = useState({})
 
@@ -45,12 +39,7 @@ export default function DemoApp() {
 
     setObj({
       id: createEventId(),
-<<<<<<< HEAD
-      title:"",
-      description:"",
-=======
       title: "",
->>>>>>> 2996e72216e1cddd67928324626b66ab35d38035
       start: selectInfo.startStr,
       end: selectInfo.endStr,
       user:""
