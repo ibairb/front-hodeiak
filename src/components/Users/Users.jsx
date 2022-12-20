@@ -84,8 +84,12 @@ const Users = () => {
         {
             name: 'Delete User',
             cell: row => <button
+                style={{
+                    backgroundColor: 'transparent',
+                    border: 'none'
+                }}
                 className="material-symbols-outlined"
-                onClick={() => console.log(row.email)}
+                onClick={() => deleteSelectedUser(row.email)}
             >
                 Delete
             </button>
@@ -94,6 +98,14 @@ const Users = () => {
 
     const deleteSelectedUser = (user) => {
         setSelectedUser(user);
+        const requestOptions = {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: user })
+          };
+          fetch(`http://localhost:8000/users/${user}`, requestOptions)
+            .then(response => response.json())
+            .then(data => console.log(data));
     };
 
     return (
