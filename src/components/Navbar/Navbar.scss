@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+JP&display=swap');
+
 ul {
   list-style-type: none;
 }
@@ -41,8 +43,23 @@ ul {
 
     }
   }
+
+  .login-data{
+    margin-top: 10rem;
+    display: flex;
+    img{
+    width: 40px;
+    height: 40px;
+    margin-top: 8px;
+    }
+    #username{
+      color: white;
+      font-family: 'Noto Sans JP', sans-serif;
+
+    }
+  }
   .boton{
-    margin-top: 15rem;
+    margin-bottom: 10rem;
     border-radius: 8px;
     border-width: 0.5px;
     border-color: white;
