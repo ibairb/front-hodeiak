@@ -5,9 +5,11 @@
 
         .Data{
             display: flex;
+            margin-left: 15px;
 
             .list{
                 font-weight: bold;
+    
             }
 
             .listName{
@@ -19,8 +21,9 @@
   
 
     img{
-        height: 9rem;
-        width: 10rem;
+        margin-top: 10px;
+        height: 8rem;
+        width: 9rem;
     }
 
 
