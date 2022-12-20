@@ -12,7 +12,8 @@ import ModalTask from '../Modal/ModalTask'
 export default function DemoApp() {
   const [weekendsVisible, setWeekendsVisible] = useState(true)
   const [currentEvents, setCurrentEvents] = useState([])
-  const [projects, setProjects] = useState([])
+  // const [projects, setProjects] = useState([])
+  const [task,setTask]=useState()
   const [modalOpen, setModalOpen] = useState(false)
   const [obj, setObj] = useState({})
   
@@ -22,7 +23,7 @@ export default function DemoApp() {
       .then(response => response.json())
       .then(data => {
         data.id = createEventId()
-        setProjects([...data, ...INITIAL_EVENTS])
+        setTask([...data, ...INITIAL_EVENTS])
       });
   }, [])
 
@@ -41,9 +42,10 @@ export default function DemoApp() {
     setObj({
       id: createEventId(),
       title:"",
+      description:"",
       start: selectInfo.startStr,
       end: selectInfo.endStr,
-      allDay: selectInfo.allDay
+      user:""
     })
   }
 
@@ -51,7 +53,7 @@ export default function DemoApp() {
     let confirm = prompt('write "confirm" to delete the event').toLowerCase()
 
     if (confirm === "confirm") {
-      deleteProject(clickInfo.event._def.publicId)
+      deleteTask(clickInfo.event._def.publicId)
 
       clickInfo.event.remove()
     }
@@ -65,7 +67,7 @@ export default function DemoApp() {
     setWeekendsVisible(!weekendsVisible)
   }
 
-  function deleteProject(id) {
+  function deleteTask(id) {
     console.log(id)
     const requestOptions = {
       method: 'DELETE',
@@ -151,7 +153,7 @@ export default function DemoApp() {
           selectMirror={true}
           dayMaxEvents={true}
           weekends={weekendsVisible}
-          events={projects} // alternatively, use the `events` setting to fetch from a feed
+          events={task} // alternatively, use the `events` setting to fetch from a feed
           select={handleDateSelect}
           eventContent={renderEventContent} // custom render function
           eventClick={handleEventClick}

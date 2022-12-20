@@ -1,5 +1,6 @@
 import "./Modal.css";
 import React, { useEffect, useState } from "react";
+import { SecondModal } from "./SecondModal/SecondModal";
 
 function Modal({ setOpenModal }) {
 const [username, setUserName] = useState('')

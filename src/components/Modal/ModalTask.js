@@ -1,12 +1,18 @@
 import "./ModalTask.css";
 import React, { useEffect, useState } from "react";
 import { v4 as uuid } from 'uuid';
+import { SecondModal } from "./SecondModal/SecondModal";
 
 function ModalTask({ setOpenModal, obj, modalOpen}) {
-  const [description, setDescription] = useState('')
+  const [title,setTitle] = useState("");
+  const [description, setDescription] = useState('');
+  // const[star,setStar]=useState(date);
+  // const[star,setStar]=useState(date);
+  const [secondModalOpen, setSecondModalOpen] = useState(false)
+
   const unique_id = uuid();
+ 
   
-  const [title,setTitle] = useState("")
   
   function addProyect() {
     let newObj = {
@@ -39,6 +45,7 @@ function ModalTask({ setOpenModal, obj, modalOpen}) {
 
 
   return (
+    <>
     <div className="modalBackground">
       <div className="modalContainer">
         <div className="titleCloseBtn">
@@ -53,8 +60,10 @@ function ModalTask({ setOpenModal, obj, modalOpen}) {
         <div className="title">
           <h1>Fill below fields to create a new task</h1>
         </div>
+        <button className="btn" onClick={()=>{setSecondModalOpen(true)}} id="taskSelection">Select Task</button>
         <div className="body">
           <form className="form" onSubmit={handleSubmit} >
+            
             <input type="text" placeholder="Title" className="title" name='title' value={title} onChange={(e)=>setTitle(e.target.value)} />
             <span></span>
             <span></span>
@@ -76,6 +85,8 @@ function ModalTask({ setOpenModal, obj, modalOpen}) {
         </div>
       </div>
     </div>
+    {secondModalOpen && <SecondModal />}
+    </>
   );
 }
 
