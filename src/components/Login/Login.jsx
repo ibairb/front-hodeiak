@@ -12,17 +12,17 @@ const Login = () => {
     fetch(`http://localhost:8000/users/${txtEmail}`)
       .then((res) => res.json())
       .then((res) => {
-        if(res.error){
+        if (res.error) {
           alert("errrrrrroooooooor")
         } else {
-          if (res.password == txtPas){
-            if (res.status === 'user'){
-              window.location.href = 'http://localhost:3000/projects'
-            }else {
+          if (res.password == txtPas) {
+            if (res.status === 'user') {
+              window.location.href = 'http://localhost:3000/profile'
+            } else {
               window.location.href = 'http://localhost:3000/users'
             }
-          }else {
-            alert ('usuario o contraseña incorrecta')
+          } else {
+            alert('usuario o contraseña incorrecta')
           }
         }
       })
