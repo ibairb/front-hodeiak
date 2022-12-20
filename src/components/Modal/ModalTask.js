@@ -12,9 +12,6 @@ function ModalTask({ setOpenModal, obj, modalOpen}) {
   const [secondModalOpen, setSecondModalOpen] = useState(false)
   const unique_id = uuid();
  
-  
-  const [title,setTitle] = useState("")
- 
   useEffect(()=>{
     
     
