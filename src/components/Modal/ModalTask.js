@@ -1,32 +1,35 @@
 import "./ModalTask.css";
 import React, { useEffect, useState } from "react";
+import { v4 as uuid } from 'uuid';
 
-function ModalTask({ setOpenModal, obj,setObj, modalOpen}) {
-  
-  
+function ModalTask({ setOpenModal, obj, modalOpen}) {
   const [description, setDescription] = useState('')
+  const unique_id = uuid();
   
   const [title,setTitle] = useState("")
-  let newObj = {
-    title:title,
-    start:obj.start,
-    end:obj.end
-  }
-  
+ 
   useEffect(()=>{
     
     
    
   },[obj])
-  
-  
+  function horario() {
+  let t = new Date('Wed Dec 21 2022 00:00:00 GMT+0100');
+let t2 = new Date('Tue Dec 20 2022 00:00:00 GMT+0100');
+
+let diferenciaEnMilisegundos = t - t2;
+
+console.log('diferencia', diferenciaEnMilisegundos);
+
+console.log('Diferencia en horas', diferenciaEnMilisegundos / 3600000)}
   function addProyect() {
+    horario()
     let newObj = {
+      id:unique_id,
       title:title,
       start:obj.start,
       end:obj.end
     }
-    console.log(newObj)
     modalOpen.addEvent(newObj)
     const requestOptions = {
       method: 'POST',
