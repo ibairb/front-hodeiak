@@ -1,10 +1,6 @@
 import "./Modal.css";
 import React, { useEffect, useState } from "react";
-<<<<<<< HEAD
-import { SecondModal } from "./SecondModal/SecondModal";
-=======
 import { v4 as uuid } from 'uuid';
->>>>>>> 2996e72216e1cddd67928324626b66ab35d38035
 
 function Modal({ setOpenModal }) {
   const [username, setUserName] = useState('')

@@ -21,7 +21,7 @@ export default function DemoApp() {
       .then(response => response.json())
       .then(data => {
         data.id = createEventId()
-        setTask([...data, ...INITIAL_EVENTS])
+        setProjects([...data, ...INITIAL_EVENTS])
       });
   }, [])
 
@@ -174,7 +174,7 @@ export default function DemoApp() {
           selectMirror={true}
           dayMaxEvents={true}
           weekends={weekendsVisible}
-          events={task} // alternatively, use the `events` setting to fetch from a feed
+          events={projects} // alternatively, use the `events` setting to fetch from a feed
           select={handleDateSelect}
           eventContent={renderEventContent} // custom render function
           eventClick={handleEventClick}
