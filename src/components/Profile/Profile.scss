@@ -2,13 +2,28 @@
 
     .datos{
         display: flex;
+
+        .Data{
+            display: flex;
+            margin-left: 15px;
+
+            .list{
+                font-weight: bold;
+    
+            }
+
+            .listName{
+                margin-left: 15px;
+            }
+        }
     }
 
   
 
     img{
-        height: 9rem;
-        width: 10rem;
+        margin-top: 10px;
+        height: 8rem;
+        width: 9rem;
     }
 
 

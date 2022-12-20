@@ -77,17 +77,13 @@ const Users = () => {
         },
 
         {
-            name: 'PROJECTS',
-            selector: row => row.projects,
-            sortable: true
-        },
-        {
             name: 'Delete User',
             cell: row => <button
                 style={{
                     cursor: 'pointer',
                     backgroundColor: 'transparent',
-                    border: 'none'
+                    border: 'none',
+                    cursor: 'pointer'
                 }}
                 className="material-symbols-outlined"
                 onClick={() => deleteSelectedUser(row.email)}
@@ -106,7 +102,7 @@ const Users = () => {
           };
           fetch(`http://localhost:8000/users/${user}`, requestOptions)
             .then(response => response.json())
-            .then(data => console.log(data));
+            .then(data => window.location.reload(false));
     };
 
     return (
@@ -143,8 +139,6 @@ const Users = () => {
             </div>
             <div className='content'>
                 <DataTable
-                    title='Users'
-                    customStyles={customStyles}
                     columns={columns}
                     data={users}
                     pagination

@@ -1,6 +1,7 @@
 import "./Modal.css";
 import React, { useEffect, useState } from "react";
 import { v4 as uuid } from 'uuid';
+import { Password } from "@mui/icons-material";
 
 function Modal({ setOpenModal }) {
   const [username, setUserName] = useState('')
@@ -9,6 +10,7 @@ function Modal({ setOpenModal }) {
   const [image, setImage] = useState('')
   const [status, setStatus] = useState('user')
   const [hourCost, setHourCost] = useState('')
+  const [phone, setPhone] = useState('')
   const unique_id = uuid();
 
   function addNewUser() {
@@ -20,6 +22,7 @@ function Modal({ setOpenModal }) {
       image: '',
       status: status,
       hourCost: hourCost,
+      phone: phone,
     }
     const requestOptions = {
       method: 'POST',
@@ -34,6 +37,7 @@ function Modal({ setOpenModal }) {
         setHourCost("")
         setStatus("")
         setPassword("")
+        window.location.reload(false);
       });
   }
 

@@ -14,7 +14,6 @@ function App() {
     <>
       <BrowserRouter>
         <Logo />
-
         <Routes>
           <Route>
             <Route path='/users' element={<><Navbar/><Users /></>} />

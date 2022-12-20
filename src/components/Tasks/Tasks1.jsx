@@ -29,6 +29,8 @@ export default function DemoApp() {
 
   }, [obj])
 
+  
+  
   function handleDateSelect(selectInfo) {
     // console.log(event)
 
@@ -42,7 +44,7 @@ export default function DemoApp() {
       title: "",
       start: selectInfo.startStr,
       end: selectInfo.endStr,
-      allDay: selectInfo.allDay
+      user:""
     })
   }
 
@@ -50,7 +52,7 @@ export default function DemoApp() {
     let confirm = prompt('write "confirm" to delete the event').toLowerCase()
 
     if (confirm === "confirm") {
-      deleteProject(clickInfo.event._def.publicId)
+      deleteTask(clickInfo.event._def.publicId)
 
       clickInfo.event.remove()
     }
@@ -60,7 +62,7 @@ export default function DemoApp() {
     setWeekendsVisible(!weekendsVisible)
   }
 
-  function deleteProject(id) {
+  function deleteTask(id) {
     console.log(id)
     const requestOptions = {
       method: 'DELETE',
