@@ -68,13 +68,17 @@
     background-color: blue;
 }
 
-form {
-    display: grid;
-    grid-template-columns: 3fr 3fr 3fr;
+.form {
+    display: flex;
+    flex-direction: column;
     height: 20vw;
     align-items: center;
 }
 
 input {
     height: 20px;
+}
+
+.status {
+    width: 150px
 }

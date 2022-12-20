@@ -85,6 +85,7 @@ const Users = () => {
             name: 'Delete User',
             cell: row => <button
                 style={{
+                    cursor: 'pointer',
                     backgroundColor: 'transparent',
                     border: 'none'
                 }}
