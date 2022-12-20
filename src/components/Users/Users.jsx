@@ -142,8 +142,6 @@ const Users = () => {
             </div>
             <div className='content'>
                 <DataTable
-                    title='Users'
-                    customStyles={customStyles}
                     columns={columns}
                     data={users}
                     pagination
