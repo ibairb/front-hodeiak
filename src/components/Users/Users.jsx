@@ -96,6 +96,7 @@ const Users = () => {
                     style={{
                         position: 'absolute',
                         marginLeft: '90%',
+                        marginTop: '-10%',
                         background: 'salmon',
                         border: 'none',
                         color: 'white',
