@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react"
 import DataTable, { defaultThemes } from 'react-data-table-component'
-import Modal from '../Modal/Modal';
+import Modal from '../Modal/Modal'
 
 const Users = () => {
     let [users, setUsers] = useState()
     const [modalOpen, setModalOpen] = useState(false);
+    const [selectedUser, setSelectedUser] = useState();
+
 
     useEffect(() => {
         getData()
@@ -67,24 +69,48 @@ const Users = () => {
             selector: row => row.email,
             sortable: true
         },
-        
+
         {
             name: 'PHONE',
             selector: row => row.phone,
             sortable: true
         },
-        
+
         {
             name: 'PROJECTS',
             selector: row => row.projects,
             sortable: true
+        },
+        {
+            name: 'Delete User',
+            cell: row => <button
+                style={{
+                    backgroundColor: 'transparent',
+                    border: 'none'
+                }}
+                className="material-symbols-outlined"
+                onClick={() => deleteSelectedUser(row.email)}
+            >
+                Delete
+            </button>
         }
     ]
 
+    const deleteSelectedUser = (user) => {
+        setSelectedUser(user);
+        const requestOptions = {
+            method: 'DELETE',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ email: user })
+          };
+          fetch(`http://localhost:8000/users/${user}`, requestOptions)
+            .then(response => response.json())
+            .then(data => console.log(data));
+    };
 
     return (
         <>
-        <div className='modal' style={{
+            <div className='modal' style={{
                 display: 'flex',
                 justifyContent: 'center',
                 zIndex: '999',
@@ -92,20 +118,19 @@ const Users = () => {
                 width: '100%',
                 paddingTop: '50px',
             }}>
-                 <button
+                <button
                     style={{
                         position: 'absolute',
                         marginLeft: '90%',
+                        marginTop: '-10%',
                         background: 'salmon',
                         border: 'none',
                         color: 'white',
                         width: '80px',
                         height: '30px',
                         borderRadius: '8px',
-                        fontSize:'15px',
+                        fontSize: '15px',
                         cursor: 'pointer',
-                        right: '10%',
-                        bottom: '150%',
                     }}
                     onClick={() => {
                         setModalOpen(true);
@@ -120,8 +145,6 @@ const Users = () => {
                     columns={columns}
                     data={users}
                     pagination
-                    selectableRows
-                    selectableRowsHighlight
                     dense
                     subHeader
                     subHeaderComponent={
