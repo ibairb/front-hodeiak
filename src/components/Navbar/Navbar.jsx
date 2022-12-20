@@ -59,7 +59,7 @@ const Navbar = () => {
                             <li className='nav-item'>
                                 <Link to='/clients'>Clients</Link>
                             </li>
-                            <li className='nav-item'>
+                            <li>
                                 <button className='boton' onClick={Logout}>Logout</button>
                             </li>
                         </ul>
