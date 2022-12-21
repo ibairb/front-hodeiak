@@ -24,16 +24,14 @@ const Projects = () => {
     let [flag, setFlag] = useState(false)
     
     let user = localStorage.getItem('email')
-    console.log(user)
+    let status = localStorage.getItem('status')
+
     function finish() {
         setDoneStatus("🟢")
     }
     function doing() {
         setDoneStatus("🟠")
     }
-    useEffect(() => {
-
-    }, [featureName])
 
     function changeProjectName(e) {
         setProjectName(e.value)
@@ -56,7 +54,6 @@ const Projects = () => {
         setTaskName(undefined)
     }
     function changePbiName(e) {
-        console.log(e.value)
         setPbiName(e.value)
         setTaskName(undefined)
     }
@@ -65,7 +62,14 @@ const Projects = () => {
     }
 
     useEffect(() => {
-        fetch('http://localhost:8000/projects')
+        if (status != 'admin'){
+            fetch(`http://localhost:8000/users/${user}`)
+            .then(response => response.json())
+            .then((res) => {
+                setProjects(res.projects)
+            })
+        }else {
+            fetch('http://localhost:8000/projects')
             .then(response => response.json())
             .then((res) => {
                 setProjects(res)
@@ -74,8 +78,8 @@ const Projects = () => {
         fetch('http://localhost:8000/tasks')
             .then(response => response.json())
             .then((res) => {
-                console.log(res)
             });
+        }
     }, [])
 
     useEffect(() => {
@@ -104,7 +108,6 @@ const Projects = () => {
     }, [featureName])
 
     useEffect(() => {
-        console.log(pbiName)
         fetch(`http://localhost:8000/pbis/${pbiName}`)
             .then((res) => res.json())
             .then((res) => {
@@ -131,11 +134,16 @@ const Projects = () => {
             <button onClick={finish} id="done">Done</button>
             <button onClick={doing}>doing</button>
             <div id="selects">
-                <Select className="item"
+                {
+                    user === 'admin ' ? <Select className="item"
                     onChange={changeProjectName} options={projects.length != undefined && projects.length > 0 ? projects.map(element => {
                         return { value: element.projectname, label: element.projectname }
+                    }) : ""} /> : <Select className="item"
+                    onChange={changeProjectName} options={projects.length != undefined && projects.length > 0 ? projects.map(element => {
+                        return { value: element, label: element }
                     }) : ""} />
-
+                }
+                
                 {projectName && <Select onChange={changeEpicName} options={
                     epics != undefined && epics.length != undefined && epics.length > 0 ?
                         epics.map(element => {
