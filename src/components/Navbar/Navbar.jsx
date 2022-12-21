@@ -16,6 +16,11 @@ const Navbar = () => {
         return localStorage.getItem('email')
     }
 
+    function GoPerfil(e) {
+        e.preventDefault();
+        window.location.href = 'http://localhost:3000/profile'
+    }
+
     useEffect(() => {
         setEmail(getData());
     }, [])
@@ -68,7 +73,7 @@ const Navbar = () => {
                         <Link to='/clients'>Clients</Link>
                     </li>
                     <li className='login-data'>
-                        <span class="material-symbols-outlined">
+                        <span class="material-symbols-outlined" onClick={GoPerfil}>
                             badge
                         </span>
                         <p id='username'>{username}</p>
