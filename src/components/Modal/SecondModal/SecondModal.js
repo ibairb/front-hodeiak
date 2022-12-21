@@ -1,13 +1,11 @@
+import { TextField } from '@mui/material';
 import React, { useState, useContext, useEffect } from 'react';
 import Modal from 'react-modal';
 import "../Modal.css";
 import { DropDownList } from './DropDownList';
 
-export const SecondModal = () => {
-    const [state, setState] = useState({
-        modalIsOpen: true,
-        comments: []
-    })
+export const SecondModal = ({setPbi}) => {
+
     const [project, setProject] = useState(null);
     const [projects, setProjects] = useState(null);
     const [stringProject, setStringProject] = useState(null);
@@ -22,11 +20,10 @@ export const SecondModal = () => {
     const [features, setFeatures] = useState();
     const [selectedFeatures, setSelectedFeatures] = useState(null);
     const [stringFeature, setStringFeatures] = useState(null);
-   
-    const [pbi, setPbi] = useState(null);
+
     const [pbis, setPbis] = useState();
     const [selectedPbis, setSelectedPbis] = useState(null);
-    const [stringPbi, setStringPbis] = useState(null);
+    const [stringPbi, setStringPbi] = useState(null);
 
     const [tasks, setTasks] = useState()
     const [data, setData] = useState({})
@@ -55,11 +52,12 @@ export const SecondModal = () => {
         console.log(feature);
     }, [stringFeature])
 
-    // useEffect(() => {
-    //     if(stringPbi){
-    //         setPbi(pbis.filter(e => e.pbiname === stringPbi)[0])
-    //     }
-    // }, [stringPbi])
+    useEffect(() => {
+        if(stringPbi){
+            setPbi(pbis.filter(e => e.pbiname === stringPbi)[0])
+        }
+        
+    }, [stringPbi])
 
     useEffect(() => {
         if (project){
@@ -77,14 +75,12 @@ export const SecondModal = () => {
 
         if (epic){
             const featuresArray = features.filter(e=>{
-                console.log(epic.features);
-                console.log(e.id);
                 if (epic.features.includes(e.id)){
                     return e.featurename 
                 }
                 })
             setSelectedFeatures(featuresArray)
-            console.log(selectedFeatures);
+
         }//epic
      
     }, [epic])
@@ -103,10 +99,23 @@ export const SecondModal = () => {
      
     }, [feature])
 
+    // useEffect(() => {
 
-    const closeModal = () => {
-        setState({ modalIsOpen: false });
-    }
+    //     if (stringPbi){
+    //         console.log(stringPbi);
+    //         const pbisArray = pbis.filter(e=>{
+    //             console.log(e);
+    //             if (feature.pbis.includes(e.id)){
+    //                 return e
+    //             }
+    //             })
+    //         console.log(pbisArray);
+    //         setSelectedPbis(pbisArray)
+            
+    //     }//feature
+     
+    // }, [stringPbi])  
+
     const fetchAllTasks = async () => {
         const respProjects = await fetch("http://localhost:8000/projects")
         const projects = await respProjects.json()
@@ -128,28 +137,22 @@ export const SecondModal = () => {
     return (
         <>
             <div className="contenedorPrincipal" >
-                <Modal
-                    appElement={document.getElementById('root')}
-                    isOpen={state.modalIsOpen}
-                    onRequestClose={closeModal}
-                    contentLabel="Ejemplo de modal anidado"
-
-                >
                     <div style={{
                         display: 'inline-flex',
                         alignItems: 'flex-start',
                         align: "center",
                         marginTop: "1.2em",
                         justifyContent: 'center',
-                        zIndex: "1000"
+                        zIndex: "1000",
+                        textAlign: "center"
                     }}>
                         {projects && <DropDownList list={projects} setValue={setStringProject} string={"projects"}/>}
                         {selectedEpics && <DropDownList list={selectedEpics} setValue={setStringEpics} string={"epics"}/>}
                         {selectedFeatures && <DropDownList list={selectedFeatures} setValue={setStringFeatures} string={"features"}/>}
-                        {selectedPbis && <DropDownList list={selectedPbis} setValue={setStringPbis} string={"pbis"}/>}
+                        {selectedPbis && <DropDownList list={selectedPbis} setValue={setStringPbi} string={"pbis"}/>}
+                    
                     </div>
 
-                </Modal>
             </div>
         </>)
 }
