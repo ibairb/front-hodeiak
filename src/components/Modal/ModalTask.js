@@ -82,7 +82,7 @@ console.log('Diferencia en horas', diferenciaEnMilisegundos / 3600000)}
   const handleSubmit = event => {
     addProyect()
     setOpenModal(false)
-    // event.target.reset();
+    
   };
 
 

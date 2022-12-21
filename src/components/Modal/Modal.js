@@ -37,7 +37,6 @@ function Modal({ setOpenModal }) {
   const handleSubmit = event => {
     event.preventDefault();
     addNewUser()
-
     setUserName("")
     setEmail("")
     setPassword("")
@@ -45,7 +44,6 @@ function Modal({ setOpenModal }) {
     setHourCost("")
     setPhone("")
     setOpenModal(false)
-    // event.target.reset();
     window.location.reload(false);
   };
 
@@ -72,7 +70,7 @@ function Modal({ setOpenModal }) {
             <input type="password" placeholder="Password" className="password" name="password" value={password} onChange={(e)=>setPassword(e.target.value)} />
             <input type="email" placeholder="email" name="email" value={email} onChange={(e)=>setEmail(e.target.value)} />
             <input type="text" placeholder="Hour Cost" className="hourCost" name="hourCost" value={hourCost} onChange={(e)=>setHourCost(e.target.value)} />
-            <input type="number" placeholder="phone" className="phone" name="phone" value={phone} onChange={(e)=>setPhone(e.target.value)} />
+            
             <button
               onClick={() => {
                 setOpenModal(false);
