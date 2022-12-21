@@ -7,173 +7,163 @@ import "./projects.scss"
 
 const Projects = () => {
     let [modalOpen, setModalOpen] = useState(false)
+    let [allTask, setAllTask] = useState(undefined)
+    let [projectName, setProjectName] = useState(undefined)
+    let [epicName, setEpicName] = useState(undefined)
+    let [featureName, setFeatureName] = useState(undefined)
+    let [pbiName, setPbiName] = useState(undefined)
+    let [taskName, setTaskName] = useState(undefined)
+
     let [projects, setProjects] = useState([])
-    let [projectName,setProjectName] = useState([])
-    let [epicName,setEpicName] = useState([])
-    let [pbiName,setPbiName] = useState([])
-    let [taskName,setTaskName] = useState([])
+    let [epics, setEpics] = useState([])
+    let [feature, setFeature] = useState([])
+    let [pbi, setPbi] = useState([])
+    let [tasks, setTasks] = useState([])
 
-    let [epics,setEpics] = useState([])
-    let [featureName,setFeatureName] = useState([])
-    let [feature,setFeature] = useState([])
-    let [pbi,setPbi] = useState([])
-    let [tasks,setTasks] = useState([])
+    let [doneStatus, setDoneStatus] = useState("⚫")
 
-    let [flag, setFlag] = useState(false)
+    function finish() {
+        setDoneStatus("🟢")
+    }
+    function doing() {
+        setDoneStatus("🟠")
+    }
+    useEffect(() => {
 
-    useEffect(()=>{
-        console.log(featureName)
     }, [featureName])
-    
-    function changeProjectName(e){
-        setProjectName(e.value) 
+
+    function changeProjectName(e) {
+        setProjectName(e.value)
+        setEpicName(undefined)
+        setFeatureName(undefined)
+        setPbiName(undefined)
+        setTaskName(undefined)
     }
 
-    function changeEpicName(e){
-        
-        setEpicName(e.value)  
-        
+    function changeEpicName(e) {
+        setEpicName(e.value)
+        setFeatureName(undefined)
+        setPbiName(undefined)
+        setTaskName(undefined)
     }
 
-    function changeFeatureName(e){
-        console.log(e)
+    function changeFeatureName(e) {
         setFeatureName(e.value)
+        setPbiName(undefined)
+        setTaskName(undefined)
     }
-    function changePbiName(e){
-        console.log(e)
+    function changePbiName(e) {
+        console.log(e.value)
         setPbiName(e.value)
+        setTaskName(undefined)
     }
-    function changeTasksName(e){
-        console.log(e)
+    function changeTasksName(e) {
         setTaskName(e.value)
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         fetch('http://localhost:8000/projects')
-        .then(response => response.json())
-        .then((res) => {
-            setProjects(res)
-        });
-    },[])
+            .then(response => response.json())
+            .then((res) => {
+                setProjects(res)
+            });
+
+        fetch('http://localhost:8000/tasks')
+            .then(response => response.json())
+            .then((res) => {
+                console.log(res)
+            });
+    }, [])
 
     useEffect(() => {
         fetch(`http://localhost:8000/projects/${projectName}`)
-      .then((res) => res.json())
-      .then((res) => {
-        setEpics(res.epics)
-      })
+            .then((res) => res.json())
+            .then((res) => {
+                setEpics(res.epics)
+            })
     }, [projectName])
 
 
     useEffect(() => {
         fetch(`http://localhost:8000/epics/${epicName}`)
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res.features)
-        setFeature(res.features)
-      })
+            .then((res) => res.json())
+            .then((res) => {
+                setFeature(res.features)
+            })
     }, [epicName])
 
     useEffect(() => {
         fetch(`http://localhost:8000/features/${featureName}`)
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res.pbis)
-        setPbi(res.pbis)
-      })
+            .then((res) => res.json())
+            .then((res) => {
+                setPbi(res.pbis)
+            })
     }, [featureName])
 
     useEffect(() => {
+        console.log(pbiName)
         fetch(`http://localhost:8000/pbis/${pbiName}`)
-      .then((res) => res.json())
-      .then((res) => {
-        console.log(res.pbis)
-        setTasks(res.tasks)
-      })
+            .then((res) => res.json())
+            .then((res) => {
+                setTasks(res.tasks)
+            })
     }, [pbiName])
 
-    const customStyles = {
-        header: {
-            style: {
-                minHeight: '56px',
-            },
-        },
-        headRow: {
-            style: {
-                borderTopStyle: 'solid',
-                borderTopWidth: '1px',
-                borderTopColor: defaultThemes.default.divider.default,
-            },
-        },
-        headCells: {
-            style: {
-                '&:not(:last-of-type)': {
-                    borderRightStyle: 'solid',
-                    borderRightWidth: '1px',
-                    borderRightColor: defaultThemes.default.divider.default,
-                },
-            },
-        },
-        cells: {
-            style: {
-                '&:not(:last-of-type)': {
-                    borderRightStyle: 'solid',
-                    borderRightWidth: '1px',
-                    borderRightColor: defaultThemes.default.divider.default,
-                },
-            },
-        },
-    };
+    // useEffect(() => {
+    //     const putTaskInPbi = {
+    //         method: 'PUT',
+    //         headers: { 'Content-Type': 'application/json' },
+    //         body: JSON.stringify(statuss,"doneStatus")
+    //     };
+    //     fetch(`http://localhost:8000/tasks/${taskName}`,putTaskInPbi)
+    //         .then(response => response.json())
+    //         .then(data => console.log(data));
+    // }, [tasks])
 
 
+    
 
-    const columns = [
-        {
-            name: 'PROJECT',
-            selector: row => row.projectname
-        },
-        {
-            name: 'STATUS',
-            selector: row => row.status
-        },
-        
-    ]
     return (
         <>
-           
+            <button onClick={finish} id="done">Done</button>
+            <button onClick={doing}>doing</button>
             <div id="selects">
                 <Select className="item"
-                        onChange={changeProjectName} options={projects.length!=undefined && projects.length>0? projects.map(element => {
-                            return { value: element.projectname, label: element.projectname }}):""} />
+                    onChange={changeProjectName} options={projects.length != undefined && projects.length > 0 ? projects.map(element => {
+                        return { value: element.projectname, label: element.projectname }
+                    }) : ""} />
 
-                <Select onChange={changeEpicName} options={
+                {projectName && <Select onChange={changeEpicName} options={
                     epics != undefined && epics.length != undefined && epics.length > 0 ?
-                    epics.map(element => {
-                            return { value: element, label: element }})
-                    : ''
-                }/>
+                        epics.map(element => {
+                            return { value: element, label: element }
+                        })
+                        : ''
+                } />}
 
-                <Select onChange={changeFeatureName} options={
+                {epicName && <Select onChange={changeFeatureName} options={
                     feature != undefined && feature.length != undefined && feature.length > 0 ? feature.map(element => {
-                            return { value:element,label: element }})
-                    : ""
-                }/>
+                        return { value: element, label: element }
+                    })
+                        : ""
+                } />}
 
-                <Select onChange={changePbiName} options={
+                {featureName && <Select onChange={changePbiName} options={
                     pbi != undefined && pbi.length != undefined && pbi.length > 0 ? pbi.map(element => {
-                            return { value:element,label: element }})
-                    : ""
-                }/>
-                <Select onChange={changeTasksName} options={
+                        return { value: element, label: element }
+                    })
+                        : ""
+                } />}
+                {pbiName && <Select onChange={changeTasksName} options={
                     tasks != undefined && tasks.length != undefined && tasks.length > 0 ? tasks.map(element => {
-                            return { value:element,label: element }})
-                    : ""
-                }/>
-                
-                </div>
-                     
-            
-            
+                       
+                        return { value: element, label: element }
+                    })
+                        : ""
+                } />}
+
+            </div>
+
         </>
     )
 }
