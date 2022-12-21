@@ -38,7 +38,7 @@ function ModalTask({ setOpenModal, obj, modalOpen }) {
   }
 
   function addProyect() {
-    horario()
+    // horario()
     let newObj = {
       id: unique_id,
       title: title,
@@ -73,7 +73,7 @@ function ModalTask({ setOpenModal, obj, modalOpen }) {
   const handleSubmit = event => {
     addProyect()
     setOpenModal(false)
-    event.target.reset();
+    
   };
 
 

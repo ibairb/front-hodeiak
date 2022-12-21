@@ -1,10 +1,13 @@
 import { useEffect, useState } from "react"
 import DataTable, { defaultThemes } from 'react-data-table-component'
 import Modal from '../Modal/Modal'
+import { UserModal } from "./UserModal"
 
 const Users = () => {
     let [users, setUsers] = useState()
+    let [user, setUser] = useState(null)
     const [modalOpen, setModalOpen] = useState(false);
+    const [open, setOpen] = useState(false);
     const [selectedUser, setSelectedUser] = useState();
 
 
@@ -30,7 +33,7 @@ const Users = () => {
             style: {
                 borderTopStyle: 'solid',
                 borderTopWidth: '1px',
-                borderTopColor: defaultThemes.default.divider.default,
+                borderTopColor: defaultThemes.default.divider.default
             },
         },
         headCells: {
@@ -47,7 +50,7 @@ const Users = () => {
                 '&:not(:last-of-type)': {
                     borderRightStyle: 'solid',
                     borderRightWidth: '1px',
-                    borderRightColor: defaultThemes.default.divider.default,
+                    borderRightColor: defaultThemes.default.divider.default
                 },
             },
         },
@@ -57,27 +60,48 @@ const Users = () => {
         {
             name: 'USERNAME',
             selector: row => row.username,
-            sortable: true
+            sortable: true,
+            width: "120px"
         },
         {
             name: 'STATUS',
             selector: row => row.status,
-            sortable: true
+            sortable: true,
+            width: "100px",
         },
         {
             name: 'EMAIL',
             selector: row => row.email,
-            sortable: true
+            sortable: true,
+            width: "250px",
         },
 
         {
-            name: 'PHONE',
-            selector: row => row.phone,
-            sortable: true
+            name: 'PROJECTS',
+            selector: row => row.projects.map(e=>e + " | "),
+            sortable: true,
+            width: "300px",
         },
-
+        {
+            name: 'Edit User Projects',
+            width: "150px",
+            center: true,
+            cell: row => <button
+                style={{
+                    backgroundColor: 'transparent',
+                    border: 'none',
+                    cursor: 'pointer'
+                }}
+                className="material-symbols-outlined"
+                onClick={() => editUserProjects(row)}
+            >
+                Edit
+            </button>
+        },
         {
             name: 'Delete User',
+            center: true,
+            width: "150px",
             cell: row => <button
                 style={{
                     cursor: 'pointer',
@@ -105,6 +129,11 @@ const Users = () => {
             .then(data => window.location.reload(false));
     };
 
+    const editUserProjects = (user)=>{
+        setUser(user)
+        setOpen(true)
+        console.log(user);
+    }
     return (
         <>
             <div className='modal' style={{
@@ -152,6 +181,7 @@ const Users = () => {
                     subHeaderAlign='left'
                 />
             </div>
+            {user && <UserModal setOpen={setOpen} setUser={setUser} user={user} />}
         </>
     )
 
