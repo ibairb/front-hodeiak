@@ -47,28 +47,32 @@ ul {
   .login-data{
     margin-top: 10rem;
     display: flex;
-    img{
-    width: 40px;
-    height: 40px;
-    margin-top: 8px;
+    color:white;
+    .material-symbols-outlined{
+      font-size:1.5cm;
+     
     }
     #username{
       color: white;
       font-family: 'Noto Sans JP', sans-serif;
-
+      margin-top: 28px;
+      font-weight: bold;
     }
   }
   .login-data1{
     margin-top: 16rem;
     display: flex;
-    img{
-    width: 40px;
-    height: 40px;
-    margin-top: 8px;
+    color:white;
+    
+    .material-symbols-outlined{
+      font-size:1.5cm;
+     
     }
+    
     #username{
       color: white;
       font-family: 'Noto Sans JP', sans-serif;
+      font-weight: bold;
     }
   }
   .boton{
