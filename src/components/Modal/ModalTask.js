@@ -47,7 +47,7 @@ console.log('Diferencia en horas', diferenciaEnMilisegundos / 3600000)}
   }
 
   function addProyect() {
-    horario()
+    // horario()
     let newObj = {
       id:unique_id,
       title:title,
@@ -82,7 +82,7 @@ console.log('Diferencia en horas', diferenciaEnMilisegundos / 3600000)}
   const handleSubmit = event => {
     addProyect()
     setOpenModal(false)
-    event.target.reset();
+    // event.target.reset();
   };
 
 
