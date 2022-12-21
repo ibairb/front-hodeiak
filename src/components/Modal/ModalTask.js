@@ -15,21 +15,16 @@ function ModalTask({ setOpenModal, obj, modalOpen }) {
   const [user, setUser] = useState("");
   const [secondModalOpen, setSecondModalOpen] = useState(false)
   const unique_id = uuid();
- 
-  
+
   function horario() {
-  let t = new Date('Wed Dec 21 2022 00:00:00 GMT+0100');
-let t2 = new Date('Tue Dec 20 2022 00:00:00 GMT+0100');
+    let t = new Date('Wed Dec 21 2022 00:00:00 GMT+0100');
+    let t2 = new Date('Tue Dec 20 2022 00:00:00 GMT+0100');
 
-let diferenciaEnMilisegundos = t - t2;
+    let diferenciaEnMilisegundos = t - t2;
+  }
 
-console.log('diferencia', diferenciaEnMilisegundos);
-
-console.log('Diferencia en horas', diferenciaEnMilisegundos / 3600000)}
-  
   useEffect(() => {
     setLocalUser()
-
   }, [])
 
   useEffect(() => {
@@ -40,23 +35,22 @@ console.log('Diferencia en horas', diferenciaEnMilisegundos / 3600000)}
   }, [pbi])
 
   function setLocalUser() {
-
     setUser(localStorage.getItem('email'));
-    console.log("usuario", user)
-
   }
 
   function addProyect() {
     horario()
     let newObj = {
-      id:unique_id,
-      title:title,
-      description:description,
-      start:obj.start,
-      end:obj.end,
-      user:user
+      id: unique_id,
+      title: title,
+      description: description,
+      start: obj.start,
+      end: obj.end,
+      user: user
     }
+
     modalOpen.addEvent(newObj)
+    
     const requestOptions = {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -67,8 +61,6 @@ console.log('Diferencia en horas', diferenciaEnMilisegundos / 3600000)}
       .then(data => console.log());
 
     pbi.tasks = [...pbi.tasks, unique_id]
-    console.log(pbi);
-    console.log(pbi.id);
     const putTaskInPbi = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
@@ -141,14 +133,14 @@ console.log('Diferencia en horas', diferenciaEnMilisegundos / 3600000)}
                 <Button style={{
                   backgroundColor: "rgba(241, 171, 32, 0.853)"
                 }}
-                  variant="contained" startIcon={<CheckBoxIcon/>} onClick={() => handleSubmit()} >
+                  variant="contained" startIcon={<CheckBoxIcon />} onClick={() => handleSubmit()} >
                   Confirm
                 </Button>
                 <Button style={{
                   color: "rgba(241, 171, 32, 0.853)",
                   borderColor: "rgba(241, 171, 32, 0.853)"
                 }}
-                variant="outlined" startIcon={<CancelIcon  />} onClick={() => { setOpenModal(false) }}>
+                  variant="outlined" startIcon={<CancelIcon />} onClick={() => { setOpenModal(false) }}>
                   Delete
                 </Button>
               </Stack>

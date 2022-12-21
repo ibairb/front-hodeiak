@@ -21,15 +21,11 @@ export default function DemoApp() {
 
   useEffect(() => {
     if (status != 'admin') {
-      fetch('http://localhost:8000/tasks')
+      fetch(`http://localhost:8000/tasks/search/${loggedUser}`)
         .then(response => response.json())
         .then(data => {
-          {
-            data.filter(user => user.user == loggedUser).map(filteredUser => (
-              setProjects([...filteredUser, ...INITIAL_EVENTS])
-            ))
-          }
-          console.log(projects);
+
+          setProjects([...data, ...INITIAL_EVENTS])
           data.id = createEventId()
         })
     } else {
