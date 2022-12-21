@@ -23,6 +23,7 @@ function Modal({ setOpenModal }) {
       status: status,
       hourCost: hourCost,
       phone: phone,
+      tasks: []
     }
     const requestOptions = {
       method: 'POST',
@@ -78,11 +79,11 @@ function Modal({ setOpenModal }) {
         </div>
         <div className="body">
           <div className="form">
-            <input type="text" placeholder="Username" className="username" name='username' onChange={handleUsername} value={username}/>
-            <input type="password" placeholder="Password" className="password" name="password" onChange={handlePassword} value={password}/>
-            <input type="email" placeholder="email" name="email" onChange={handleEmail} value={email}/>
-            <input type="text" placeholder="Hour Cost" className="hourCost" name="hourCost" onChange={handleHourCost} value={hourCost}/>
-            <select className='status' name="status" onChange={handleStatus} value={status}>
+            <input type="text" placeholder="Username" className="username" name='username' onChange={handleUsername} value={username} />
+            <input type="password" placeholder="Password" className="password" name="password" onChange={handlePassword} value={password} />
+            <input type="email" placeholder="email" name="email" onChange={handleEmail} value={email} />
+            <input type="text" placeholder="Hour Cost" className="hourCost" name="hourCost" onChange={handleHourCost} value={hourCost} />
+            <select className='status' name="status" onChange={handleStatus} value={status} >
               <option value="user">User</option>
               <option value="admin">Admin</option>
             </select>

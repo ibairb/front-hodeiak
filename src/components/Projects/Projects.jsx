@@ -2,11 +2,9 @@ import { useEffect, useState } from "react"
 import DataTable, { defaultThemes } from 'react-data-table-component'
 import React from 'react'
 import Select from 'react-select'
-import Modal from '../Modal/Modal';
 import "./projects.scss"
 
 const Projects = () => {
-    let [modalOpen, setModalOpen] = useState(false)
     let [projects, setProjects] = useState([])
     let [projectName,setProjectName] = useState([])
     let [epicName,setEpicName] = useState([])
@@ -20,6 +18,9 @@ const Projects = () => {
     let [tasks,setTasks] = useState([])
 
     let [flag, setFlag] = useState(false)
+    
+    let user = localStorage.getItem('email')
+    console.log(user)
 
     useEffect(()=>{
         console.log(featureName)
