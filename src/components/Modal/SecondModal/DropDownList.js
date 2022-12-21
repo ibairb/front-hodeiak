@@ -1,7 +1,4 @@
-
 import { FormControl, InputLabel, MenuItem, Select } from "@mui/material"
-import { useEffect, useState } from "react"
-
 
 export const DropDownList = ({ list, setValue, string }) => {
 

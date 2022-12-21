@@ -2,7 +2,6 @@ import "./ModalTask.css";
 import React, { useEffect, useState } from "react";
 import { v4 as uuid } from 'uuid';
 import { SecondModal } from "./SecondModal/SecondModal";
-import { DropDownList } from "./SecondModal/DropDownList";
 import { Button, Stack, TextField } from "@mui/material";
 import CancelIcon from '@mui/icons-material/Cancel';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';

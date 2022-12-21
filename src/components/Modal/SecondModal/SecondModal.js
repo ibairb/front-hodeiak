@@ -1,6 +1,4 @@
-import { TextField } from '@mui/material';
-import React, { useState, useContext, useEffect } from 'react';
-import Modal from 'react-modal';
+import React, { useState, useEffect } from 'react';
 import "../Modal.css";
 import { DropDownList } from './DropDownList';
 import { DropDownListUser } from './DropDownListUser'
@@ -48,10 +46,8 @@ export const SecondModal = ({ setPbi }) => {
     }, [stringProject])
 
     useEffect(() => {
-        console.log(epics);
         if (stringEpic) {
             setEpic(epics.filter(e => e.epicname === stringEpic)[0])
-            console.log(epic);
         }
     }, [stringEpic])
 
@@ -59,7 +55,6 @@ export const SecondModal = ({ setPbi }) => {
         if (stringFeature) {
             setFeature(features.filter(e => e.featurename === stringFeature)[0])
         }
-        console.log(feature);
     }, [stringFeature])
 
     useEffect(() => {
@@ -109,23 +104,6 @@ export const SecondModal = ({ setPbi }) => {
 
     }, [feature])
 
-    // useEffect(() => {
-
-    //     if (stringPbi){
-    //         console.log(stringPbi);
-    //         const pbisArray = pbis.filter(e=>{
-    //             console.log(e);
-    //             if (feature.pbis.includes(e.id)){
-    //                 return e
-    //             }
-    //             })
-    //         console.log(pbisArray);
-    //         setSelectedPbis(pbisArray)
-
-    //     }//feature
-
-    // }, [stringPbi])  
-
     const fetchAllTasks = async () => {
         if (status != 'user') {
             const respProjects = await fetch("http://localhost:8000/projects")
@@ -145,14 +123,12 @@ export const SecondModal = ({ setPbi }) => {
             setTasks(tasks);
         } else {
             const respProjects = await fetch(`http://localhost:8000/users/${loggedUser}`)
-            console.log(loggedUser)
             const projects = await respProjects.json()
             setProjects(projects);
             projects.projects.map(element => {
-                console.log(element)
                 fetch(`http://localhost:8000/projects/${element}`)
-                .then((res) => res.json())
-                .then((res) => console.log(res))
+                    .then((res) => res.json())
+                    .then((res) => setEpics(res.epics))
             })
         }
     }
@@ -172,7 +148,7 @@ export const SecondModal = ({ setPbi }) => {
 
 
                     {status != "user" && projects != null ? <DropDownList list={projects} setValue={setStringProject} string={"projects"} /> : projects != null ? <DropDownListUser list={projects.projects} setValue={setStringProject} string={"projects"} /> : <></>}
-                    {status != "user" && selectedEpics != null ? <DropDownList list={selectedEpics} setValue={setStringEpics} string={"epics"} /> : selectedEpics != null ? <DropDownListUser list={selectedEpics} setValue={setStringEpics} string={"epics"} /> : <></>}
+                    {status != "user" && selectedEpics != null ? <DropDownList list={selectedEpics} setValue={setStringEpics} string={"epics"} /> : epics != null ? <DropDownListUser list={epics} setValue={setStringEpics} string={"epics"} /> : <></>}
                     {status != "user" && selectedFeatures != null ? <DropDownList list={selectedFeatures} setValue={setStringFeatures} string={"features"} /> : selectedFeatures != null ? <DropDownListUser list={selectedFeatures} setValue={setStringFeatures} string={"features"} /> : <></>}
                     {status != "user" && selectedPbis != null ? <DropDownList list={selectedPbis} setValue={setStringPbi} string={"pbis"} /> : selectedPbis != null ? <DropDownListUser list={selectedPbis} setValue={setStringPbi} string={"pbis"} /> : <></>}
                 </div>
