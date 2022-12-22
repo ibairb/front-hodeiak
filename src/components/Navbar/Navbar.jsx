@@ -1,6 +1,9 @@
+import { Button } from '@mui/material';
+import { Stack } from '@mui/system';
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import './Navbar.scss'
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 
 const Navbar = () => {
 
@@ -37,13 +40,13 @@ const Navbar = () => {
             <>
                 <ul className='navbar'>
                     <li className='nav-item'>
-                        <Link to="/projects">Proyectos</Link>
+                        <Link to="/projects">Projects</Link>
                     </li>
                     <li className='nav-item'>
-                        <Link to="/profile">Perfil</Link>
+                        <Link to="/profile">Profile</Link>
                     </li>
                     <li className='nav-item'>
-                        <Link to="/tasks">Tareas</Link>
+                        <Link to="/tasks">Tasks</Link>
                     </li>
                     <li className='login-data1'>
                         <span class="material-symbols-outlined">
@@ -51,20 +54,33 @@ const Navbar = () => {
                         </span>
                         <p id='username'>{username}</p>
                     </li>
-                    <li>
-                        <button className='boton' onClick={Logout}>Logout</button>
+                
+                    <li className='boton-logout'>
+                        <Stack direction="row" spacing={2}>
+                            <Button style={{
+                                color: "rgba(241, 171, 32, 0.853)",
+                                backgroundColor: "white",
+                                borderColor: "rgba(241, 171, 32, 0.853)",
+                                boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+                                fontWeight: "600"
+                            }}
+                                variant="outlined" startIcon={<ExitToAppIcon />} onClick={Logout} >
+                                Logout
+                            </Button>
+                        </Stack>
+                        {/* <button className='boton-logout' onClick={Logout}>Logout</button> */}
                     </li>
                 </ul>
             </> : <>
                 <ul className='navbar'>
                     <li className='nav-item'>
-                        <Link to="/projects">Proyectos</Link>
+                        <Link to="/projects">Projects</Link>
                     </li>
                     <li className='nav-item'>
-                        <Link to="/profile">Perfil</Link>
+                        <Link to="/profile">Profile</Link>
                     </li>
                     <li className='nav-item'>
-                        <Link to="/tasks">Tareas</Link>
+                        <Link to="/tasks">Tasks</Link>
                     </li>
                     <li className='nav-item'>
                         <Link to='/users'>Users</Link>
@@ -73,17 +89,29 @@ const Navbar = () => {
                         <Link to='/clients'>Clients</Link>
                     </li>
                     <div className='botonPerfil'>
-                    <li className='login-data'>
-                        <span class="material-symbols-outlined" onClick={GoPerfil}>
-                            badge
-                        </span>
-                        <p id='username'>{username}</p>
-                    </li>
+                        <li className='login-data'>
+                            <span class="material-symbols-outlined" onClick={GoPerfil}>
+                                badge
+                            </span>
+                            <p id='username'>{username}</p>
+                        </li>
                     </div>
-                    <li>
-                        <button className='boton-logout' onClick={Logout}>Logout</button>
+                    <li className='boton-logout'>
+                        <Stack direction="row" spacing={2}>
+                            <Button style={{
+                                color: "rgba(241, 171, 32, 0.853)",
+                                backgroundColor: "white",
+                                borderColor: "rgba(241, 171, 32, 0.853)",
+                                boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+                                fontWeight: "600"
+                            }}
+                                variant="outlined" startIcon={<ExitToAppIcon />} onClick={Logout} >
+                                Logout
+                            </Button>
+                        </Stack>
+                        {/* <button className='boton-logout' onClick={Logout}>Logout</button> */}
                     </li>
-            
+
                 </ul>
             </>
     )

@@ -38,8 +38,7 @@ export const SecondModal = ({ setPbi }) => {
     useEffect(() => {
         if (currentUser){
             const projectsArray = projects.filter(e=>{ 
-                if (currentUser.projects.includes(e.projectname)) {
-                    return e
+                if (currentUser.projects.includes(e.projectname)) {return e
                 }
             
                 }
@@ -162,8 +161,6 @@ export const SecondModal = ({ setPbi }) => {
                     textAlign: "center"
                 }}>
 
-
-                    
                     {projects  && <DropDownList status={status} list={projects} setValue={setStringProject} string={"projects"} /> }
                     {selectedEpics && <DropDownList status={status} list={selectedEpics} setValue={setStringEpics} string={"epics"} /> }
                     {selectedFeatures && <DropDownList status={status} list={selectedFeatures} setValue={setStringFeatures} string={"features"} /> }
