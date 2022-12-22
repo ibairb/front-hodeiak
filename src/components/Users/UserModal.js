@@ -6,7 +6,7 @@ import "./Modal.css";
 import LibraryAddIcon from '@mui/icons-material/LibraryAdd';
 import CancelIcon from '@mui/icons-material/Cancel';
 import CheckBoxIcon from '@mui/icons-material/CheckBox';
-export const UserModal = ({ setOpen, setUser, user }) => {
+export const UserModal = ({ setOpen, open, setUser, user }) => {
     const [state, setState] = useState({
         modalIsOpen: true,
         comments: []
@@ -16,22 +16,27 @@ export const UserModal = ({ setOpen, setUser, user }) => {
     const [projectDeleted, setProjectDeleted] = useState(null);
     useEffect(() => {
         if (value) {
-            if (!user.projects.includes(value)) {
-                user.projects = [...user.projects, value]
+            let newUser = {...user}
+            if (!newUser.projects.includes(value)) {
+                newUser.projects = [...newUser.projects, value]
             }
+            setUser(newUser)
         }
     }, [value])
     useEffect(() => {
         if (projectDeleted) {
-            if (user.projects.includes(projectDeleted)) {
-                var index = user.projects.indexOf(projectDeleted);
-
+            let newUser = {...user}
+            if (newUser.projects.includes(projectDeleted)) {
+                var index = newUser.projects.indexOf(projectDeleted);
+                console.log(index);
                 if (index !== -1) {
-                    user.projects.splice(index, 1);
+                    newUser.projects.splice(index, 1);
                 }
             }
-            setUser(user)
-            console.log(user.projects);
+            
+            setUser(newUser)
+            console.log(user);
+
         }
     }, [projectDeleted])
 
@@ -45,15 +50,21 @@ export const UserModal = ({ setOpen, setUser, user }) => {
         const respProjects = await fetch("http://localhost:8000/projects")
         const projects = await respProjects.json()
         setProjects(projects);
-    }
 
+    }
     const handleSubmit = event => {
         addUser()
         setOpen(false)
-    };
+    }
+
+    function deleteProject(e) {
+        setProjectDeleted(e.target.value)
+        console.log(projects)
+
+    }
 
     function addUser() {
-        console.log(user);
+
         const putTaskInPbi = {
             method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
@@ -70,7 +81,7 @@ export const UserModal = ({ setOpen, setUser, user }) => {
         <>
             {user && <Modal
                 appElement={document.getElementById('root')}
-                isOpen={state.modalIsOpen}
+                isOpen={open}
                 onRequestClose={closeModal}
                 contentLabel="Ejemplo de modal anidado"
                 className="modalUsersClass"
@@ -89,15 +100,20 @@ export const UserModal = ({ setOpen, setUser, user }) => {
                         margin: "0 auto",
                         maxWidth: "600px"
                     }}>
-
-                        <h2>User:  {user.username}</h2>
-                        <div className="line-width"></div>
-                        <h2>Status:  {user.status}</h2>
-                        <div className="line-width"></div>
+                        <div className='flex'>
+                            <h3>User</h3>
+                            <h2>{user.username}</h2>
+                        </div>
+                        <div className="line-width-modal"></div>
+                        <div className='flex'>
+                            <h3>Status</h3>
+                            <h2>{user.status}</h2>
+                        </div>
+                        <div className="line-width-modal"></div>
                         <div className='projects-title'>
-                            <h2>Projects   :</h2>
+                            <h2>Projects</h2>
                             <Stack direction="row" spacing={2}>
-                                <Button style={{backgroundColor: "rgba(241, 171, 32, 0.853)"}}
+                                <Button style={{ backgroundColor: "rgba(241, 171, 32, 0.853)" }}
                                     variant="contained" startIcon={<LibraryAddIcon />} onClick={() => showProjectsList()} >
                                     Add
                                 </Button>
@@ -113,44 +129,44 @@ export const UserModal = ({ setOpen, setUser, user }) => {
                                     </Select>}
                             </Stack>
                         </div>
-                        <div className="line-width"></div>
-                        {user.projects && user.projects.map(p => 
-                        <div className='project'>
-                            <h2>{p}</h2>
-                            <Stack direction="row" spacing={1} display={"flex"}
-                            >
-                                <Button 
-                                    style={{
+                        <div className="line-width-modal"></div>
+                        {user.projects && user.projects.map(p =>
+                            <div className='project'>
+                                <h2>{p}</h2>
+                                <Stack direction="row" spacing={1} display={"flex"}
+                                >
+                                    <Button
+                                        style={{
                                             color: "rgba(241, 171, 32, 0.853)",
                                             borderColor: "rgba(241, 171, 32, 0.853)",
                                             height: "40px",
                                             width: "40px",
-                                             border: "0"
+                                            border: "0"
 
-                                            }} 
-                                    value={p}   
-                                    variant="outlined" 
-                                    startIcon={<CancelIcon />} 
-                                    onClick={(e) => setProjectDeleted(e.target.value)}
-                                        >
-                                </Button>
-                            </Stack>
-                        </div>)}
+                                        }}
+                                        value={p}
+                                        variant="outlined"
+                                        startIcon={<CancelIcon />}
+                                        onClick={(e) => setProjectDeleted(e.target.value)}
+                                    >
+                                    </Button>
+                                </Stack>
+                            </div>)}
                         <Stack direction="row" spacing={4} mt={2}>
-                        <Button style={{
-                            backgroundColor: "rgba(241, 171, 32, 0.853)"
-                        }}
-                            variant="contained" startIcon={<CheckBoxIcon />} onClick={() => handleSubmit()} >
-                            Confirm
-                        </Button>
-                        <Button style={{
-                            color: "rgba(241, 171, 32, 0.853)",
-                            borderColor: "rgba(241, 171, 32, 0.853)"
-                        }}
-                            variant="outlined" startIcon={<CancelIcon />} onClick={() => { setOpen(false) }}>
-                            Cancel
-                        </Button>
-                    </Stack>
+                            <Button style={{
+                                backgroundColor: "rgba(241, 171, 32, 0.853)"
+                            }}
+                                variant="contained" startIcon={<CheckBoxIcon />} onClick={() => handleSubmit()} >
+                                Confirm
+                            </Button>
+                            <Button style={{
+                                color: "rgba(241, 171, 32, 0.853)",
+                                borderColor: "rgba(241, 171, 32, 0.853)"
+                            }}
+                                variant="outlined" startIcon={<CancelIcon />} onClick={() => { setOpen(false) }}>
+                                Cancel
+                            </Button>
+                        </Stack>
                     </div>
 
                 </div>
