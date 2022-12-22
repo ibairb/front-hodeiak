@@ -1,3 +1,4 @@
+import userEvent from '@testing-library/user-event';
 import React, { useState, useEffect } from 'react';
 import "../Modal.css";
 import { DropDownList } from './DropDownList';
@@ -8,6 +9,7 @@ export const SecondModal = ({ setPbi }) => {
     const [project, setProject] = useState(null);
     const [projects, setProjects] = useState(null);
     const [stringProject, setStringProject] = useState(null);
+    const [currentUser, setCurrentUser] = useState(null);
 
     const [epic, setEpic] = useState(null);
     const [epics, setEpics] = useState(null);
@@ -33,16 +35,33 @@ export const SecondModal = ({ setPbi }) => {
         fetchAllTasks()
 
     }, [])
+    useEffect(() => {
+        if (currentUser){
+            const projectsArray = projects.filter(e=>{ 
+                if (currentUser.projects.includes(e.projectname)) {
+                    return e
+                }
+            
+                }
+            )
+            setProjects(projectsArray)
+        }
+
+    }, [currentUser])
 
     useEffect(() => {
+        
         if (stringProject) {
+            
             if (status != "user") {
 
                 setProject(projects.filter(e => e.projectname === stringProject)[0])
+                
             } else {
-                setProject(projects.projects.filter(e => e.projectname === stringProject)[0])
+                setProject(projects.filter(e => e.projectname === stringProject)[0])
             }
         }
+
     }, [stringProject])
 
     useEffect(() => {
@@ -65,12 +84,14 @@ export const SecondModal = ({ setPbi }) => {
     }, [stringPbi])
 
     useEffect(() => {
+        console.log(project);
         if (project) {
             const epicsArray = epics.filter(e => {
                 if (project.epics.includes(e.id)) {
                     return e.epicname
                 }
             })
+            console.log(epicsArray);
             setSelectedEpics(epicsArray)
         }//project
 
@@ -105,7 +126,6 @@ export const SecondModal = ({ setPbi }) => {
     }, [feature])
 
     const fetchAllTasks = async () => {
-        if (status != 'user') {
             const respProjects = await fetch("http://localhost:8000/projects")
             const projects = await respProjects.json()
             setProjects(projects);
@@ -121,16 +141,12 @@ export const SecondModal = ({ setPbi }) => {
             const respTasks = await fetch("http://localhost:8000/tasks")
             const tasks = await respTasks.json()
             setTasks(tasks);
-        } else {
-            const respProjects = await fetch(`http://localhost:8000/users/${loggedUser}`)
-            const projects = await respProjects.json()
-            setProjects(projects);
-            projects.projects.map(element => {
-                fetch(`http://localhost:8000/projects/${element}`)
-                    .then((res) => res.json())
-                    .then((res) => setEpics(res.epics))
-            })
-        }
+            if (status === "user"){
+                const respProjects = await fetch(`http://localhost:8000/users/${loggedUser}`)
+                const currentUser = await respProjects.json()
+                setCurrentUser(currentUser);
+            }
+            
     }
 
     return (
@@ -147,10 +163,11 @@ export const SecondModal = ({ setPbi }) => {
                 }}>
 
 
-                    {status != "user" && projects != null ? <DropDownList list={projects} setValue={setStringProject} string={"projects"} /> : projects != null ? <DropDownListUser list={projects.projects} setValue={setStringProject} string={"projects"} /> : <></>}
-                    {status != "user" && selectedEpics != null ? <DropDownList list={selectedEpics} setValue={setStringEpics} string={"epics"} /> : epics != null ? <DropDownListUser list={epics} setValue={setStringEpics} string={"epics"} /> : <></>}
-                    {status != "user" && selectedFeatures != null ? <DropDownList list={selectedFeatures} setValue={setStringFeatures} string={"features"} /> : selectedFeatures != null ? <DropDownListUser list={selectedFeatures} setValue={setStringFeatures} string={"features"} /> : <></>}
-                    {status != "user" && selectedPbis != null ? <DropDownList list={selectedPbis} setValue={setStringPbi} string={"pbis"} /> : selectedPbis != null ? <DropDownListUser list={selectedPbis} setValue={setStringPbi} string={"pbis"} /> : <></>}
+                    
+                    {projects  && <DropDownList status={status} list={projects} setValue={setStringProject} string={"projects"} /> }
+                    {selectedEpics && <DropDownList status={status} list={selectedEpics} setValue={setStringEpics} string={"epics"} /> }
+                    {selectedFeatures && <DropDownList status={status} list={selectedFeatures} setValue={setStringFeatures} string={"features"} /> }
+                    {selectedPbis && <DropDownList status={status} list={selectedPbis} setValue={setStringPbi} string={"pbis"} /> }
                 </div>
             </div>
         </>)
