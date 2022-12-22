@@ -104,6 +104,7 @@ const Users = () => {
             width: "150px",
             cell: row => <button
                 style={{
+                    cursor: 'pointer',
                     backgroundColor: 'transparent',
                     border: 'none',
                     cursor: 'pointer'

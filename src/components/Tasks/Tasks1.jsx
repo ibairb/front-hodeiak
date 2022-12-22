@@ -15,22 +15,28 @@ export default function DemoApp() {
   const [modalOpen, setModalOpen] = useState(false)
   const [obj, setObj] = useState({})
 
+  const status = localStorage.getItem('status')
+  const loggedUser = localStorage.getItem('email')
+
 
   useEffect(() => {
-    fetch('http://localhost:8000/tasks')
-      .then(response => response.json())
-      .then(data => {
-        data.id = createEventId()
-        setProjects([...data, ...INITIAL_EVENTS])
-      });
+    if (status != 'admin') {
+      fetch(`http://localhost:8000/tasks/search/${loggedUser}`)
+        .then(response => response.json())
+        .then(data => {
+
+          setProjects([...data, ...INITIAL_EVENTS])
+          data.id = createEventId()
+        })
+    } else {
+      fetch('http://localhost:8000/tasks')
+        .then(response => response.json())
+        .then(data => {
+          setProjects([...data, ...INITIAL_EVENTS])
+        })
+    }
   }, [])
 
-  useEffect(() => {
-
-  }, [obj])
-
-  
-  
   function handleDateSelect(selectInfo) {
     // console.log(event)
 
@@ -44,7 +50,7 @@ export default function DemoApp() {
       title: "",
       start: selectInfo.startStr,
       end: selectInfo.endStr,
-      user:""
+      user: ""
     })
   }
 
@@ -67,7 +73,7 @@ export default function DemoApp() {
     const requestOptions = {
       method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id: id })
+      body: JSON.stringify({id})
     };
     fetch(`http://localhost:8000/tasks/${id}`, requestOptions)
       .then(response => response.json())

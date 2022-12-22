@@ -16,6 +16,11 @@ const Navbar = () => {
         return localStorage.getItem('email')
     }
 
+    function GoPerfil(e) {
+        e.preventDefault();
+        window.location.href = 'http://localhost:3000/profile'
+    }
+
     useEffect(() => {
         setEmail(getData());
     }, [])
@@ -41,7 +46,9 @@ const Navbar = () => {
                         <Link to="/tasks">Tareas</Link>
                     </li>
                     <li className='login-data1'>
-                        <img src='https://static.wixstatic.com/media/e42ea9_2a5993ef17c94b2b847d264cb801beea~mv2.png/v1/crop/x_0,y_26,w_673,h_621/fill/w_380,h_352,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Profile-PNG-File.png' />
+                        <span class="material-symbols-outlined">
+                            badge
+                        </span>
                         <p id='username'>{username}</p>
                     </li>
                     <li>
@@ -65,13 +72,18 @@ const Navbar = () => {
                     <li className='nav-item'>
                         <Link to='/clients'>Clients</Link>
                     </li>
+                    <div className='botonPerfil'>
                     <li className='login-data'>
-                        <img src='https://static.wixstatic.com/media/e42ea9_2a5993ef17c94b2b847d264cb801beea~mv2.png/v1/crop/x_0,y_26,w_673,h_621/fill/w_380,h_352,al_c,q_85,usm_0.66_1.00_0.01,enc_auto/Profile-PNG-File.png' />
+                        <span class="material-symbols-outlined" onClick={GoPerfil}>
+                            badge
+                        </span>
                         <p id='username'>{username}</p>
                     </li>
+                    </div>
                     <li>
-                        <button className='boton' onClick={Logout}>Logout</button>
+                        <button className='boton-logout' onClick={Logout}>Logout</button>
                     </li>
+            
                 </ul>
             </>
     )
