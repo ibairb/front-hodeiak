@@ -57,7 +57,7 @@ const Profile = () => {
                                 <p>{email}</p>
                                 <p>{status}</p>
                                 <p>{username}</p>
-                                <p>{hourCost}</p>
+                                <p>{hourCost} $</p>
                                 <p>{projects}</p>
                             </div>
 
