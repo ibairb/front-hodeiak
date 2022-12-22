@@ -72,15 +72,18 @@ const Navbar = () => {
                     <li className='nav-item'>
                         <Link to='/clients'>Clients</Link>
                     </li>
+                    <div className='botonPerfil'>
                     <li className='login-data'>
                         <span class="material-symbols-outlined" onClick={GoPerfil}>
                             badge
                         </span>
                         <p id='username'>{username}</p>
                     </li>
+                    </div>
                     <li>
-                        <button className='boton' onClick={Logout}>Logout</button>
+                        <button className='boton-logout' onClick={Logout}>Logout</button>
                     </li>
+            
                 </ul>
             </>
     )
