@@ -181,7 +181,7 @@ const Users = () => {
                     subHeaderAlign='left'
                 />
             </div>
-            {user && <UserModal setOpen={setOpen} setUser={setUser} user={user} />}
+            {user && <UserModal setOpen={setOpen} open={open} setUser={setUser} user={user} />}
         </>
     )
 

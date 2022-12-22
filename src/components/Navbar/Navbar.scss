@@ -45,13 +45,18 @@ ul {
   }
 
   .login-data{
-    margin-top: 12rem;
+    margin-top: 6rem;
     display: flex;
     flex-direction: column;
     color:white;
     .material-symbols-outlined{
       font-size:1.5cm;
       cursor: pointer;   
+      transition: 1s;
+    }
+    .material-symbols-outlined:hover{
+      transition: 0.3s;
+      transform: scale(1.1);
     }
     #username{
       color: white;
@@ -61,7 +66,7 @@ ul {
     }
   }
   .login-data1{
-    margin-top: 16rem;
+    margin-top: 15rem;
     display: flex;
     flex-direction: column;
     color:white;
@@ -69,6 +74,11 @@ ul {
     .material-symbols-outlined{
       font-size:1.5cm;
       cursor: pointer;
+      transition: 1s;
+    }
+    .material-symbols-outlined:hover{
+      transition: 0.3s;
+      transform: scale(1.1);
     }
     
     #username{
@@ -78,12 +88,27 @@ ul {
       margin-top: 2px;
     }
   }
-  .boton{
+  .boton-logout{
+    margin-top: 2rem;
+    margin-left: 30px;
     margin-bottom: 10rem;
     border-radius: 8px;
     border-width: 0.5px;
     border-color: white;
     font-family: 'Heebo', sans-serif;
-    cursor: pointer;
+    font-size: 15px;
+    cursor: pointer; cursor: hand;
+    padding: 10px;
+    transition: 0.5s;
+    box-shadow: (2px 0px 2px 0px) rgba(71, 70, 70, 0.65);
+    font-weight: bold;
+    color:rgba(26, 15, 2, 0.481);
   }
+
+  .boton-logout:hover{
+    transition: 0.3s;
+    transform: scale(1.05);
+  }
+
+
 }
