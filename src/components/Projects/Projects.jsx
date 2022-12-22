@@ -261,8 +261,11 @@ const Projects = () => {
 
     return (
         <>
+        <div className="bolitaVerde"></div>
+        <div className="bolitaNaranja"></div>
+        <h2 id="titulo">Projects</h2>
             <button onClick={finish} id="done">Done</button>
-            <button onClick={doing}>doing</button>
+            <button onClick={doing} id="doing">Doing</button>
             <div id="selects">
                 <Select className="item"
                     onChange={changeSelectedProject} options={projects.length != undefined && projects.length > 0 ? projects.map(element => {
