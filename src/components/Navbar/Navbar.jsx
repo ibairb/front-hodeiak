@@ -54,8 +54,21 @@ const Navbar = () => {
                         </span>
                         <p id='username'>{username}</p>
                     </li>
-                    <li>
-                        <button className='boton-logout' onClick={Logout}>Logout</button>
+                
+                    <li className='boton-logout'>
+                        <Stack direction="row" spacing={2}>
+                            <Button style={{
+                                color: "rgba(241, 171, 32, 0.853)",
+                                backgroundColor: "white",
+                                borderColor: "rgba(241, 171, 32, 0.853)",
+                                boxShadow: "rgba(0, 0, 0, 0.35) 0px 5px 15px",
+                                fontWeight: "600"
+                            }}
+                                variant="outlined" startIcon={<ExitToAppIcon />} onClick={Logout} >
+                                Logout
+                            </Button>
+                        </Stack>
+                        {/* <button className='boton-logout' onClick={Logout}>Logout</button> */}
                     </li>
                 </ul>
             </> : <>
@@ -83,7 +96,7 @@ const Navbar = () => {
                             <p id='username'>{username}</p>
                         </li>
                     </div>
-                    <li>
+                    <li className='boton-logout'>
                         <Stack direction="row" spacing={2}>
                             <Button style={{
                                 color: "rgba(241, 171, 32, 0.853)",
