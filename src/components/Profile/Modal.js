@@ -94,23 +94,8 @@ function Modal({ setOpenModal }) {
         </div>
         {user && <div className="cuerpo">
           <FormControl sx={{ m: 1, minWidth: 120 }}>
-            <TextField
-              variant="standard"
-              color="warning"
-              InputProps={{
-                readOnly: true,
-              }}
-              label="Email"
-              margin="normal"
-              placeholder="Email"
-              className="Email"
-              name='Email'
-              value={user.email}
-              // onChange={handleUseremail}
-              sx={{
-                '& > :not(style)': { mb: 1, width: '30ch' },
-              }}
-            />
+          
+            
             <TextField
               variant="standard"
               color="warning"
