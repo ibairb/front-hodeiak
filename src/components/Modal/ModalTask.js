@@ -79,8 +79,8 @@ function ModalTask({ setOpenModal, obj, modalOpen }) {
 
   return (
     <>
-      <div className="modalBackground">
-        <div className="modalContainer">
+      <div className="modalBackgroundTask">
+        <div className="modalContainerTask">
           <div className="titleCloseBtn">
             <button
               onClick={() => {
