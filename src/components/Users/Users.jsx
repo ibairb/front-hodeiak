@@ -1,8 +1,9 @@
+import { Button, Stack } from "@mui/material"
 import { useEffect, useState } from "react"
 import DataTable, { defaultThemes } from 'react-data-table-component'
 import Modal from '../Modal/Modal'
 import { UserModal } from "./UserModal"
-
+import GroupAddIcon from '@mui/icons-material/GroupAdd';
 const Users = () => {
     let [users, setUsers] = useState()
     let [user, setUser] = useState(null)
@@ -78,7 +79,7 @@ const Users = () => {
 
         {
             name: 'PROJECTS',
-            selector: row => row.projects.map(e=>e + " | "),
+            selector: row => row.projects.map(e => e + " | "),
             sortable: true,
             width: "300px",
         },
@@ -123,48 +124,33 @@ const Users = () => {
             method: 'DELETE',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ email: user })
-          };
-          fetch(`http://localhost:8000/users/${user}`, requestOptions)
+        };
+        fetch(`http://localhost:8000/users/${user}`, requestOptions)
             .then(response => response.json())
             .then(data => window.location.reload(false));
     };
 
-    const editUserProjects = (user)=>{
+    const editUserProjects = (user) => {
         setUser(user)
         setOpen(true)
         console.log(user);
     }
     return (
         <>
-            <div className='modal' style={{
+            <div style={{
                 display: 'flex',
-                justifyContent: 'center',
-                zIndex: '999',
-                position: 'absolute',
-                width: '100%',
-                paddingTop: '50px',
+                justifyContent: 'flex-end',
+                paddingRight:"50px"
             }}>
-                <button
-                    style={{
-                        position: 'absolute',
-                        marginLeft: '90%',
-                        marginTop: '-10%',
-                        background: 'salmon',
-                        border: 'none',
-                        color: 'white',
-                        width: '80px',
-                        height: '30px',
-                        borderRadius: '8px',
-                        fontSize: '15px',
-                        cursor: 'pointer',
-                    }}
-                    onClick={() => {
-                        setModalOpen(true);
-                    }}
-                >
-                    New User
-                </button>
-                {modalOpen && <Modal setOpenModal={setModalOpen} />}
+
+                <Stack direction="row" spacing={2}>
+                    <Button style={{ backgroundColor: "rgba(241, 171, 32, 0.853)" }}
+                        variant="contained" startIcon={<GroupAddIcon />} onClick={() => setModalOpen(true)} >
+                        New User
+                    </Button>
+                </Stack>
+                {modalOpen && 
+                <Modal setOpenModal={setModalOpen} />}
             </div>
             <div className='content'>
                 <DataTable
