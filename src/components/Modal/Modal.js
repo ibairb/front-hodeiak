@@ -14,8 +14,7 @@ function Modal({ setOpenModal }) {
   const [image, setImage] = useState('')
   const [status, setStatus] = useState('user')
   const [hourCost, setHourCost] = useState('')
-  const [phone, setPhone] = useState('')
-  const unique_id = uuid();
+   const unique_id = uuid();
 
   function addNewUser() {
     let newUser = {
@@ -26,7 +25,6 @@ function Modal({ setOpenModal }) {
       image: '',
       status: status,
       hourCost: hourCost,
-      phone: phone,
       tasks: []
     }
     const requestOptions = {
