@@ -36,12 +36,7 @@ export const SecondModal = ({ setPbi }) => {
 
     useEffect(() => {
         if (stringProject) {
-            if (status != "user") {
-
                 setProject(projects.filter(e => e.projectname === stringProject)[0])
-            } else {
-                setProject(projects.projects.filter(e => e.projectname === stringProject)[0])
-            }
         }
     }, [stringProject])
 
@@ -105,32 +100,22 @@ export const SecondModal = ({ setPbi }) => {
     }, [feature])
 
     const fetchAllTasks = async () => {
-        if (status != 'user') {
-            const respProjects = await fetch("http://localhost:8000/projects")
-            const projects = await respProjects.json()
-            setProjects(projects);
-            const respEpics = await fetch("http://localhost:8000/epics")
-            const epics = await respEpics.json()
-            setEpics(epics);
-            const respFeatures = await fetch("http://localhost:8000/features")
-            const features = await respFeatures.json()
-            setFeatures(features);
-            const respPbis = await fetch("http://localhost:8000/pbis")
-            const pbis = await respPbis.json()
-            setPbis(pbis);
-            const respTasks = await fetch("http://localhost:8000/tasks")
-            const tasks = await respTasks.json()
-            setTasks(tasks);
-        } else {
-            const respProjects = await fetch(`http://localhost:8000/users/${loggedUser}`)
-            const projects = await respProjects.json()
-            setProjects(projects);
-            projects.projects.map(element => {
-                fetch(`http://localhost:8000/projects/${element}`)
-                    .then((res) => res.json())
-                    .then((res) => setEpics(res.epics))
-            })
-        }
+
+        const respProjects = await fetch("http://localhost:8000/projects")
+        const projects = await respProjects.json()
+        setProjects(projects);
+        const respEpics = await fetch("http://localhost:8000/epics")
+        const epics = await respEpics.json()
+        setEpics(epics);
+        const respFeatures = await fetch("http://localhost:8000/features")
+        const features = await respFeatures.json()
+        setFeatures(features);
+        const respPbis = await fetch("http://localhost:8000/pbis")
+        const pbis = await respPbis.json()
+        setPbis(pbis);
+        const respTasks = await fetch("http://localhost:8000/tasks")
+        const tasks = await respTasks.json()
+        setTasks(tasks);
     }
 
     return (
@@ -145,12 +130,10 @@ export const SecondModal = ({ setPbi }) => {
                     zIndex: "1000",
                     textAlign: "center"
                 }}>
-
-
-                    {status != "user" && projects != null ? <DropDownList list={projects} setValue={setStringProject} string={"projects"} /> : projects != null ? <DropDownListUser list={projects.projects} setValue={setStringProject} string={"projects"} /> : <></>}
-                    {status != "user" && selectedEpics != null ? <DropDownList list={selectedEpics} setValue={setStringEpics} string={"epics"} /> : epics != null ? <DropDownListUser list={epics} setValue={setStringEpics} string={"epics"} /> : <></>}
-                    {status != "user" && selectedFeatures != null ? <DropDownList list={selectedFeatures} setValue={setStringFeatures} string={"features"} /> : selectedFeatures != null ? <DropDownListUser list={selectedFeatures} setValue={setStringFeatures} string={"features"} /> : <></>}
-                    {status != "user" && selectedPbis != null ? <DropDownList list={selectedPbis} setValue={setStringPbi} string={"pbis"} /> : selectedPbis != null ? <DropDownListUser list={selectedPbis} setValue={setStringPbi} string={"pbis"} /> : <></>}
+                    {projects && <DropDownList list={projects} setValue={setStringProject} string={"projects"} />}
+                    {selectedEpics && <DropDownList list={selectedEpics} setValue={setStringEpics} string={"epics"} />}
+                    {selectedFeatures && <DropDownList list={selectedFeatures} setValue={setStringFeatures} string={"features"} />}
+                    {selectedPbis && <DropDownList list={selectedPbis} setValue={setStringPbi} string={"pbis"} />}
                 </div>
             </div>
         </>)
