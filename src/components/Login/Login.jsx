@@ -9,7 +9,7 @@ const Login = () => {
     var txtEmail = document.getElementById("txtEmail").value;
     var txtPas = document.getElementById("txtPas").value;
 
-    localStorage.setItem('email',txtEmail);
+    localStorage.setItem('email', txtEmail);
 
     fetch(`http://localhost:8000/users/${txtEmail}`)
       .then((res) => res.json())
@@ -17,6 +17,7 @@ const Login = () => {
         if (res.error) {
           alert("errrrrrroooooooor")
         } else {
+          localStorage.setItem('status', res.status)
           if (res.password == txtPas) {
             if (res.status === 'user') {
               window.location.href = 'http://localhost:3000/profile'

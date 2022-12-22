@@ -8,7 +8,7 @@ function Modal({ setOpenModal }) {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [image, setImage] = useState('')
-  const [status, setStatus] = useState('')
+  const [status, setStatus] = useState('user')
   const [hourCost, setHourCost] = useState('')
   const [phone, setPhone] = useState('')
   const unique_id = uuid();
@@ -23,6 +23,7 @@ function Modal({ setOpenModal }) {
       status: status,
       hourCost: hourCost,
       phone: phone,
+      tasks: []
     }
     const requestOptions = {
       method: 'POST',
@@ -31,24 +32,35 @@ function Modal({ setOpenModal }) {
     };
     fetch('http://localhost:8000/users/create', requestOptions)
       .then(response => response.json())
-      .then(data => console.log());
+      .then(data => {
+        setUserName("")
+        setEmail("")
+        setHourCost("")
+        setStatus("")
+        setPassword("")
+        window.location.reload(false);
+      });
   }
 
-  const handleSubmit = event => {
-    event.preventDefault();
-    addNewUser()
+  function handleUsername(e){
+    setUserName(e.target.value)
+  }
 
-    setUserName("")
-    setEmail("")
-    setPassword("")
-    setStatus("")
-    setHourCost("")
-    setPhone("")
-    setOpenModal(false)
-    // event.target.reset();
-    window.location.reload(false);
-  };
+  function handlePassword(e){
+    setPassword(e.target.value)
+  }
 
+  function handleEmail(e){
+    setEmail(e.target.value)
+  }
+
+  function handleHourCost(e){
+    setHourCost(e.target.value)
+  }
+
+  function handleStatus(e){
+    setStatus(e.target.value)
+  }
 
   return (
     <div className="modalBackground">
@@ -66,13 +78,16 @@ function Modal({ setOpenModal }) {
           <h1>Fill below fields to create a new user </h1>
         </div>
         <div className="body">
-          <form className="form" onSubmit={handleSubmit} >
-            <input type="text" placeholder="Username" className="username" name='username' value={username} onChange={(e)=>setUserName(e.target.value)} />
-            <input type="text" placeholder="Status" className="status" name="status" value={status} onChange={(e)=>setStatus(e.target.value)} />
-            <input type="password" placeholder="Password" className="password" name="password" value={password} onChange={(e)=>setPassword(e.target.value)} />
-            <input type="email" placeholder="email" name="email" value={email} onChange={(e)=>setEmail(e.target.value)} />
-            <input type="text" placeholder="Hour Cost" className="hourCost" name="hourCost" value={hourCost} onChange={(e)=>setHourCost(e.target.value)} />
-            <input type="number" placeholder="phone" className="phone" name="phone" value={phone} onChange={(e)=>setPhone(e.target.value)} />
+          <div className="form">
+            <input type="text" placeholder="Username" className="username" name='username' onChange={handleUsername} value={username} />
+            <input type="password" placeholder="Password" className="password" name="password" onChange={handlePassword} value={password} />
+            <input type="email" placeholder="email" name="email" onChange={handleEmail} value={email} />
+            <input type="text" placeholder="Hour Cost" className="hourCost" name="hourCost" onChange={handleHourCost} value={hourCost} />
+            <select className='status' name="status" onChange={handleStatus} value={status} >
+              <option value="user">User</option>
+              <option value="admin">Admin</option>
+            </select>
+            <button className="btn" id="continue" onClick={addNewUser}>Continue</button>
             <button
               onClick={() => {
                 setOpenModal(false);
@@ -82,8 +97,7 @@ function Modal({ setOpenModal }) {
               Cancel
             </button>
             <span></span>
-            <button type='submit' className="btn" id="continue">Continue</button>
-          </form>
+          </div>
         </div>
         <div className="footer">
 

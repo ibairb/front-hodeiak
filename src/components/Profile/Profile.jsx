@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import Modal from './Modal'
 import './Profile.scss'
 
 const Profile = () => {
@@ -7,8 +8,8 @@ const Profile = () => {
     const [status, setStatus] = useState(' ');
     const [username, setUsername] = useState(' ');
     const [projects, setProjects] = useState(' ');
-    const [phone, setPhone] = useState(' ');
     const [hourCost, setHourCost] = useState(' ');
+    const [modalOpen, setModalOpen] = useState(false);
 
     const getData = () => {
 
@@ -24,9 +25,12 @@ const Profile = () => {
         .then((res) => {
             setStatus(res.status)
             setUsername(res.username)
-            setPhone(res.phone)
             setHourCost(res.hourCost)
+            setProjects(res.projects)
         })
+
+
+
 
     return (
         <>
@@ -37,20 +41,31 @@ const Profile = () => {
                     <div>
                         <img src='https://cdn.pixabay.com/photo/2012/04/26/19/43/profile-42914_960_720.png' />
                     </div>
-                    <div className='Data'>
-                        <div className='list'>
-                            <p>email: </p>
-                            <p>status: </p>
-                            <p>username: </p>
-                            <p>phone: </p>
-                            <p>hour cost: </p>
+                    <div className='DataConModal'>
+                        <div className='Data'>
+                            <div className='list'>
+                                <p>email: </p>
+                                <p>status: </p>
+                                <p>username: </p>
+                                <p>hour cost: </p>
+                                <p>projects: </p>
+
+                            </div>
+                            <div className='listName'>
+                                <p>{email}</p>
+                                <p>{status}</p>
+                                <p>{username}</p>
+                                <p>{hourCost}</p>
+                                <p>{projects}</p>
+                            </div>
+
                         </div>
-                        <div className='listName'>
-                            <p>{email}</p>
-                            <p>{status}</p>
-                            <p>{username}</p>
-                            <p>{phone}</p>
-                            <p>{hourCost}</p>
+
+                        <div className='edit'>
+                            <button className='material-symbols-outlined'
+                                onClick={() => { setModalOpen(true) }}> edit
+                            </button>
+                            {modalOpen && <Modal setOpenModal={setModalOpen} />}
                         </div>
                     </div>
                 </div>

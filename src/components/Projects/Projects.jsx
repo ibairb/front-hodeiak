@@ -2,7 +2,6 @@ import { useEffect, useState } from "react"
 import DataTable, { defaultThemes } from 'react-data-table-component'
 import React from 'react'
 import Select from 'react-select'
-import Modal from '../Modal/Modal';
 import "./projects.scss"
 import { ContactlessOutlined } from "@mui/icons-material";
 
@@ -31,7 +30,7 @@ const Projects = () => {
     }
     useEffect(() => {
 
-    }, [selectedFeature])
+    }, [featureName])
 
     function changeSelectedProject(e) {
         setSelectedProject(e.value)
@@ -53,10 +52,10 @@ const Projects = () => {
         setSelectedPbi(undefined)
         setSelectedTask(undefined)
     }
-    function changeselectedPbi(e) {
-        console.log(pbi)
-        setSelectedPbi(e.value)
-        setSelectedTask(undefined)
+    function changePbiName(e) {
+        console.log(e.value)
+        setPbiName(e.value)
+        setTaskName(undefined)
     }
     function changeTasksName(e) {
         console.log(e.value)
@@ -64,12 +63,25 @@ const Projects = () => {
     }
 
     useEffect(() => {
-        fetch('http://localhost:8000/projects')
+        if (status != 'admin'){
+            fetch(`http://localhost:8000/users/${user}`)
+            .then(response => response.json())
+            .then((res) => {
+                setProjects(res.projects)
+            })
+        }else {
+            fetch('http://localhost:8000/projects')
             .then(response => response.json())
             .then((res) => {
                 setProjects(res)
             });
-    }, [])
+
+        fetch('http://localhost:8000/tasks')
+            .then(response => response.json())
+            .then((res) => {
+                console.log(res)
+            });
+    }}, [])
 
     useEffect(() => {
         if (selectedProject) {

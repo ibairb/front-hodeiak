@@ -45,30 +45,37 @@ ul {
   }
 
   .login-data{
-    margin-top: 10rem;
+    margin-top: 12rem;
     display: flex;
-    img{
-    width: 40px;
-    height: 40px;
-    margin-top: 8px;
+    flex-direction: column;
+    color:white;
+    .material-symbols-outlined{
+      font-size:1.5cm;
+      cursor: pointer;   
     }
     #username{
       color: white;
       font-family: 'Noto Sans JP', sans-serif;
-
+      margin-top: 2px;
+      font-weight: bold;
     }
   }
   .login-data1{
     margin-top: 16rem;
     display: flex;
-    img{
-    width: 40px;
-    height: 40px;
-    margin-top: 8px;
+    flex-direction: column;
+    color:white;
+    
+    .material-symbols-outlined{
+      font-size:1.5cm;
+      cursor: pointer;
     }
+    
     #username{
       color: white;
       font-family: 'Noto Sans JP', sans-serif;
+      font-weight: bold;
+      margin-top: 2px;
     }
   }
   .boton{
