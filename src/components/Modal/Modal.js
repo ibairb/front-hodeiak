@@ -2,6 +2,7 @@ import "./Modal.css";
 import React, { useEffect, useState } from "react";
 import { v4 as uuid } from 'uuid';
 import { Password } from "@mui/icons-material";
+import { FormControl, InputLabel } from "@mui/material";
 
 function Modal({ setOpenModal }) {
   const [username, setUserName] = useState('')
@@ -42,28 +43,28 @@ function Modal({ setOpenModal }) {
       });
   }
 
-  function handleUsername(e){
+  function handleUsername(e) {
     setUserName(e.target.value)
   }
 
-  function handlePassword(e){
+  function handlePassword(e) {
     setPassword(e.target.value)
   }
 
-  function handleEmail(e){
+  function handleEmail(e) {
     setEmail(e.target.value)
   }
 
-  function handleHourCost(e){
+  function handleHourCost(e) {
     setHourCost(e.target.value)
   }
 
-  function handleStatus(e){
+  function handleStatus(e) {
     setStatus(e.target.value)
   }
 
   return (
-    <div className="modalBackground">
+    <div className="modalBackgroundNewUser">
       <div className="modalContainer">
         <div className="titleCloseBtn">
           <button
@@ -75,14 +76,23 @@ function Modal({ setOpenModal }) {
           </button>
         </div>
         <div className="title">
-          <h1>Fill below fields to create a new user </h1>
+          <h2>Fill below fields to create a new user </h2>
         </div>
+        <div className="line-width-modal"></div>
         <div className="body">
           <div className="form">
-            <input type="text" placeholder="Username" className="username" name='username' onChange={handleUsername} value={username} />
-            <input type="password" placeholder="Password" className="password" name="password" onChange={handlePassword} value={password} />
-            <input type="email" placeholder="email" name="email" onChange={handleEmail} value={email} />
-            <input type="text" placeholder="Hour Cost" className="hourCost" name="hourCost" onChange={handleHourCost} value={hourCost} />
+            <FormControl sx={{ m: 1, minWidth: 120 }}>
+              <InputLabel type="text" placeholder="Username" className="username" name='username' onChange={handleUsername} value={username} id="demo-simple-select-label">{username}</InputLabel>
+
+              <InputLabel type="password" placeholder="Password" className="password" name="password" onChange={handlePassword} value={password}>{password}</InputLabel>
+
+              <InputLabel type="email" placeholder="email" name="email" onChange={handleEmail} value={email}>{email}</InputLabel>
+
+              <InputLabel type="text" placeholder="Hour Cost" className="hourCost" name="hourCost" onChange={handleHourCost} value={hourCost}>{hourCost}</InputLabel>
+
+
+            </FormControl>
+
             <select className='status' name="status" onChange={handleStatus} value={status} >
               <option value="user">User</option>
               <option value="admin">Admin</option>
