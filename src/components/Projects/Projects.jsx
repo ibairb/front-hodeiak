@@ -261,8 +261,6 @@ const Projects = () => {
 
     return (
         <>
-        <div className="bolitaVerde"></div>
-        <div className="bolitaNaranja"></div>
         <h2 id="titulo">Projects</h2>
             <button onClick={finish} id="done">Done</button>
             <button onClick={doing} id="doing">Doing</button>
