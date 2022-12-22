@@ -65,9 +65,9 @@ export default function DemoApp() {
   function deleteTask(id) {
     console.log(id)
     const requestOptions = {
-      method: 'PUT',
+      method: 'DELETE',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ id: id })
+      body: JSON.stringify({id})
     };
     fetch(`http://localhost:8000/tasks/${id}`, requestOptions)
       .then(response => response.json())
