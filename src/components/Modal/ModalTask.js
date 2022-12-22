@@ -140,7 +140,7 @@ function ModalTask({ setOpenModal, obj, modalOpen }) {
                   borderColor: "rgba(241, 171, 32, 0.853)"
                 }}
                   variant="outlined" startIcon={<CancelIcon />} onClick={() => { setOpenModal(false) }}>
-                  Delete
+                  Cancel
                 </Button>
               </Stack>
             </form>
