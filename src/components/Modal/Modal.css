@@ -68,9 +68,9 @@
     background-color: blue;
 }
 
-form {
-    display: grid;
-    grid-template-columns: 3fr 3fr 3fr;
+.form {
+    display: flex;
+    flex-direction: column;
     height: 20vw;
     align-items: center;
 }
@@ -79,10 +79,6 @@ input {
     height: 20px;
 }
 
-.contenedorPrincipal {
-    z-index: 100;
-}
-
-.ReactModal__Overlay--after-open {
-    z-index: 1000;
+.status {
+    width: 150px
 }
