@@ -78,6 +78,11 @@
     transform: translate(-50%, -50%);
     padding-bottom: 40px
 }
+.fc-button-primary{
+    background-color: rgba(241, 171, 32, 0.853) !important;
+    border-color: rgba(241, 171, 32, 0.853) !important;
+    margin-top: 10px !important;
+}
 .edit{
     display: flex;
     align-items: center;
