@@ -52,7 +52,7 @@ const Navbar = () => {
                         <p id='username'>{username}</p>
                     </li>
                     <li>
-                        <button className='boton' onClick={Logout}>Logout</button>
+                        <button className='boton-logout' onClick={Logout}>Logout</button>
                     </li>
                 </ul>
             </> : <>
