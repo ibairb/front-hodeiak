@@ -35,22 +35,24 @@ const Login = () => {
 
   return (
     <>
-      <form className='form'>
-        <label>
-          <p>Email</p>
-          <input type="text" id="txtEmail" onChange={e => setEmail(e.target.value)} required />
-        </label>
-        <label>
-          <p>Password</p>
-          <input type="password" id="txtPas" onChange={e => setPassword(e.target.value)} required />
-        </label>
-        <br></br>
-        <div>
-          <button type="submit" id="btn" onClick={Login}>Submit</button>
-        </div>
+      <div className='todoLogin'>
+        <h2 className='titulo'>Gestor de <br /> imputaciones</h2>
+        <form className='form'>
+          <label>
+            <p>Email</p>
+            <input type="text" id="txtEmail" onChange={e => setEmail(e.target.value)} required />
+          </label>
+          <label>
+            <p>Password</p>
+            <input type="password" id="txtPas" onChange={e => setPassword(e.target.value)} required />
+          </label>
+          <br></br>
+          <div>
+            <button type="submit" id="btn" onClick={Login}>Submit</button>
+          </div>
 
-      </form>
-
+        </form>
+      </div>
     </>
 
   )
