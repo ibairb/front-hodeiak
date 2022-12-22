@@ -1,0 +1,48 @@
+.form {
+    background-repeat: no-repeat;
+    background-position: 20rem;
+    margin: 15px;
+    padding: 50px;
+    padding-bottom: 10rem;
+    font-size: larger;
+
+    #txtEmail {
+        border-radius: 7px;
+        border-style: dashed;
+        border-color: rgb(255, 207, 134);
+        border-width: 3px;
+        padding: 10px;
+        padding-left: 20px;
+        padding-right: 30px;
+        font-size: 20px;
+    }
+
+    #txtPas {
+        border-radius: 7px;
+        border-style: dashed;
+        border-color: rgb(255, 207, 134);
+        border-width: 3px;
+        padding: 10px;
+        padding-left: 20px;
+        padding-right: 30px;
+        font-size: 20px;
+    }
+
+    #btn {
+        border-radius: 7px;
+        font-weight: bold;
+        color: rgba(26, 15, 2, 0.866);
+        border-color: azure;
+        cursor: pointer;
+        cursor: hand;
+        transition: 0.3s;
+        font-size: 15px;
+        box-shadow: (2px 0px 2px 0px) rgba(71, 70, 70, 0.65);
+    }
+
+    #btn:hover {
+        transform: scale(1.1);
+        color: rgb(166, 102, 6);
+        transition: 0.3s;
+    }
+}

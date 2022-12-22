@@ -1,4 +1,6 @@
 import { React, useState } from 'react';
+import './Login.scss';
+
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -32,23 +34,27 @@ const Login = () => {
   }
 
   return (
-    <form>
-      <label>
-        <p>Email</p>
-        <input type="text" id="txtEmail" onChange={e => setEmail(e.target.value)} required />
-      </label>
-      <label>
-        <p>Password</p>
-        <input type="password" id="txtPas" onChange={e => setPassword(e.target.value)} required />
-      </label>
-      <br></br>
-      <div>
-        <button type="submit" onClick={Login}>Submit</button>
-      </div>
+    <>
+      <form className='form'>
+        <label>
+          <p>Email</p>
+          <input type="text" id="txtEmail" onChange={e => setEmail(e.target.value)} required />
+        </label>
+        <label>
+          <p>Password</p>
+          <input type="password" id="txtPas" onChange={e => setPassword(e.target.value)} required />
+        </label>
+        <br></br>
+        <div>
+          <button type="submit" id="btn" onClick={Login}>Submit</button>
+        </div>
 
-    </form>
+      </form>
+
+    </>
+
   )
-
 }
+
 
 export default Login;
