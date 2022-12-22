@@ -37,13 +37,13 @@ const Navbar = () => {
             <>
                 <ul className='navbar'>
                     <li className='nav-item'>
-                        <Link to="/projects">Proyectos</Link>
+                        <Link to="/projects">Projects</Link>
                     </li>
                     <li className='nav-item'>
-                        <Link to="/profile">Perfil</Link>
+                        <Link to="/profile">Profile</Link>
                     </li>
                     <li className='nav-item'>
-                        <Link to="/tasks">Tareas</Link>
+                        <Link to="/tasks">Tasks</Link>
                     </li>
                     <li className='login-data1'>
                         <span class="material-symbols-outlined">
@@ -58,13 +58,13 @@ const Navbar = () => {
             </> : <>
                 <ul className='navbar'>
                     <li className='nav-item'>
-                        <Link to="/projects">Proyectos</Link>
+                        <Link to="/projects">Projects</Link>
                     </li>
                     <li className='nav-item'>
-                        <Link to="/profile">Perfil</Link>
+                        <Link to="/profile">Profile</Link>
                     </li>
                     <li className='nav-item'>
-                        <Link to="/tasks">Tareas</Link>
+                        <Link to="/tasks">Tasks</Link>
                     </li>
                     <li className='nav-item'>
                         <Link to='/users'>Users</Link>
