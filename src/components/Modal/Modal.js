@@ -162,8 +162,8 @@ function Modal({ setOpenModal }) {
                 label="Status"
                 value={status} 
               >
-                <MenuItem key={"User"} value={"User"}>{"User"}</MenuItem>
-                <MenuItem key={"Admin"} value={"Admin"}>{"Admin"}</MenuItem>
+                <MenuItem key={"user"} value={"user"}>{"user"}</MenuItem>
+                <MenuItem key={"admin"} value={"admin"}>{"admin"}</MenuItem>
               </Select>
               </FormControl>
             </FormControl>
