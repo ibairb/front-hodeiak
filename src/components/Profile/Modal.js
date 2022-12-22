@@ -17,64 +17,32 @@ function Modal({ setOpenModal }) {
   const unique_id = uuid();
   let lolemail = localStorage.getItem('email')
   useEffect(() => {
-    const data = fetchUser()
-    setUser(data)
-    console.log(user);
+
+    fetch(`http://localhost:8000/users/${lolemail}`)
+    .then(res=> res.json())
+    .then(res => setUser(res))
+    
+
   }, [])
 
-  const fetchUser = async () => {
-    console.log(lolemail);
-    const resp = await fetch(`http://localhost:8000/users/${lolemail}`)
-    const data = await resp.json()
-    return data
-  }
+
 
   function Update() {
 
     let lolemail = localStorage.getItem('email')
-
-    let user = {
-      username: username,
-      email: email,
-      password: password,
-      status: status,
-      hourCost: hourCost
-    }
-
-    console.log(user);
 
     const updateUser = {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(user)
     };
+    console.log(lolemail);
     fetch(`http://localhost:8000/users/${lolemail}`, updateUser)
       .then(response => setOpenModal(false))
-    console.log(user)
 
   }
-  function handleUsername(e) {
-    setUserName(e.target.value)
-  }
 
-  function handlePassword(e) {
-    setPassword(e.target.value)
-  }
 
-  function handleEmail(e) {
-    setEmail(e.target.value)
-  }
-
-  function handleHourCost(e) {
-    setHourCost(e.target.value)
-  }
-
-  function handleStatus(e) {
-    setStatus(e.target.value)
-  }
-  function handleUseremail(e) {
-    setEmail(e.target.value)
-  }
 
 
   return (
@@ -99,6 +67,22 @@ function Modal({ setOpenModal }) {
             <TextField
               variant="standard"
               color="warning"
+              InputProps={{
+                readOnly: true,
+              }}
+              label="Email"
+              margin="normal"
+              placeholder="Email"
+              className="Email"
+              name='Email'
+              value={user.email}
+              sx={{
+                '& > :not(style)': { mb: 1, width: '30ch' },
+              }}
+            />
+            <TextField
+              variant="standard"
+              color="warning"
               focused
               required
               label="Name"
@@ -107,7 +91,7 @@ function Modal({ setOpenModal }) {
               className="username"
               name='username'
               value={user.username}
-              // onChange={handleUsername}
+              onChange={(e)=>user.username = e.target.value}
               sx={{
                 '& > :not(style)': { mb: 1, width: '30ch' },
               }}
@@ -124,7 +108,7 @@ function Modal({ setOpenModal }) {
               className="password"
               name='password'
               value={user.password}
-              // onChange={handlePassword}
+              onChange={(e)=>user.password = e.target.value}
               sx={{
                 '& > :not(style)': { mb: 1, width: '30ch' },
               }}
@@ -141,7 +125,7 @@ function Modal({ setOpenModal }) {
               className="hourCost"
               name='hourCost'
               value={user.hourCost}
-              // onChange={handleHourCost}
+              onChange={(e)=>user.hourCost = e.target.value}
               sx={{
                 '& > :not(style)': { mb: 1, width: '30ch' },
               }}
@@ -149,11 +133,13 @@ function Modal({ setOpenModal }) {
             <FormControl sx={{ m: 1, minWidth: 120 }}>
               <InputLabel id="demo-simple-select-label">Status</InputLabel>
               <Select
-                onChange={handleStatus}
                 required
                 labelId="demo-simple-select-label"
                 label="Status"
-                value={status}
+                value={user.status}
+                InputProps={{
+                  readOnly: true,
+                }}
               >
                 <MenuItem key={"user"} value={"user"}>{"user"}</MenuItem>
                 <MenuItem key={"admin"} value={"admin"}>{"admin"}</MenuItem>
