@@ -187,7 +187,7 @@ const Projects = () => {
                             const putDoneInTask3 = {
                                 method: 'PUT',
                                 headers: { 'Content-Type': 'application/json' },
-                                body: JSON.stringify({ status: cont2 == 0 ? "To do" : cont2 == pbi.length ? "Done": contDoing2>0?"Doing" : "Doing" })
+                                body: JSON.stringify({ status: cont2 == 0 ? "To do" : cont2 == pbi.length ? "Done": contDoing2>0?"Doing":"Doing" })
                             };
                             fetch(`http://localhost:8000/features/update/${selectedFeature}`, putDoneInTask3)
                                 .then(response => response.json())

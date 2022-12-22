@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { v4 as uuid } from 'uuid';
 import { Password } from "@mui/icons-material";
 import { FormControl, InputLabel } from "@mui/material";
+import emailjs from "@emailjs/browser"
 
 function Modal({ setOpenModal }) {
   const [username, setUserName] = useState('')
@@ -13,6 +14,20 @@ function Modal({ setOpenModal }) {
   const [hourCost, setHourCost] = useState('')
   const [phone, setPhone] = useState('')
   const unique_id = uuid();
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs.sendForm('service_4xqmytn', 'template_8rqs0gq', 'oM-tn6RM1FQ1xLWGO')
+      .then((result) => {
+          console.log(result.text);
+      }, (error) => {
+          console.log(error.text);
+      });
+  };
+
+
+
 
   function addNewUser() {
     let newUser = {
@@ -100,7 +115,7 @@ function Modal({ setOpenModal }) {
             <button className="btn" id="continue" onClick={addNewUser}>Continue</button>
             <button
               onClick={() => {
-                setOpenModal(false);
+                setOpenModal(false);sendEmail()
               }}
               className="btn"
             >
