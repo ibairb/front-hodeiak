@@ -15,7 +15,7 @@ const Login = () => {
       .then((res) => res.json())
       .then((res) => {
         if (res.error) {
-          alert("errrrrrroooooooor")
+          alert("error")
         } else {
           localStorage.setItem('status', res.status)
           if (res.password == txtPas) {

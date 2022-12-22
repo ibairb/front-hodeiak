@@ -26,7 +26,6 @@ function Modal({ setOpenModal }) {
     console.log(lolemail);
     const resp = await fetch(`http://localhost:8000/users/${lolemail}`)
     const data = await resp.json()
-    console.log(data);
     return data
   }
 
@@ -98,7 +97,9 @@ function Modal({ setOpenModal }) {
             <TextField
               variant="standard"
               color="warning"
-              readonly
+              InputProps={{
+                readOnly: true,
+              }}
               label="Email"
               margin="normal"
               placeholder="Email"
